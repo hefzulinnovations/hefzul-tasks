@@ -77,6 +77,9 @@ func GetTables() []interface{} {
 		&TimeEntry{},
 		&FocusSettings{},
 		&FocusSession{},
+		&Habit{},
+		&HabitCheckin{},
+		&Countdown{},
 		&UserInviteLink{},
 		&UserInviteLinkTeam{},
 	}

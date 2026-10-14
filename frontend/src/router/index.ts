@@ -256,6 +256,16 @@ const router = createRouter({
 			}),
 		},
 		{
+			path: '/habits',
+			name: 'habits',
+			component: () => import('@/views/habits/HabitsView.vue'),
+		},
+		{
+			path: '/countdowns',
+			name: 'countdowns',
+			component: () => import('@/views/countdowns/CountdownsView.vue'),
+		},
+		{
 			path: '/focus',
 			name: 'focus',
 			component: () => import('@/views/focus/FocusView.vue'),

@@ -470,6 +470,120 @@ export type ConnectionSettings = {
     };
 };
 
+export type Countdown = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * A timestamp when this countdown was created.
+     */
+    readonly created?: string;
+    /**
+     * Days from today to next_date in your time zone: 0 is today, negative once a one-off date has passed.
+     */
+    readonly days_remaining?: number;
+    /**
+     * The countdown's colour as a hex string, with or without the leading #.
+     */
+    hex_color?: string;
+    /**
+     * The unique, numeric id of this countdown.
+     */
+    readonly id?: number;
+    /**
+     * The next occurrence (YYYY-MM-DD); for a one-off countdown, the target date itself.
+     */
+    readonly next_date?: string;
+    /**
+     * Pinned countdowns always show on the dashboard, not only in their last 7 days.
+     */
+    pinned?: boolean;
+    /**
+     * Repeat every year on the same day, such as a birthday or an anniversary.
+     */
+    repeat_yearly?: boolean;
+    /**
+     * The date counted down to, YYYY-MM-DD. For a yearly countdown, the first occurrence (the year matters only for the years count).
+     */
+    target_date?: string;
+    /**
+     * What the countdown is for, such as Mum's birthday.
+     */
+    title?: string;
+    /**
+     * A timestamp when this countdown was last changed.
+     */
+    readonly updated?: string;
+    /**
+     * The owner. Set by the server.
+     */
+    readonly user_id?: number;
+    /**
+     * For a yearly countdown, how many years next_date is after target_date (such as the age at a birthday); 0 otherwise.
+     */
+    readonly years?: number;
+};
+
+export type CountdownReadBody = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * A timestamp when this countdown was created.
+     */
+    readonly created?: string;
+    /**
+     * Days from today to next_date in your time zone: 0 is today, negative once a one-off date has passed.
+     */
+    readonly days_remaining?: number;
+    /**
+     * The countdown's colour as a hex string, with or without the leading #.
+     */
+    hex_color?: string;
+    /**
+     * The unique, numeric id of this countdown.
+     */
+    readonly id?: number;
+    /**
+     * The requesting user's permission on this countdown; always 2 (admin) since countdowns are private.
+     */
+    readonly max_permission?: number;
+    /**
+     * The next occurrence (YYYY-MM-DD); for a one-off countdown, the target date itself.
+     */
+    readonly next_date?: string;
+    /**
+     * Pinned countdowns always show on the dashboard, not only in their last 7 days.
+     */
+    pinned?: boolean;
+    /**
+     * Repeat every year on the same day, such as a birthday or an anniversary.
+     */
+    repeat_yearly?: boolean;
+    /**
+     * The date counted down to, YYYY-MM-DD. For a yearly countdown, the first occurrence (the year matters only for the years count).
+     */
+    target_date?: string;
+    /**
+     * What the countdown is for, such as Mum's birthday.
+     */
+    title?: string;
+    /**
+     * A timestamp when this countdown was last changed.
+     */
+    readonly updated?: string;
+    /**
+     * The owner. Set by the server.
+     */
+    readonly user_id?: number;
+    /**
+     * For a yearly countdown, how many years next_date is after target_date (such as the age at a birthday); 0 otherwise.
+     */
+    readonly years?: number;
+};
+
 export type CreateInviteLinkBody = {
     /**
      * A URL to the JSON Schema for this object.
@@ -853,6 +967,279 @@ export type FocusStatsTask = {
      * The task's title; empty if the task was deleted or you can no longer read it.
      */
     title?: string;
+};
+
+export type Habit = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * Archived habits are hidden from the list but keep their history.
+     */
+    archived?: boolean;
+    /**
+     * A timestamp when this habit was created.
+     */
+    readonly created?: string;
+    /**
+     * Current streak: days in a row for daily and weekdays habits, weeks in a row for times_per_week habits.
+     */
+    readonly current_streak?: number;
+    /**
+     * Check-ins needed for a day to count as done, such as 8 for 8 glasses of water. 0 is treated as 1.
+     */
+    daily_target?: number;
+    /**
+     * True when today's check-ins reach daily_target.
+     */
+    readonly done_today?: boolean;
+    /**
+     * True when the schedule asks for the habit today. Always true for times_per_week until the week's target is met.
+     */
+    readonly due_today?: boolean;
+    /**
+     * The habit's colour as a hex string, with or without the leading #.
+     */
+    hex_color?: string;
+    /**
+     * An emoji or icon name shown next to the title.
+     */
+    icon?: string;
+    /**
+     * The unique, numeric id of this habit.
+     */
+    readonly id?: number;
+    /**
+     * Sort position in the habit list, ascending.
+     */
+    position?: number;
+    /**
+     * Time of day (HH:MM, in your time zone) to be reminded if the habit is not done yet; empty for no reminder.
+     */
+    reminder_time?: string;
+    /**
+     * daily: every day. weekdays: only the days in weekdays. times_per_week: any times_per_week days of each week.
+     */
+    schedule_kind?: 'daily' | 'weekdays' | 'times_per_week';
+    /**
+     * How many days a week the habit is due, for schedule_kind times_per_week.
+     */
+    times_per_week?: number;
+    /**
+     * What the habit is, such as Read 20 pages.
+     */
+    title?: string;
+    /**
+     * Check-ins today, in your time zone.
+     */
+    readonly today_count?: number;
+    /**
+     * A timestamp when this habit was last changed.
+     */
+    readonly updated?: string;
+    /**
+     * The owner. Set by the server.
+     */
+    readonly user_id?: number;
+    /**
+     * Bitmask of due days for schedule_kind weekdays: 1=Sunday, 2=Monday, 4=Tuesday … 64=Saturday.
+     */
+    weekdays?: number;
+};
+
+export type HabitCheckin = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * Check-ins on that day.
+     */
+    count?: number;
+    /**
+     * When the day's first check-in was made.
+     */
+    readonly created?: string;
+    /**
+     * Local calendar date, YYYY-MM-DD.
+     */
+    date?: string;
+    /**
+     * The habit.
+     */
+    readonly habit_id?: number;
+    /**
+     * The check-in row's id.
+     */
+    readonly id?: number;
+    /**
+     * When the day's count last changed.
+     */
+    readonly updated?: string;
+};
+
+export type HabitReadBody = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * Archived habits are hidden from the list but keep their history.
+     */
+    archived?: boolean;
+    /**
+     * A timestamp when this habit was created.
+     */
+    readonly created?: string;
+    /**
+     * Current streak: days in a row for daily and weekdays habits, weeks in a row for times_per_week habits.
+     */
+    readonly current_streak?: number;
+    /**
+     * Check-ins needed for a day to count as done, such as 8 for 8 glasses of water. 0 is treated as 1.
+     */
+    daily_target?: number;
+    /**
+     * True when today's check-ins reach daily_target.
+     */
+    readonly done_today?: boolean;
+    /**
+     * True when the schedule asks for the habit today. Always true for times_per_week until the week's target is met.
+     */
+    readonly due_today?: boolean;
+    /**
+     * The habit's colour as a hex string, with or without the leading #.
+     */
+    hex_color?: string;
+    /**
+     * An emoji or icon name shown next to the title.
+     */
+    icon?: string;
+    /**
+     * The unique, numeric id of this habit.
+     */
+    readonly id?: number;
+    /**
+     * The requesting user's permission on this habit; always 2 (admin) since habits are private.
+     */
+    readonly max_permission?: number;
+    /**
+     * Sort position in the habit list, ascending.
+     */
+    position?: number;
+    /**
+     * Time of day (HH:MM, in your time zone) to be reminded if the habit is not done yet; empty for no reminder.
+     */
+    reminder_time?: string;
+    /**
+     * daily: every day. weekdays: only the days in weekdays. times_per_week: any times_per_week days of each week.
+     */
+    schedule_kind?: 'daily' | 'weekdays' | 'times_per_week';
+    /**
+     * How many days a week the habit is due, for schedule_kind times_per_week.
+     */
+    times_per_week?: number;
+    /**
+     * What the habit is, such as Read 20 pages.
+     */
+    title?: string;
+    /**
+     * Check-ins today, in your time zone.
+     */
+    readonly today_count?: number;
+    /**
+     * A timestamp when this habit was last changed.
+     */
+    readonly updated?: string;
+    /**
+     * The owner. Set by the server.
+     */
+    readonly user_id?: number;
+    /**
+     * Bitmask of due days for schedule_kind weekdays: 1=Sunday, 2=Monday, 4=Tuesday … 64=Saturday.
+     */
+    weekdays?: number;
+};
+
+export type HabitStats = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * Longest streak in the last two years, in the same unit.
+     */
+    best_streak?: number;
+    /**
+     * Current streak: days for daily and weekdays habits, weeks for times_per_week habits.
+     */
+    current_streak?: number;
+    /**
+     * Every day from from to to, oldest first, for the calendar heatmap.
+     */
+    days?: Array<HabitStatsDay> | null;
+    /**
+     * The habit.
+     */
+    habit_id?: number;
+    /**
+     * Completion per month for the months touched by from..to, oldest first.
+     */
+    months?: Array<HabitStatsMonth> | null;
+    /**
+     * days or weeks.
+     */
+    streak_unit?: 'days' | 'weeks';
+    /**
+     * All check-ins in the last two years.
+     */
+    total_checkins?: number;
+};
+
+export type HabitStatsDay = {
+    /**
+     * Check-ins on that day.
+     */
+    count?: number;
+    /**
+     * Local calendar date, YYYY-MM-DD.
+     */
+    date?: string;
+    /**
+     * True when count reached the daily target.
+     */
+    done?: boolean;
+};
+
+export type HabitStatsMonth = {
+    /**
+     * Days the habit was done.
+     */
+    done_days?: number;
+    /**
+     * Days the schedule asked for it, counted from the habit's creation up to today.
+     */
+    due_days?: number;
+    /**
+     * The month, YYYY-MM.
+     */
+    month?: string;
+    /**
+     * done_days / due_days, from 0 to 1 (capped at 1).
+     */
+    rate?: number;
+};
+
+export type HabitsCheckinRequest = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * Local date, YYYY-MM-DD. Empty for today.
+     */
+    date?: string;
 };
 
 export type HealthBodyBody = {
@@ -1407,6 +1794,18 @@ export type PaginatedBucket = {
     total_pages?: number;
 };
 
+export type PaginatedCountdown = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    items?: Array<Countdown> | null;
+    page?: number;
+    per_page?: number;
+    total?: number;
+    total_pages?: number;
+};
+
 export type PaginatedDatabaseNotification = {
     /**
      * A URL to the JSON Schema for this object.
@@ -1425,6 +1824,18 @@ export type PaginatedFocusSession = {
      */
     readonly $schema?: string;
     items?: Array<FocusSession> | null;
+    page?: number;
+    per_page?: number;
+    total?: number;
+    total_pages?: number;
+};
+
+export type PaginatedHabit = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    items?: Array<Habit> | null;
     page?: number;
     per_page?: number;
     total?: number;
@@ -3956,6 +4367,52 @@ export type ConnectionSettingsWritable = {
     };
 };
 
+export type CountdownWritable = {
+    /**
+     * The countdown's colour as a hex string, with or without the leading #.
+     */
+    hex_color?: string;
+    /**
+     * Pinned countdowns always show on the dashboard, not only in their last 7 days.
+     */
+    pinned?: boolean;
+    /**
+     * Repeat every year on the same day, such as a birthday or an anniversary.
+     */
+    repeat_yearly?: boolean;
+    /**
+     * The date counted down to, YYYY-MM-DD. For a yearly countdown, the first occurrence (the year matters only for the years count).
+     */
+    target_date?: string;
+    /**
+     * What the countdown is for, such as Mum's birthday.
+     */
+    title?: string;
+};
+
+export type CountdownReadBodyWritable = {
+    /**
+     * The countdown's colour as a hex string, with or without the leading #.
+     */
+    hex_color?: string;
+    /**
+     * Pinned countdowns always show on the dashboard, not only in their last 7 days.
+     */
+    pinned?: boolean;
+    /**
+     * Repeat every year on the same day, such as a birthday or an anniversary.
+     */
+    repeat_yearly?: boolean;
+    /**
+     * The date counted down to, YYYY-MM-DD. For a yearly countdown, the first occurrence (the year matters only for the years count).
+     */
+    target_date?: string;
+    /**
+     * What the countdown is for, such as Mum's birthday.
+     */
+    title?: string;
+};
+
 export type CreateInviteLinkBodyWritable = {
     /**
      * Null means no expiry.
@@ -4129,6 +4586,141 @@ export type FocusStatsWritable = {
      * Seconds of focus in the range.
      */
     total_focus_seconds?: number;
+};
+
+export type HabitWritable = {
+    /**
+     * Archived habits are hidden from the list but keep their history.
+     */
+    archived?: boolean;
+    /**
+     * Check-ins needed for a day to count as done, such as 8 for 8 glasses of water. 0 is treated as 1.
+     */
+    daily_target?: number;
+    /**
+     * The habit's colour as a hex string, with or without the leading #.
+     */
+    hex_color?: string;
+    /**
+     * An emoji or icon name shown next to the title.
+     */
+    icon?: string;
+    /**
+     * Sort position in the habit list, ascending.
+     */
+    position?: number;
+    /**
+     * Time of day (HH:MM, in your time zone) to be reminded if the habit is not done yet; empty for no reminder.
+     */
+    reminder_time?: string;
+    /**
+     * daily: every day. weekdays: only the days in weekdays. times_per_week: any times_per_week days of each week.
+     */
+    schedule_kind?: 'daily' | 'weekdays' | 'times_per_week';
+    /**
+     * How many days a week the habit is due, for schedule_kind times_per_week.
+     */
+    times_per_week?: number;
+    /**
+     * What the habit is, such as Read 20 pages.
+     */
+    title?: string;
+    /**
+     * Bitmask of due days for schedule_kind weekdays: 1=Sunday, 2=Monday, 4=Tuesday … 64=Saturday.
+     */
+    weekdays?: number;
+};
+
+export type HabitCheckinWritable = {
+    /**
+     * Check-ins on that day.
+     */
+    count?: number;
+    /**
+     * Local calendar date, YYYY-MM-DD.
+     */
+    date?: string;
+};
+
+export type HabitReadBodyWritable = {
+    /**
+     * Archived habits are hidden from the list but keep their history.
+     */
+    archived?: boolean;
+    /**
+     * Check-ins needed for a day to count as done, such as 8 for 8 glasses of water. 0 is treated as 1.
+     */
+    daily_target?: number;
+    /**
+     * The habit's colour as a hex string, with or without the leading #.
+     */
+    hex_color?: string;
+    /**
+     * An emoji or icon name shown next to the title.
+     */
+    icon?: string;
+    /**
+     * Sort position in the habit list, ascending.
+     */
+    position?: number;
+    /**
+     * Time of day (HH:MM, in your time zone) to be reminded if the habit is not done yet; empty for no reminder.
+     */
+    reminder_time?: string;
+    /**
+     * daily: every day. weekdays: only the days in weekdays. times_per_week: any times_per_week days of each week.
+     */
+    schedule_kind?: 'daily' | 'weekdays' | 'times_per_week';
+    /**
+     * How many days a week the habit is due, for schedule_kind times_per_week.
+     */
+    times_per_week?: number;
+    /**
+     * What the habit is, such as Read 20 pages.
+     */
+    title?: string;
+    /**
+     * Bitmask of due days for schedule_kind weekdays: 1=Sunday, 2=Monday, 4=Tuesday … 64=Saturday.
+     */
+    weekdays?: number;
+};
+
+export type HabitStatsWritable = {
+    /**
+     * Longest streak in the last two years, in the same unit.
+     */
+    best_streak?: number;
+    /**
+     * Current streak: days for daily and weekdays habits, weeks for times_per_week habits.
+     */
+    current_streak?: number;
+    /**
+     * Every day from from to to, oldest first, for the calendar heatmap.
+     */
+    days?: Array<HabitStatsDay> | null;
+    /**
+     * The habit.
+     */
+    habit_id?: number;
+    /**
+     * Completion per month for the months touched by from..to, oldest first.
+     */
+    months?: Array<HabitStatsMonth> | null;
+    /**
+     * days or weeks.
+     */
+    streak_unit?: 'days' | 'weeks';
+    /**
+     * All check-ins in the last two years.
+     */
+    total_checkins?: number;
+};
+
+export type HabitsCheckinRequestWritable = {
+    /**
+     * Local date, YYYY-MM-DD. Empty for today.
+     */
+    date?: string;
 };
 
 export type HealthBodyBodyWritable = {
@@ -4346,6 +4938,14 @@ export type PaginatedBucketWritable = {
     total_pages?: number;
 };
 
+export type PaginatedCountdownWritable = {
+    items?: Array<CountdownWritable> | null;
+    page?: number;
+    per_page?: number;
+    total?: number;
+    total_pages?: number;
+};
+
 export type PaginatedDatabaseNotificationWritable = {
     items?: Array<unknown> | null;
     page?: number;
@@ -4356,6 +4956,14 @@ export type PaginatedDatabaseNotificationWritable = {
 
 export type PaginatedFocusSessionWritable = {
     items?: Array<FocusSessionWritable> | null;
+    page?: number;
+    per_page?: number;
+    total?: number;
+    total_pages?: number;
+};
+
+export type PaginatedHabitWritable = {
+    items?: Array<HabitWritable> | null;
     page?: number;
     per_page?: number;
     total?: number;
@@ -6016,6 +6624,199 @@ export type BackgroundsUnsplashSearchResponses = {
 
 export type BackgroundsUnsplashSearchResponse = BackgroundsUnsplashSearchResponses[keyof BackgroundsUnsplashSearchResponses];
 
+export type CountdownsListData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * 1-based page number.
+         */
+        page?: number;
+        /**
+         * Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.
+         */
+        per_page?: number;
+        /**
+         * Search query; filters the list to items matching this string.
+         */
+        q?: string;
+        /**
+         * Only pinned countdowns and those due within this many days. 0 returns all.
+         */
+        within_days?: number;
+    };
+    url: '/countdowns';
+};
+
+export type CountdownsListErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type CountdownsListError = CountdownsListErrors[keyof CountdownsListErrors];
+
+export type CountdownsListResponses = {
+    /**
+     * OK
+     */
+    200: PaginatedCountdown;
+};
+
+export type CountdownsListResponse = CountdownsListResponses[keyof CountdownsListResponses];
+
+export type CountdownsCreateData = {
+    body: CountdownWritable;
+    path?: never;
+    query?: never;
+    url: '/countdowns';
+};
+
+export type CountdownsCreateErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type CountdownsCreateError = CountdownsCreateErrors[keyof CountdownsCreateErrors];
+
+export type CountdownsCreateResponses = {
+    /**
+     * Created
+     */
+    201: Countdown;
+};
+
+export type CountdownsCreateResponse = CountdownsCreateResponses[keyof CountdownsCreateResponses];
+
+export type CountdownsDeleteData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/countdowns/{id}';
+};
+
+export type CountdownsDeleteErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type CountdownsDeleteError = CountdownsDeleteErrors[keyof CountdownsDeleteErrors];
+
+export type CountdownsDeleteResponses = {
+    /**
+     * No Content
+     */
+    204: void;
+};
+
+export type CountdownsDeleteResponse = CountdownsDeleteResponses[keyof CountdownsDeleteResponses];
+
+export type CountdownsReadData = {
+    body?: never;
+    headers?: {
+        /**
+         * Succeeds if the server's resource matches one of the passed values.
+         */
+        'If-Match'?: Array<string> | null;
+        /**
+         * Succeeds if the server's resource matches none of the passed values. On writes, the special value * may be used to match any existing value.
+         */
+        'If-None-Match'?: Array<string> | null;
+        /**
+         * Succeeds if the server's resource date is more recent than the passed date.
+         */
+        'If-Modified-Since'?: string;
+        /**
+         * Succeeds if the server's resource date is older or the same as the passed date.
+         */
+        'If-Unmodified-Since'?: string;
+    };
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/countdowns/{id}';
+};
+
+export type CountdownsReadErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type CountdownsReadError = CountdownsReadErrors[keyof CountdownsReadErrors];
+
+export type CountdownsReadResponses = {
+    /**
+     * OK
+     */
+    200: CountdownReadBody;
+};
+
+export type CountdownsReadResponse = CountdownsReadResponses[keyof CountdownsReadResponses];
+
+export type PatchCountdownsReadData = {
+    body: Array<JsonPatchOp> | null;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/countdowns/{id}';
+};
+
+export type PatchCountdownsReadErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PatchCountdownsReadError = PatchCountdownsReadErrors[keyof PatchCountdownsReadErrors];
+
+export type PatchCountdownsReadResponses = {
+    /**
+     * OK
+     */
+    200: Countdown;
+};
+
+export type PatchCountdownsReadResponse = PatchCountdownsReadResponses[keyof PatchCountdownsReadResponses];
+
+export type CountdownsUpdateData = {
+    body: CountdownReadBodyWritable;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/countdowns/{id}';
+};
+
+export type CountdownsUpdateErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type CountdownsUpdateError = CountdownsUpdateErrors[keyof CountdownsUpdateErrors];
+
+export type CountdownsUpdateResponses = {
+    /**
+     * OK
+     */
+    200: Countdown;
+};
+
+export type CountdownsUpdateResponse = CountdownsUpdateResponses[keyof CountdownsUpdateResponses];
+
 export type FiltersCreateData = {
     body: SavedFilterWritable;
     path?: never;
@@ -6470,6 +7271,293 @@ export type FocusStatsResponses = {
 };
 
 export type FocusStatsResponse = FocusStatsResponses[keyof FocusStatsResponses];
+
+export type HabitsListData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * 1-based page number.
+         */
+        page?: number;
+        /**
+         * Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.
+         */
+        per_page?: number;
+        /**
+         * Search query; filters the list to items matching this string.
+         */
+        q?: string;
+        /**
+         * Also return archived habits.
+         */
+        include_archived?: boolean;
+    };
+    url: '/habits';
+};
+
+export type HabitsListErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type HabitsListError = HabitsListErrors[keyof HabitsListErrors];
+
+export type HabitsListResponses = {
+    /**
+     * OK
+     */
+    200: PaginatedHabit;
+};
+
+export type HabitsListResponse = HabitsListResponses[keyof HabitsListResponses];
+
+export type HabitsCreateData = {
+    body: HabitWritable;
+    path?: never;
+    query?: never;
+    url: '/habits';
+};
+
+export type HabitsCreateErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type HabitsCreateError = HabitsCreateErrors[keyof HabitsCreateErrors];
+
+export type HabitsCreateResponses = {
+    /**
+     * Created
+     */
+    201: Habit;
+};
+
+export type HabitsCreateResponse = HabitsCreateResponses[keyof HabitsCreateResponses];
+
+export type HabitsDeleteData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/habits/{id}';
+};
+
+export type HabitsDeleteErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type HabitsDeleteError = HabitsDeleteErrors[keyof HabitsDeleteErrors];
+
+export type HabitsDeleteResponses = {
+    /**
+     * No Content
+     */
+    204: void;
+};
+
+export type HabitsDeleteResponse = HabitsDeleteResponses[keyof HabitsDeleteResponses];
+
+export type HabitsReadData = {
+    body?: never;
+    headers?: {
+        /**
+         * Succeeds if the server's resource matches one of the passed values.
+         */
+        'If-Match'?: Array<string> | null;
+        /**
+         * Succeeds if the server's resource matches none of the passed values. On writes, the special value * may be used to match any existing value.
+         */
+        'If-None-Match'?: Array<string> | null;
+        /**
+         * Succeeds if the server's resource date is more recent than the passed date.
+         */
+        'If-Modified-Since'?: string;
+        /**
+         * Succeeds if the server's resource date is older or the same as the passed date.
+         */
+        'If-Unmodified-Since'?: string;
+    };
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/habits/{id}';
+};
+
+export type HabitsReadErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type HabitsReadError = HabitsReadErrors[keyof HabitsReadErrors];
+
+export type HabitsReadResponses = {
+    /**
+     * OK
+     */
+    200: HabitReadBody;
+};
+
+export type HabitsReadResponse = HabitsReadResponses[keyof HabitsReadResponses];
+
+export type PatchHabitsReadData = {
+    body: Array<JsonPatchOp> | null;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/habits/{id}';
+};
+
+export type PatchHabitsReadErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PatchHabitsReadError = PatchHabitsReadErrors[keyof PatchHabitsReadErrors];
+
+export type PatchHabitsReadResponses = {
+    /**
+     * OK
+     */
+    200: Habit;
+};
+
+export type PatchHabitsReadResponse = PatchHabitsReadResponses[keyof PatchHabitsReadResponses];
+
+export type HabitsUpdateData = {
+    body: HabitReadBodyWritable;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/habits/{id}';
+};
+
+export type HabitsUpdateErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type HabitsUpdateError = HabitsUpdateErrors[keyof HabitsUpdateErrors];
+
+export type HabitsUpdateResponses = {
+    /**
+     * OK
+     */
+    200: Habit;
+};
+
+export type HabitsUpdateResponse = HabitsUpdateResponses[keyof HabitsUpdateResponses];
+
+export type HabitsCheckinData = {
+    body: HabitsCheckinRequestWritable;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/habits/{id}/checkins';
+};
+
+export type HabitsCheckinErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type HabitsCheckinError = HabitsCheckinErrors[keyof HabitsCheckinErrors];
+
+export type HabitsCheckinResponses = {
+    /**
+     * Created
+     */
+    201: HabitCheckin;
+};
+
+export type HabitsCheckinResponse = HabitsCheckinResponses[keyof HabitsCheckinResponses];
+
+export type HabitsCheckinUndoData = {
+    body?: never;
+    path: {
+        id: number;
+        /**
+         * Local date, YYYY-MM-DD.
+         */
+        date: string;
+    };
+    query?: never;
+    url: '/habits/{id}/checkins/{date}';
+};
+
+export type HabitsCheckinUndoErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type HabitsCheckinUndoError = HabitsCheckinUndoErrors[keyof HabitsCheckinUndoErrors];
+
+export type HabitsCheckinUndoResponses = {
+    /**
+     * OK
+     */
+    200: HabitCheckin;
+};
+
+export type HabitsCheckinUndoResponse = HabitsCheckinUndoResponses[keyof HabitsCheckinUndoResponses];
+
+export type HabitsStatsData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: {
+        /**
+         * First day, YYYY-MM-DD. Defaults to a year before to.
+         */
+        from?: string;
+        /**
+         * Last day (inclusive), YYYY-MM-DD. Defaults to today.
+         */
+        to?: string;
+    };
+    url: '/habits/{id}/stats';
+};
+
+export type HabitsStatsErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type HabitsStatsError = HabitsStatsErrors[keyof HabitsStatsErrors];
+
+export type HabitsStatsResponses = {
+    /**
+     * OK
+     */
+    200: HabitStats;
+};
+
+export type HabitsStatsResponse = HabitsStatsResponses[keyof HabitsStatsResponses];
 
 export type HealthData = {
     body?: never;

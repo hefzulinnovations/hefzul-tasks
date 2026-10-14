@@ -1,5 +1,7 @@
 {
   "home": {
+    "habitsToday": "Habits today: {done} of {total}",
+    "countdowns": "Coming up",
     "welcomeNight": "Good Night {username}!",
     "welcomeNightOwl": "Hello, night owl {username}",
     "welcomeNightBurning": "Burning the midnight oil, {username}?",
@@ -860,6 +862,8 @@
     "next7Days": "Next 7 days",
     "matrix": "Matrix",
     "focus": "Focus",
+    "habits": "Habits",
+    "countdowns": "Countdowns",
     "settings": "Settings",
     "imprint": "Imprint",
     "privacy": "Privacy Policy",
@@ -1834,6 +1838,64 @@
       "empty": "No invite links yet. Create a link to invite people to this instance.",
       "futureExpiry": "Choose an expiry in the future.",
       "creatorDeleted": "Deleted user"
+    }
+  },
+  "habits": {
+    "title": "Habits",
+    "new": "New habit",
+    "empty": "No habits yet. Add one you want to keep up, such as reading or exercise.",
+    "showArchived": "Show archived",
+    "summary": "{done} of {due} done today",
+    "checkIn": "Check in on {title} ({count} of {target} today)",
+    "undo": "Undo the last check-in on {title}",
+    "edit": "Edit {title}",
+    "confirmDelete": "Delete \"{title}\" and all its check-ins? Archive it instead to keep the history.",
+    "remindAt": "reminder {time}",
+    "currentStreak": "Current streak",
+    "bestStreak": "Best streak",
+    "monthRate": "This month",
+    "days": "{count} day | {count} days",
+    "weeks": "{count} week | {count} weeks",
+    "timesADay": "{count} time a day | {count} times a day",
+    "dayCount": "{date}: {count}",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "schedule": {
+      "daily": "Every day",
+      "weekdays": "On certain days",
+      "timesPerWeek": "A number of times per week",
+      "timesPerWeekShort": "{count} time a week | {count} times a week"
+    },
+    "form": {
+      "icon": "Icon",
+      "title": "Habit",
+      "schedule": "Repeat",
+      "days": "Days",
+      "pickDays": "Pick at least one day.",
+      "timesPerWeek": "Times per week",
+      "dailyTarget": "Check-ins per day",
+      "reminder": "Reminder",
+      "color": "Colour",
+      "archived": "Archived"
+    }
+  },
+  "countdowns": {
+    "title": "Countdowns",
+    "new": "New countdown",
+    "empty": "No countdowns yet. Add birthdays, anniversaries or deadlines.",
+    "edit": "Edit {title}",
+    "confirmDelete": "Delete the countdown \"{title}\"?",
+    "today": "today",
+    "daysLeft": "day left | days left",
+    "daysAgo": "day ago | days ago",
+    "years": "{count} year | {count} years",
+    "everyYear": "every year",
+    "form": {
+      "title": "Title",
+      "date": "Date",
+      "repeatYearly": "Repeat every year (birthday, anniversary)",
+      "pinned": "Always show on the dashboard",
+      "color": "Colour"
     }
   },
   "focus": {

@@ -23,6 +23,7 @@
 			class="is-max-width-desktop"
 			@tasksAdded="updateTaskKey"
 		/>
+		<ComingUp class="is-max-width-desktop" />
 		<ImportHint v-if="tasksLoaded" />
 		<div
 			v-if="authStore.settings.frontend_settings.show_last_viewed !== false && projectHistory.length > 0"
@@ -55,6 +56,7 @@ import ShowTasks from '@/views/tasks/ShowTasks.vue'
 import ProjectCardGrid from '@/components/project/partials/ProjectCardGrid.vue'
 import AddTask from '@/components/tasks/AddTask.vue'
 import ImportHint from '@/components/home/ImportHint.vue'
+import ComingUp from '@/components/home/ComingUp.vue'
 
 import {getHistory} from '@/modules/projectHistory'
 import {parseDateOrNull} from '@/helpers/parseDateOrNull'

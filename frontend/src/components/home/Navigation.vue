@@ -79,6 +79,22 @@
 					</RouterLink>
 				</li>
 				<li>
+					<RouterLink :to="{ name: 'habits'}">
+						<span class="menu-item-icon icon">
+							<Icon icon="repeat" />
+						</span>
+						{{ $t('navigation.habits') }}
+					</RouterLink>
+				</li>
+				<li>
+					<RouterLink :to="{ name: 'countdowns'}">
+						<span class="menu-item-icon icon">
+							<Icon icon="hourglass-half" />
+						</span>
+						{{ $t('navigation.countdowns') }}
+					</RouterLink>
+				</li>
+				<li>
 					<RouterLink
 						v-shortcut="SHORTCUTS.navigation.projects"
 						:to="{ name: 'projects.index'}"

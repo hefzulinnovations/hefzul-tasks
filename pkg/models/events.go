@@ -429,6 +429,19 @@ func (e *FocusSessionCompletedEvent) Name() string {
 	return "focus.session.completed"
 }
 
+// HabitCheckinCreatedEvent represents a check-in on a habit. It is a
+// user-directed webhook event.
+type HabitCheckinCreatedEvent struct {
+	Habit   *Habit        `json:"habit"`
+	Checkin *HabitCheckin `json:"checkin"`
+	User    *user.User    `json:"user"`
+}
+
+// Name defines the name for HabitCheckinCreatedEvent
+func (e *HabitCheckinCreatedEvent) Name() string {
+	return "habit.checkin.created"
+}
+
 ////////////////////
 // API Token Events
 

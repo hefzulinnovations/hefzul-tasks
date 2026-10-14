@@ -97,6 +97,10 @@ import {
 	faChartBar,
 	faPause,
 	faStopwatch,
+	faThumbtack,
+	faHourglassHalf,
+	faRepeat,
+	faCalendarDays,
 } from '@fortawesome/free-solid-svg-icons'
 import {
 	faBellSlash,
@@ -122,6 +126,10 @@ library.add(faCalendarWeek)
 library.add(faChartBar)
 library.add(faPause)
 library.add(faStopwatch)
+library.add(faThumbtack)
+library.add(faHourglassHalf)
+library.add(faRepeat)
+library.add(faCalendarDays)
 library.add(faUndo)
 library.add(faRedo)
 library.add(faItalic)

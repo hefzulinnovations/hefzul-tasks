@@ -1,0 +1,69 @@
+- id: 1
+  user_id: 1
+  title: Read 20 pages
+  icon: book
+  hex_color: 1973ff
+  schedule_kind: daily
+  weekdays: 0
+  times_per_week: 0
+  daily_target: 1
+  reminder_time: '21:00'
+  archived: false
+  position: 1
+  created: 2026-01-01 00:00:00
+  updated: 2026-01-01 00:00:00
+- id: 2
+  user_id: 1
+  title: Drink water
+  schedule_kind: daily
+  weekdays: 0
+  times_per_week: 0
+  daily_target: 8
+  archived: false
+  position: 2
+  created: 2026-01-01 00:00:00
+  updated: 2026-01-01 00:00:00
+- id: 3
+  user_id: 1
+  title: Gym
+  schedule_kind: weekdays
+  weekdays: 42
+  times_per_week: 0
+  daily_target: 1
+  archived: false
+  position: 3
+  created: 2026-01-01 00:00:00
+  updated: 2026-01-01 00:00:00
+- id: 4
+  user_id: 1
+  title: Yoga
+  schedule_kind: times_per_week
+  weekdays: 0
+  times_per_week: 3
+  daily_target: 1
+  archived: false
+  position: 4
+  created: 2026-01-01 00:00:00
+  updated: 2026-01-01 00:00:00
+- id: 5
+  user_id: 2
+  title: Walk the dog
+  schedule_kind: daily
+  weekdays: 0
+  times_per_week: 0
+  daily_target: 1
+  archived: false
+  position: 1
+  created: 2026-01-01 00:00:00
+  updated: 2026-01-01 00:00:00
+- id: 6
+  user_id: 1
+  title: Old habit
+  schedule_kind: daily
+  weekdays: 0
+  times_per_week: 0
+  daily_target: 1
+  archived: true
+  position: 5
+  created: 2026-01-01 00:00:00
+  updated: 2026-01-01 00:00:00
