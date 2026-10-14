@@ -856,6 +856,7 @@
   "navigation": {
     "overview": "Overview",
     "upcoming": "Upcoming",
+    "matrix": "Matrix",
     "settings": "Settings",
     "imprint": "Imprint",
     "privacy": "Privacy Policy",
@@ -1107,6 +1108,25 @@
       "filterByLabel": "Filtering by label {label}",
       "clearLabelFilter": "Clear label filter",
       "savedFilterIgnored": "Your saved homepage filter is not applied while viewing tasks by label."
+    },
+    "matrix": {
+      "title": "Eisenhower Matrix",
+      "explanation": "Important means priority High or above. Urgent means overdue or due within {days} days. Drag a task to another quadrant to change its priority and due date.",
+      "important": "Important",
+      "notImportant": "Not important",
+      "urgent": "Urgent",
+      "notUrgent": "Not urgent",
+      "do": "Do first",
+      "schedule": "Schedule",
+      "delegate": "Delegate",
+      "eliminate": "Eliminate",
+      "doHint": "Important and urgent",
+      "scheduleHint": "Important, not urgent",
+      "delegateHint": "Urgent, not important",
+      "eliminateHint": "Neither important nor urgent",
+      "empty": "No tasks here",
+      "moveTo": "Move to quadrant",
+      "readOnly": "You can't edit this task"
     },
     "detail": {
       "chooseDueDate": "Click here to set a due date",
