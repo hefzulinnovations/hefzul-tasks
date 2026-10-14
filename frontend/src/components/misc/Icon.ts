@@ -101,6 +101,8 @@ import {
 	faHourglassHalf,
 	faRepeat,
 	faCalendarDays,
+	faChevronLeft,
+	faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import {
 	faBellSlash,
@@ -130,6 +132,8 @@ library.add(faThumbtack)
 library.add(faHourglassHalf)
 library.add(faRepeat)
 library.add(faCalendarDays)
+library.add(faChevronLeft)
+library.add(faChevronRight)
 library.add(faUndo)
 library.add(faRedo)
 library.add(faItalic)

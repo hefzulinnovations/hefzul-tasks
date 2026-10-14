@@ -58,6 +58,14 @@
 					</RouterLink>
 				</li>
 				<li>
+					<RouterLink :to="{ name: 'calendar'}">
+						<span class="menu-item-icon icon">
+							<Icon icon="calendar-days" />
+						</span>
+						{{ $t('navigation.calendar') }}
+					</RouterLink>
+				</li>
+				<li>
 					<RouterLink :to="{ name: 'tasks.matrix'}">
 						<span class="menu-item-icon icon">
 							<Icon icon="th" />

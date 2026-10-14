@@ -860,6 +860,7 @@
     "upcoming": "Upcoming",
     "today": "Today",
     "next7Days": "Next 7 days",
+    "calendar": "Calendar",
     "matrix": "Matrix",
     "focus": "Focus",
     "habits": "Habits",
@@ -1838,6 +1839,26 @@
       "empty": "No invite links yet. Create a link to invite people to this instance.",
       "futureExpiry": "Choose an expiry in the future.",
       "creatorDeleted": "Deleted user"
+    }
+  },
+  "calendar": {
+    "title": "Calendar",
+    "today": "Today",
+    "previous": "Previous",
+    "next": "Next",
+    "project": "Project",
+    "allDay": "All day",
+    "more": "+{count} more",
+    "unscheduled": "No date yet",
+    "dragHint": "Drag a task onto the calendar to give it a date and time, or select it to type one.",
+    "noUnscheduled": "Every open task has a date.",
+    "dueAt": "Date and time",
+    "openTask": "Open task",
+    "removeDate": "Remove date",
+    "mode": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month"
     }
   },
   "habits": {
