@@ -88,8 +88,6 @@
       "oauthMissingParams": "Missing required OAuth parameters: {params}",
       "oauthRedirectedToApp": "You have been redirected to the app. You can close this tab now.",
       "oauthOpenApp": "Open the app",
-      "desktopTryDemo": "Try the Demo",
-      "desktopCustomServer": "Custom Server URL",
       "desktopCustomServerDescription": "Enter the URL of your Hefzul Tasks server to get started.",
       "desktopWaitingForAuth": "Waiting for authentication…",
       "desktopOAuthError": "Authentication failed: {error}",
