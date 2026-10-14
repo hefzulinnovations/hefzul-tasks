@@ -1,22 +1,26 @@
-<img src="https://vikunja.io/images/vikunja-logo.svg" alt="" style="display: block;width: 50%;margin: 0 auto;" width="50%"/>
+<img src="frontend/src/assets/logo.svg" alt="" width="96" height="96"/>
 
-[![Build Status](https://github.com/go-vikunja/vikunja/actions/workflows/ci.yml/badge.svg)](https://github.com/go-vikunja/vikunja/actions/workflows/ci.yml)
 [![License: AGPL-3.0-or-later](https://img.shields.io/badge/License-AGPL--3.0--or--later-blue.svg)](LICENSE)
-[![Install](https://img.shields.io/badge/download-v2.7.0-brightgreen.svg)](https://vikunja.io/docs/installing)
-[![Docker Pulls](https://img.shields.io/docker/pulls/vikunja/vikunja.svg)](https://hub.docker.com/r/vikunja/vikunja/)
-[![OpenAPI Docs](https://img.shields.io/badge/swagger-docs-brightgreen.svg)](https://try.vikunja.io/api/v2/docs)
 
-# Vikunja
+# Hefzul Tasks
 
-> The task manager you actually own. 
+A self-hosted task manager that combines [Vikunja](https://vikunja.io)'s projects, sharing and CalDAV
+with personal productivity tools: an Eisenhower Matrix, a Pomodoro focus timer with stats, habits,
+countdowns and a calendar, on web and Android, with offline edits.
 
-If Vikunja is useful to you, please consider [supporting the project](https://vikunja.io/support/). You can [buy a coffee](https://www.buymeacoffee.com/kolaente), [sponsor on GitHub](https://github.com/sponsors/kolaente) or buy [a sticker pack](https://vikunja.io/stickers).
-We're also offering [a hosted version of Vikunja](https://vikunja.cloud/) if you want a hassle-free solution for yourself or your team.
-If you or your company needs admin panel, audit logs or time tracking, check out [Vikunja Pro](https://vikunja.io/pro/).
+Hefzul Tasks is a fork of Vikunja and keeps its AGPL-3.0 licence. Everything below this section is
+Vikunja's original README and applies to the shared core.
 
-> [!NOTE]
-> For the development of Vikunja, we're using LLM-Assisted coding tools in various parts of the codebase.
-> Most contributions made @tink-bot are built that way.
+- Deploying your own server: [deploy/README.md](deploy/README.md)
+- Android app: [android/README.md](android/README.md)
+
+---
+
+# Vikunja (upstream)
+
+> The task manager you actually own.
+
+If Vikunja is useful to you, please consider [supporting the project](https://vikunja.io/support/).
 
 ## Table of contents
 

@@ -219,7 +219,7 @@
 			},
 			"feeds": {
 				"title": "Atom フィード",
-				"howTo": "Atom 対応のフィードリーダーから Vikunja の通知を購読できます。以下の URL を使用してください:",
+				"howTo": "Atom 対応のフィードリーダーから Hefzul Tasks の通知を購読できます。以下の URL を使用してください:",
 				"usernameIs": "フィード用のユーザー名: {0}",
 				"apiTokenHint": "{scope} 権限を持つ API トークンで認証してください。{link} で作成できます。",
 				"tokenTitle": "Atom フィード"
@@ -742,7 +742,7 @@
 		"imprint": "運営情報",
 		"privacy": "プライバシーポリシー",
 		"closeSidebar": "サイドバーを閉じる",
-		"home": "Vikunja ホーム"
+		"home": "Hefzul Tasks ホーム"
 	},
 	"misc": {
 		"loading": "読み込み中…",
@@ -1161,7 +1161,7 @@
 			"intro": "タスクを作成する際に特定のキーワードを使うことで項目を直接追加できます。よく使う項目とともにタスクをすぐ追加できます。",
 			"multiple": "複数使用できます。",
 			"label1": "ラベルを付けるには、ラベル名の前に {prefix} を入力します。",
-			"label2": "Vikunja はそのラベルがすでに存在するか確認し、存在しなければ作成します。",
+			"label2": "Hefzul Tasks はそのラベルがすでに存在するか確認し、存在しなければ作成します。",
 			"label3": "空白を含む場合、ラベル名を \" \" または ' ' で囲みます。",
 			"label4": "例: {prefix}\"とある ラベル\"",
 			"priority1": "優先度を設定するには、{prefix} と 1〜5 の数字を入力します。",
@@ -1311,7 +1311,7 @@
 		"views": "ビュー"
 	},
 	"apiConfig": {
-		"url": "Vikunja URL",
+		"url": "Hefzul Tasks URL",
 		"urlPlaceholder": "例: https://localhost:3456",
 		"change": "変更",
 		"use": "{0} に設置されたVikunjaを使用します。",

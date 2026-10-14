@@ -2,36 +2,36 @@
 	"notifications": {
 		"greeting": "Merhaba %[1]s,",
 		"email_confirm": {
-			"subject": "%[1]s, lütfen Vikunja e-posta adresini doğrula",
-			"subject_new": "%[1]s + Vikunja = <3",
-			"welcome": "Vikunja'ya hoş geldin!",
+			"subject": "%[1]s, lütfen Hefzul Tasks e-posta adresini doğrula",
+			"subject_new": "%[1]s + Hefzul Tasks = <3",
+			"welcome": "Hefzul Tasks'ya hoş geldin!",
 			"confirm": "E-posta adresini doğrulamak için aşağıdaki bağlantıya tıklaman yeterli:"
 		},
 		"email_change": {
-			"subject": "Vikunja hesabın için e-posta değişikliği talebi alındı",
+			"subject": "Hefzul Tasks hesabın için e-posta değişikliği talebi alındı",
 			"requested": "Birisi hesabının e-posta adresini %[1]s olarak değiştirmek istedi. Sen yeni adresi onaylayana kadar mevcut adresin geçerli kalmaya devam edecek.",
 			"warning": "Bu talebi sen oluşturmadıysan vakit kaybetmeden şifreni değiştir ve hesap ayarlarından bekleyen bu işlemi iptal et."
 		},
 		"password": {
 			"changed": {
-				"subject": "Vikunja şifren değiştirildi",
+				"subject": "Hefzul Tasks şifren değiştirildi",
 				"success": "Hesap şifren başarıyla güncellendi.",
 				"warning": "Bu değişikliği sen yapmadıysan hesabın başkalarının eline geçmiş olabilir. Böyle bir durumda vakit kaybetmeden sunucu yöneticinle iletişime geç."
 			},
 			"reset": {
-				"subject": "Vikunja şifreni sıfırla",
+				"subject": "Hefzul Tasks şifreni sıfırla",
 				"instructions": "Şifreni sıfırlamak için aşağıdaki bağlantıya tıkla:",
 				"valid_duration": "Bu bağlantı 24 saat boyunca geçerlidir."
 			}
 		},
 		"totp": {
 			"invalid": {
-				"subject": "Birisi Vikunja hesabına girmeye çalıştı ancak başaramadı",
+				"subject": "Birisi Hefzul Tasks hesabına girmeye çalıştı ancak başaramadı",
 				"message": "Birisi kullanıcı adın ve şifrenle giriş yapmayı denedi fakat iki adımlı doğrulama (TOTP) kodunu yanlış girdi.",
 				"warning": "**Bu sen değilsen bir başkası şifreni öğrenmiş demektir. Derhal yeni bir şifre belirlemeni öneririz!**"
 			},
 			"account_locked": {
-				"subject": "Vikunja hesabını güvenlik nedeniyle kilitledik",
+				"subject": "Hefzul Tasks hesabını güvenlik nedeniyle kilitledik",
 				"message": "Birisi giriş bilgilerinle oturum açmaya çalıştı ancak geçerli bir TOTP kodu giremedi.",
 				"disabled": "Üst üste 10 başarısız denemenin ardından hesabını kilitledik ve şifreni sıfırladık. Yeni bir şifre belirlemek için az önce gönderdiğimiz e-postadaki yönergeleri izleyebilirsin.",
 				"reset_instructions": "Şifre sıfırlama e-postası ulaşmadıysa [%[1]s](%[2]s) adresinden her zaman yeni bir talep oluşturabilirsin."
@@ -39,7 +39,7 @@
 		},
 		"login": {
 			"failed": {
-				"subject": "Birisi Vikunja hesabına girmeye çalıştı ancak şifreyi bilemedi",
+				"subject": "Birisi Hefzul Tasks hesabına girmeye çalıştı ancak şifreyi bilemedi",
 				"message": "Birisi hesabına art arda 3 kez yanlış şifreyle giriş yapmayı denedi.",
 				"warning": "Bu denemeleri sen yapmadıysan bir başkası hesabına sızmaya çalışıyor olabilir.",
 				"enhance_security": "Hesap güvenliğini artırmak için daha güçlü bir şifre seçebilir ya da ayarlardan iki adımlı doğrulamayı (TOTP) etkinleştirebilirsin:"
@@ -48,7 +48,7 @@
 		"account": {
 			"deletion": {
 				"confirm": {
-					"subject": "Lütfen Vikunja hesabının silinmesini onayla",
+					"subject": "Lütfen Hefzul Tasks hesabının silinmesini onayla",
 					"request": "Hesabının silinmesi yönünde bir talep aldık. İşlemi onaylamak için lütfen aşağıdaki bağlantıya tıkla:",
 					"valid_duration": "Bu bağlantı 24 saat boyunca geçerlidir.",
 					"schedule_info": "Silme işlemini onayladığında hesabın 3 gün sonrasına planlanacak; bu süre zarfında sana durumla ilgili bir e-posta daha göndereceğiz.",
@@ -56,16 +56,16 @@
 					"changed_mind": "Böyle bir talepte bulunmadıysan ya da fikrini değiştirdiysen bu e-postayı görmezden gelebilirsin."
 				},
 				"scheduled": {
-					"subject_days": "Vikunja hesabın %[1]s gün içinde silinecek",
-					"subject_tomorrow": "Vikunja hesabın yarın silinecek",
-					"request_reminder": "Kısa süre önce Vikunja hesabının silinmesi için talepte bulunmuştun.",
+					"subject_days": "Hefzul Tasks hesabın %[1]s gün içinde silinecek",
+					"subject_tomorrow": "Hefzul Tasks hesabın yarın silinecek",
+					"request_reminder": "Kısa süre önce Hefzul Tasks hesabının silinmesi için talepte bulunmuştun.",
 					"deletion_time_days": "Hesabını %[1]s gün sonra kalıcı olarak sileceğiz.",
 					"deletion_time_tomorrow": "Hesabını yarın kalıcı olarak sileceğiz.",
 					"changed_mind": "Fikrinden vazgeçtiysen silme işlemini iptal etmek için aşağıdaki bağlantıya tıklayıp adımları takip etmen yeterli:"
 				},
 				"completed": {
-					"subject": "Vikunja hesabın silindi",
-					"confirmation": "Talebin üzerine Vikunja hesabını sildik.",
+					"subject": "Hefzul Tasks hesabın silindi",
+					"confirmation": "Talebin üzerine Hefzul Tasks hesabını sildik.",
 					"permanent": "Bu işlem geri alınamaz. Yedek almadıysan ve verilerine hemen ulaşman gerekiyorsa sunucu yöneticinle görüşmelisin."
 				}
 			}
@@ -116,25 +116,25 @@
 		},
 		"team": {
 			"member_added": {
-				"subject": "%[1]s seni Vikunja'daki \"%[2]s\" ekibine ekledi",
-				"message": "%[1]s az önce seni Vikunja üzerindeki %[2]s ekibine dahil etti."
+				"subject": "%[1]s seni Hefzul Tasks'daki \"%[2]s\" ekibine ekledi",
+				"message": "%[1]s az önce seni Hefzul Tasks üzerindeki %[2]s ekibine dahil etti."
 			}
 		},
 		"data_export": {
 			"ready": {
-				"subject": "Vikunja dışa aktarma dosyan hazır",
-				"message": "Vikunja verilerin indirilmeye hazır! Dosyanı hemen almak için aşağıdaki butona tıkla:",
+				"subject": "Hefzul Tasks dışa aktarma dosyan hazır",
+				"message": "Hefzul Tasks verilerin indirilmeye hazır! Dosyanı hemen almak için aşağıdaki butona tıkla:",
 				"availability": "İndirme bağlantısı önümüzdeki 7 gün boyunca geçerli kalacak."
 			}
 		},
 		"migration": {
 			"done": {
-				"subject": "%[1]s platformundan Vikunja'ya aktarım tamamlandı",
-				"imported": "Vikunja; %[1]s üzerinde erişebildiğin tüm listeleri, projeleri, görevleri, notları, hatırlatıcıları ve dosyaları başarıyla içeri aktardı.",
+				"subject": "%[1]s platformundan Hefzul Tasks'ya aktarım tamamlandı",
+				"imported": "Hefzul Tasks; %[1]s üzerinde erişebildiğin tüm listeleri, projeleri, görevleri, notları, hatırlatıcıları ve dosyaları başarıyla içeri aktardı.",
 				"have_fun": "Yeni (ama tanıdık) projelerinin keyfini çıkar!"
 			},
 			"failed": {
-				"subject": "%[1]s platformundan Vikunja'ya aktarım yapılamadı",
+				"subject": "%[1]s platformundan Hefzul Tasks'ya aktarım yapılamadı",
 				"message": "%[1]s üzerinden yapılan taşıma işlemi bu kez ne yazık ki planlandığı gibi gitmedi.",
 				"retry": "Hiç dert etme! Daha önce yaptığın gibi baştan başlatıp bir şans daha ver. Bazen %[1]s tarafındaki anlık aksaklıklar yüzünden böyle pürüzler çıkabiliyor; genelde tekrar denemek işi çözer.",
 				"error": "Yolda ufak bir hataya takıldık: `%[2]s`.",
@@ -159,8 +159,8 @@
 			"have_nice_day": "Güzel bir gün dileriz!",
 			"copy_url": "Yukarıdaki buton çalışmıyorsa aşağıdaki bağlantıyı kopyalayıp tarayıcının adres çubuğuna yapıştırabilirsin:",
 			"actions": {
-				"open_task": "Görevi Vikunja'da Aç",
-				"open_vikunja": "Vikunja'yı Aç",
+				"open_task": "Görevi Hefzul Tasks'da Aç",
+				"open_vikunja": "Hefzul Tasks'yı Aç",
 				"open_project": "Projeyi Aç",
 				"open_team": "Ekibi Aç",
 				"download": "İndir",
@@ -187,7 +187,7 @@
 	},
 	"feeds": {
 		"notifications": {
-			"title": "%[1]s için Vikunja bildirimleri"
+			"title": "%[1]s için Hefzul Tasks bildirimleri"
 		}
 	}
 }

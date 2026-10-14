@@ -11,13 +11,13 @@
 <script setup lang="ts">
 import {computed} from 'vue'
 import BaseButton from '@/components/base/BaseButton.vue'
-import {POWERED_BY as poweredByUrl} from '@/urls'
+import {SOURCE_CODE} from '@/urls'
 
-const props = defineProps<{
+defineProps<{
 	utmMedium: string;
 }>()
 
-const computedUrl = computed(() => `${poweredByUrl}&utm_medium=${props.utmMedium}`)
+const computedUrl = computed(() => SOURCE_CODE)
 </script>
 
 <style lang="scss">

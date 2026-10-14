@@ -21,6 +21,14 @@
 				<p v-if="proActive">
 					{{ $t('about.proActive') }}
 				</p>
+				<p class="mbs-2">
+					{{ $t('about.license') }}
+					<a
+						:href="SOURCE_CODE"
+						target="_blank"
+						rel="noopener"
+					>{{ $t('about.sourceCode') }}</a>
+				</p>
 			</div>
 			<template #footer>
 				<XButton
@@ -41,6 +49,7 @@ import {VERSION as frontendVersion} from '@/version.json'
 
 import {useConfigStore} from '@/stores/config'
 import {useGoBack} from '@/composables/useGoBack'
+import {SOURCE_CODE} from '@/urls'
 
 const configStore = useConfigStore()
 const goBack = useGoBack()

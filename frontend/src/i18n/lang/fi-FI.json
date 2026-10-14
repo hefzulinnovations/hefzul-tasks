@@ -204,7 +204,7 @@
 			}
 		},
 		"deletion": {
-			"title": "Poista Vikunja-tilisi",
+			"title": "Poista Hefzul Tasks-tilisi",
 			"text1": "Tilisi poistaminen on pysyvä eikä sitä voi peruuttaa. Poistamme kaikki projektisi, tehtäväsi ja kaiken siihen liittyvän.",
 			"text2": "Jatkaaksesi, ole hyvä ja syötä salasanasi. Saat sähköpostin, jossa on lisäohjeita.",
 			"text3": "Jatkaaksesi, ole hyvä ja paina alla olevaa painiketta. Saat sähköpostin, jossa on lisäohjeita.",
@@ -212,7 +212,7 @@
 			"requestSuccess": "Pyyntö onnistui. Saat sähköpostin, jossa on lisäohjeita.",
 			"passwordRequired": "Ole hyvä ja syötä salasanasi.",
 			"confirmSuccess": "Olet onnistuneesti vahvistanut tilisi poistamisen. Poistamme tilisi kolmen päivän kuluessa.",
-			"scheduled": "Poistamme Vikunja-tilisi {date} ({dateSince}).",
+			"scheduled": "Poistamme Hefzul Tasks-tilisi {date} ({dateSince}).",
 			"scheduledCancel": "Peruaksesi tilisi poistamisen, paina tästä.",
 			"scheduledCancelText": "Peruaksesi tilisi poistamisen, ole hyvä ja syötä salasanasi alle:",
 			"scheduledCancelButton": "Peruaksesi tilisi poistamisen, ole hyvä ja paina alla olevaa painiketta:",
@@ -220,12 +220,12 @@
 			"scheduledCancelSuccess": "Emme poista tiliäsi."
 		},
 		"export": {
-			"title": "Vie Vikunja tiedot",
-			"description": "Voit pyytää kopion kaikista Vikunja tiedoistasi. Tämä sisältää Projektisi, Tehtäväsi ja kaiken niihin liittyvän. Voit tuoda tietosi mihin tahansa Vikunja instanssiin migraatio ominaisuuden kautta.",
+			"title": "Vie Hefzul Tasks tiedot",
+			"description": "Voit pyytää kopion kaikista Hefzul Tasks tiedoistasi. Tämä sisältää Projektisi, Tehtäväsi ja kaiken niihin liittyvän. Voit tuoda tietosi mihin tahansa Hefzul Tasks instanssiin migraatio ominaisuuden kautta.",
 			"descriptionPasswordRequired": "Syötä salasanasi jatkaaksesi:",
-			"request": "Pyydä kopio Vikunja Tiedoistani",
-			"success": "Olet onnistuneesti pyytänyt Vikunja Tietosi! Lähetämme sinulle sähköpostiviestin, kun ne ovat valmiit ladattavaksi.",
-			"downloadTitle": "Lataa viedyt Vikunja tietosi",
+			"request": "Pyydä kopio Hefzul Tasks Tiedoistani",
+			"success": "Olet onnistuneesti pyytänyt Hefzul Tasks Tietosi! Lähetämme sinulle sähköpostiviestin, kun ne ovat valmiit ladattavaksi.",
+			"downloadTitle": "Lataa viedyt Hefzul Tasks tietosi",
 			"ready": "Tietosi ovat ladattavissa. Voi ladata ne {0} asti."
 		}
 	},
@@ -305,7 +305,7 @@
 			"links": {
 				"title": "Jako Linkki",
 				"what": "Mikä on jako linkki?",
-				"explanation": "Jako Linkit mahdollistavat projektin jakamisen käyttäjien kanssa, joilla ei ole Vikunja-tiliä.",
+				"explanation": "Jako Linkit mahdollistavat projektin jakamisen käyttäjien kanssa, joilla ei ole Hefzul Tasks-tiliä.",
 				"create": "Luo jako linkki",
 				"name": "Nimi (valinnainen)",
 				"namePlaceholder": "esim. Lorem Ipsum",
@@ -632,7 +632,7 @@
 			"canuse": "Voit käyttää päivämäärä laskentaa suodattaaksesi suhteellisia päivämääriä.",
 			"learnhow": "Katso kuinka se toimii",
 			"title": "Päivämäärä Laskenta",
-			"intro": "Määrittele suhteellisia päivämääriä, jotka Vikunja laskee suodatinta käyttäessä.",
+			"intro": "Määrittele suhteellisia päivämääriä, jotka Hefzul Tasks laskee suodatinta käyttäessä.",
 			"similar": "Nämä lausekkeet ovat samankaltaisia kuin {0} ja {1} käyttävät.",
 			"add1Day": "Lisää yksi päivä",
 			"minus1Day": "Vähennä yksi päivä",

@@ -171,8 +171,8 @@ function getBuildConfig(env: Record<string, string>) {
 				injectRegister: false,
 				useCredentials: true,
 				manifest: {
-					name: 'Vikunja',
-					short_name: 'Vikunja',
+					name: 'Hefzul Tasks',
+					short_name: 'Hefzul Tasks',
 					theme_color: '#1973ff',
 					icons: [
 						{

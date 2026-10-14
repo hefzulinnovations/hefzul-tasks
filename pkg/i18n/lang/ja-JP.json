@@ -3,7 +3,7 @@
 		"greeting": "こんにちは、%[1]sさん",
 		"email_confirm": {
 			"subject": "%[1]sさん、Vikunjaでメールアドレスの登録を完了してください",
-			"subject_new": "%[1]s + Vikunja = <3",
+			"subject_new": "%[1]s + Hefzul Tasks = <3",
 			"welcome": "Vikunjaへようこそ！",
 			"confirm": "メールアドレスの登録を完了するには、以下のリンクをクリックしてください:"
 		},
@@ -14,7 +14,7 @@
 				"warning": "この操作に心当たりがない場合、アカウントが侵害された可能性があります。サーバー管理者にお問い合わせください。"
 			},
 			"reset": {
-				"subject": "Vikunja パスワード再設定",
+				"subject": "Hefzul Tasks パスワード再設定",
 				"instructions": "パスワードを再設定するには、以下のリンクをクリックしてください:",
 				"valid_duration": "このリンクは24時間有効です。"
 			}
@@ -173,7 +173,7 @@
 	},
 	"feeds": {
 		"notifications": {
-			"title": "%[1]s の Vikunja 通知"
+			"title": "%[1]s の Hefzul Tasks 通知"
 		}
 	}
 }
