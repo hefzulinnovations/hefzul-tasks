@@ -7,8 +7,37 @@
 			{{ $t('task.matrix.title') }}
 		</h2>
 		<p class="matrix-explanation mbe-4">
-			{{ $t('task.matrix.explanation', {days: URGENT_WITHIN_DAYS}) }}
+			{{ $t('task.matrix.explanation', {days: withinDays}) }}
 		</p>
+
+		<div class="matrix-toolbar mbe-4">
+			<label class="matrix-filter">
+				<span>{{ $t('task.matrix.project') }}</span>
+				<FormSelect
+					v-model.number="projectFilter"
+					v-cy="'matrixProjectFilter'"
+					:options="projectOptions"
+				/>
+			</label>
+			<label class="matrix-filter">
+				<span>{{ $t('task.matrix.label') }}</span>
+				<FormSelect
+					v-model.number="labelFilter"
+					v-cy="'matrixLabelFilter'"
+					:options="labelOptions"
+				/>
+			</label>
+			<label class="matrix-filter">
+				<span>{{ $t('task.matrix.urgentWithin') }}</span>
+				<FormSelect
+					v-cy="'matrixUrgentWithin'"
+					:model-value="withinDays"
+					:options="withinDayOptions"
+					:disabled="!canSaveSettings"
+					@update:modelValue="saveWithinDays"
+				/>
+			</label>
+		</div>
 
 		<div
 			class="matrix"
@@ -77,8 +106,14 @@
 							<span>{{ priorityLabel(task) }}</span>
 							<span v-if="dueLabel(task)">{{ dueLabel(task) }}</span>
 						</div>
+						<span
+							v-if="!canEdit(task)"
+							class="matrix-task-readonly"
+						>
+							{{ $t('task.matrix.readOnly') }}
+						</span>
 						<select
-							v-if="canEdit(task)"
+							v-else
 							class="matrix-task-move"
 							:aria-label="$t('task.matrix.moveTo')"
 							:value="quadrant"
@@ -113,16 +148,21 @@ import {setTitle} from '@/helpers/setTitle'
 import {formatDateShort} from '@/helpers/time/formatDate'
 import {
 	QUADRANTS,
-	URGENT_WITHIN_DAYS,
+	URGENT_WITHIN_DAYS_MAX,
+	URGENT_WITHIN_DAYS_MIN,
 	getQuadrant,
 	quadrantChanges,
+	urgentWithinDays,
 	type Quadrant,
 } from '@/helpers/eisenhower'
+import FormSelect from '@/components/input/FormSelect.vue'
 
 import {useAuthStore} from '@/stores/auth'
 import {useProjects} from '@/composables/useProjects'
 import {useAllTasks} from '@/composables/useAllTasks'
 import {useUpdateTaskMutation} from '@/client/queries/taskMutations'
+import {useUpdateFrontendSettingsMutation} from '@/client/queries/account'
+import {isSavedFilterProject} from '@/client/queries/projects'
 import type {TaskResponse, TaskScope} from '@/client/queries/tasks'
 import {PERMISSIONS} from '@/constants/permissions'
 
@@ -146,11 +186,63 @@ const taskScope = computed<TaskScope>(() => ({
 
 const {tasks, isPending} = useAllTasks(taskScope, {enabled: () => authStore.authenticated})
 
+const withinDays = computed(() => urgentWithinDays(authStore.settings.frontend_settings.matrix_urgent_within_days))
+const withinDayOptions = computed(() => Array.from(
+	{length: URGENT_WITHIN_DAYS_MAX - URGENT_WITHIN_DAYS_MIN + 1},
+	(_, i) => {
+		const days = URGENT_WITHIN_DAYS_MIN + i
+		return {value: days, label: t('task.matrix.days', {count: days}, days)}
+	},
+))
+
+const updateFrontendSettings = useUpdateFrontendSettingsMutation()
+const canSaveSettings = computed(() => Boolean(authStore.session) && !authStore.isLinkShareAuth)
+
+function saveWithinDays(value: string | number) {
+	const session = authStore.session
+	if (!session || authStore.isLinkShareAuth) return
+	updateFrontendSettings.mutate({
+		id: session.id,
+		type: session.type,
+		frontendSettings: {matrix_urgent_within_days: urgentWithinDays(Number(value))},
+	})
+}
+
+// 0 means "all" for both filters.
+const projectFilter = ref(0)
+const labelFilter = ref(0)
+
+const projectOptions = computed(() => [
+	{value: 0, label: t('task.matrix.allProjects')},
+	...projectList.projectsArray
+		.filter(project => project.id > 0 && !project.is_archived && !isSavedFilterProject(project))
+		.map(project => ({value: project.id, label: project.title}))
+		.sort((a, b) => a.label.localeCompare(b.label)),
+])
+
+const labelOptions = computed(() => {
+	const labels = new Map<number, string>()
+	for (const task of tasks.value) {
+		for (const label of task.labels ?? []) {
+			if (label.id) labels.set(label.id, label.title ?? '')
+		}
+	}
+	return [
+		{value: 0, label: t('task.matrix.allLabels')},
+		...[...labels].map(([value, label]) => ({value, label})).sort((a, b) => a.label.localeCompare(b.label)),
+	]
+})
+
+const visibleTasks = computed(() => tasks.value.filter(task =>
+	(projectFilter.value === 0 || task.project_id === projectFilter.value)
+	&& (labelFilter.value === 0 || (task.labels ?? []).some(label => label.id === labelFilter.value)),
+))
+
 const grouped = computed(() => {
 	const now = new Date()
 	const groups: Record<Quadrant, TaskResponse[]> = {do: [], schedule: [], delegate: [], eliminate: []}
-	for (const task of tasks.value) {
-		groups[getQuadrant(task, now)].push(task)
+	for (const task of visibleTasks.value) {
+		groups[getQuadrant(task, now, withinDays.value)].push(task)
 	}
 	return groups
 })
@@ -178,7 +270,7 @@ function canEdit(task: TaskResponse) {
 
 function moveTask(task: TaskResponse, target: Quadrant) {
 	if (!canEdit(task)) return
-	const changes = quadrantChanges(task, target)
+	const changes = quadrantChanges(task, target, new Date(), withinDays.value)
 	if (Object.keys(changes).length === 0) return
 	updateTask.mutate({id: task.id, ...changes})
 }
@@ -229,6 +321,25 @@ watchEffect(() => setTitle(t('task.matrix.title')))
 
 .matrix-explanation {
 	color: var(--grey-600);
+}
+
+.matrix-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .75rem 1.5rem;
+}
+
+.matrix-filter {
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+	font-size: .9rem;
+}
+
+.matrix-task-readonly {
+	font-size: .8rem;
+	font-style: italic;
+	color: var(--grey-500);
 }
 
 .matrix {
@@ -354,7 +465,7 @@ watchEffect(() => setTitle(t('task.matrix.title')))
 	font-size: .8rem;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
 	.matrix {
 		grid-template-columns: minmax(0, 1fr);
 	}

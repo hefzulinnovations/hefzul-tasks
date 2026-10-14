@@ -6268,20 +6268,15 @@ export type FocusSessionsCurrentData = {
     url: '/focus/sessions/current';
 };
 
-export type FocusSessionsCurrentErrors = {
-    /**
-     * Error
-     */
-    default: VikunjaErrorModel;
-};
-
-export type FocusSessionsCurrentError = FocusSessionsCurrentErrors[keyof FocusSessionsCurrentErrors];
-
 export type FocusSessionsCurrentResponses = {
     /**
      * OK
      */
     200: FocusSession;
+    /**
+     * No session is running or paused.
+     */
+    204: void;
 };
 
 export type FocusSessionsCurrentResponse = FocusSessionsCurrentResponses[keyof FocusSessionsCurrentResponses];

@@ -7,6 +7,7 @@ import {
 	isImportant,
 	isUrgent,
 	quadrantChanges,
+	urgentWithinDays,
 	type MatrixTask,
 	type Quadrant,
 } from './eisenhower'
@@ -88,5 +89,29 @@ describe('eisenhower matrix', () => {
 
 	it('demotes to medium priority rather than clearing it', () => {
 		expect(quadrantChanges({priority: 5, due_date: inDays(20)}, 'eliminate', NOW).priority).toBe(2)
+	})
+
+	it('uses the urgency window passed in', () => {
+		expect(isUrgent({due_date: inDays(5)}, NOW, 2)).toBe(false)
+		expect(isUrgent({due_date: inDays(5)}, NOW, 7)).toBe(true)
+		expect(getQuadrant({priority: 4, due_date: inDays(5)}, NOW, 7)).toBe('do')
+	})
+
+	it('lands in the target quadrant for every window size', () => {
+		for (let days = 1; days <= 7; days++) {
+			for (const target of QUADRANTS as readonly Quadrant[]) {
+				const start = {priority: 1, due_date: inDays(3)}
+				const moved = apply(start, quadrantChanges(start, target, NOW, days))
+				expect(getQuadrant(moved, NOW, days)).toBe(target)
+			}
+		}
+	})
+
+	it('clamps the stored setting to 1–7 days', () => {
+		expect(urgentWithinDays(undefined)).toBe(URGENT_WITHIN_DAYS)
+		expect(urgentWithinDays('3')).toBe(URGENT_WITHIN_DAYS)
+		expect(urgentWithinDays(0)).toBe(1)
+		expect(urgentWithinDays(4)).toBe(4)
+		expect(urgentWithinDays(30)).toBe(7)
 	})
 })

@@ -31,6 +31,22 @@
 					</RouterLink>
 				</li>
 				<li>
+					<RouterLink :to="{ name: 'tasks.today'}">
+						<span class="menu-item-icon icon">
+							<Icon icon="calendar-day" />
+						</span>
+						{{ $t('navigation.today') }}
+					</RouterLink>
+				</li>
+				<li>
+					<RouterLink :to="{ name: 'tasks.next7Days'}">
+						<span class="menu-item-icon icon">
+							<Icon icon="calendar-week" />
+						</span>
+						{{ $t('navigation.next7Days') }}
+					</RouterLink>
+				</li>
+				<li>
 					<RouterLink
 						v-shortcut="SHORTCUTS.navigation.upcoming"
 						:to="{ name: 'tasks.range'}"
@@ -47,6 +63,19 @@
 							<Icon icon="th" />
 						</span>
 						{{ $t('navigation.matrix') }}
+					</RouterLink>
+				</li>
+				<li>
+					<RouterLink :to="{ name: 'focus'}">
+						<span class="menu-item-icon icon">
+							<Icon icon="stopwatch" />
+						</span>
+						{{ $t('navigation.focus') }}
+						<span
+							v-if="focusTimer.current.value"
+							class="focus-nav-clock"
+							:class="{'is-paused': focusTimer.isPaused.value}"
+						>{{ formatClock(focusTimer.remaining.value) }}</span>
 					</RouterLink>
 				</li>
 				<li>
@@ -162,10 +191,14 @@ import {useConfigStore} from '@/stores/config'
 import {PRO_FEATURE} from '@/constants/proFeatures'
 import ProjectsNavigation from '@/components/home/ProjectsNavigation.vue'
 import {useSidebarResize} from '@/composables/useSidebarResize'
+import {useFocusTimer} from '@/composables/useFocusTimer'
+import {formatClock} from '@/helpers/focusTimer'
 
 const baseStore = useBaseStore()
 const projectList = useProjects()
 const configStore = useConfigStore()
+
+const focusTimer = useFocusTimer()
 
 const timeTrackingEnabled = computed(() => configStore.isProFeatureEnabled(PRO_FEATURE.TIME_TRACKING))
 
@@ -177,6 +210,21 @@ const savedFilterProjects = computed(() => projectList.savedFilterProjects)
 </script>
 
 <style lang="scss" scoped>
+.focus-nav-clock {
+	margin-inline-start: auto;
+	padding-inline: .4rem;
+	border-radius: 1rem;
+	background: var(--danger);
+	color: #ffffff;
+	font-size: .75rem;
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+
+	&.is-paused {
+		background: var(--grey-500);
+	}
+}
+
 .logo {
 	display: block;
 

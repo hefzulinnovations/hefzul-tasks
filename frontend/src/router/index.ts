@@ -233,6 +233,34 @@ const router = createRouter({
 			}),
 		},
 		{
+			path: '/tasks/by/today',
+			name: 'tasks.today',
+			component: UpcomingTasks,
+			props: route => ({
+				dateFrom: parseDateOrString(route.query.from as string, 'now/d'),
+				dateTo: parseDateOrString(route.query.to as string, 'now/d+1d'),
+				showNulls: route.query.showNulls === 'true',
+				// Overdue tasks belong in Today; sorting by due date lists them first.
+				showOverdue: route.query.showOverdue !== 'false',
+			}),
+		},
+		{
+			path: '/tasks/by/next-7-days',
+			name: 'tasks.next7Days',
+			component: UpcomingTasks,
+			props: route => ({
+				dateFrom: parseDateOrString(route.query.from as string, 'now'),
+				dateTo: parseDateOrString(route.query.to as string, 'now+7d'),
+				showNulls: route.query.showNulls === 'true',
+				showOverdue: route.query.showOverdue !== 'false',
+			}),
+		},
+		{
+			path: '/focus',
+			name: 'focus',
+			component: () => import('@/views/focus/FocusView.vue'),
+		},
+		{
 			path: '/tasks/by/matrix',
 			name: 'tasks.matrix',
 			component: () => import('@/views/tasks/EisenhowerMatrix.vue'),

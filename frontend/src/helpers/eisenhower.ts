@@ -4,7 +4,8 @@
 // Vikunja has no "urgent"/"important" fields, so both are derived from fields
 // every task already has:
 //   - important = priority is HIGH (3) or above
-//   - urgent    = due date is overdue or falls within the next URGENT_WITHIN_DAYS days
+//   - urgent    = due date is overdue or falls within the next N days, a user
+//                 setting from 1 to 7 (default URGENT_WITHIN_DAYS)
 //
 // This file intentionally has no framework or path-alias imports so it can be
 // unit-tested in isolation.
@@ -18,6 +19,8 @@ export const IMPORTANT_MIN_PRIORITY = 3
 export const DEMOTED_PRIORITY = 2
 
 export const URGENT_WITHIN_DAYS = 2
+export const URGENT_WITHIN_DAYS_MIN = 1
+export const URGENT_WITHIN_DAYS_MAX = 7
 // When a task is dragged into a "not urgent" quadrant, its due date moves this far out.
 export const NOT_URGENT_DUE_AFTER_DAYS = 7
 
@@ -41,19 +44,25 @@ function parseDueDate(due: string | null | undefined): Date | null {
 	return date
 }
 
+/** Clamps a stored setting to 1–7 days, falling back to the default when unset or invalid. */
+export function urgentWithinDays(value: unknown): number {
+	if (typeof value !== 'number' || !Number.isFinite(value)) return URGENT_WITHIN_DAYS
+	return Math.min(Math.max(Math.round(value), URGENT_WITHIN_DAYS_MIN), URGENT_WITHIN_DAYS_MAX)
+}
+
 export function isImportant(task: MatrixTask): boolean {
 	return (task.priority ?? 0) >= IMPORTANT_MIN_PRIORITY
 }
 
-export function isUrgent(task: MatrixTask, now: Date = new Date()): boolean {
+export function isUrgent(task: MatrixTask, now: Date = new Date(), withinDays: number = URGENT_WITHIN_DAYS): boolean {
 	const due = parseDueDate(task.due_date)
 	if (due === null) return false
-	return due.getTime() <= now.getTime() + URGENT_WITHIN_DAYS * DAY_MS
+	return due.getTime() <= now.getTime() + withinDays * DAY_MS
 }
 
-export function getQuadrant(task: MatrixTask, now: Date = new Date()): Quadrant {
+export function getQuadrant(task: MatrixTask, now: Date = new Date(), withinDays: number = URGENT_WITHIN_DAYS): Quadrant {
 	const important = isImportant(task)
-	const urgent = isUrgent(task, now)
+	const urgent = isUrgent(task, now, withinDays)
 	if (important && urgent) return 'do'
 	if (important) return 'schedule'
 	if (urgent) return 'delegate'
@@ -69,10 +78,16 @@ function endOfDay(date: Date): Date {
  * quadrant. An empty object means the task is already there.
  *
  * Moving into an urgent quadrant sets the due date to the end of today; moving
- * into a not-urgent one pushes it NOT_URGENT_DUE_AFTER_DAYS out. Both overwrite
- * an existing due date, which is what makes a drag change the quadrant.
+ * into a not-urgent one pushes it NOT_URGENT_DUE_AFTER_DAYS out (or just past the
+ * urgent window, if that is longer). Both overwrite an existing due date, which
+ * is what makes a drag change the quadrant.
  */
-export function quadrantChanges(task: MatrixTask, target: Quadrant, now: Date = new Date()): MatrixChanges {
+export function quadrantChanges(
+	task: MatrixTask,
+	target: Quadrant,
+	now: Date = new Date(),
+	withinDays: number = URGENT_WITHIN_DAYS,
+): MatrixChanges {
 	const changes: MatrixChanges = {}
 	const wantImportant = target === 'do' || target === 'schedule'
 	const wantUrgent = target === 'do' || target === 'delegate'
@@ -81,10 +96,11 @@ export function quadrantChanges(task: MatrixTask, target: Quadrant, now: Date = 
 		changes.priority = wantImportant ? IMPORTANT_MIN_PRIORITY : DEMOTED_PRIORITY
 	}
 
-	if (wantUrgent !== isUrgent(task, now)) {
+	if (wantUrgent !== isUrgent(task, now, withinDays)) {
+		const notUrgentDays = Math.max(NOT_URGENT_DUE_AFTER_DAYS, withinDays + 1)
 		const due = wantUrgent
 			? endOfDay(now)
-			: endOfDay(new Date(now.getTime() + NOT_URGENT_DUE_AFTER_DAYS * DAY_MS))
+			: endOfDay(new Date(now.getTime() + notUrgentDays * DAY_MS))
 		changes.due_date = due.toISOString()
 	}
 

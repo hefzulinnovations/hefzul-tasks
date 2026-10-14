@@ -79,6 +79,9 @@ func RegisterFocusRoutes(api huma.API) {
 		Method:      http.MethodGet,
 		Path:        "/focus/sessions/current",
 		Tags:        tags,
+		Responses: map[string]*huma.Response{
+			"204": {Description: "No session is running or paused."},
+		},
 	}, focusSessionsCurrent)
 
 	Register(api, huma.Operation{

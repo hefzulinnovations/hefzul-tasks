@@ -856,7 +856,10 @@
   "navigation": {
     "overview": "Overview",
     "upcoming": "Upcoming",
+    "today": "Today",
+    "next7Days": "Next 7 days",
     "matrix": "Matrix",
+    "focus": "Focus",
     "settings": "Settings",
     "imprint": "Imprint",
     "privacy": "Privacy Policy",
@@ -1126,7 +1129,13 @@
       "eliminateHint": "Neither important nor urgent",
       "empty": "No tasks here",
       "moveTo": "Move to quadrant",
-      "readOnly": "You can't edit this task"
+      "readOnly": "You can't edit this task",
+      "project": "Project",
+      "label": "Label",
+      "allProjects": "All projects",
+      "allLabels": "All labels",
+      "urgentWithin": "Urgent if due within",
+      "days": "{count} day | {count} days"
     },
     "detail": {
       "chooseDueDate": "Click here to set a due date",
@@ -1823,6 +1832,68 @@
       "empty": "No invite links yet. Create a link to invite people to this instance.",
       "futureExpiry": "Choose an expiry in the future.",
       "creatorDeleted": "Deleted user"
+    }
+  },
+  "focus": {
+    "title": "Focus",
+    "timeLeft": "{time} left",
+    "paused": "Paused",
+    "pause": "Pause",
+    "resume": "Resume",
+    "stop": "Stop",
+    "skipBreak": "Skip break",
+    "start": "Start {kind}",
+    "sessionType": "Session type",
+    "task": "Task",
+    "noTask": "No task",
+    "minutes": "{count} min",
+    "wellDone": "Focus session done. Time for a break.",
+    "breakOver": "Break is over. Ready for the next focus session?",
+    "kind": {
+      "focus": "Focus",
+      "short_break": "Short break",
+      "long_break": "Long break"
+    },
+    "notification": {
+      "focusDoneTitle": "Focus session complete",
+      "focusDoneBody": "Well done. Take a break.",
+      "breakOverTitle": "Break is over",
+      "breakOverBody": "Ready to focus again?"
+    },
+    "settings": {
+      "title": "Timer settings",
+      "focusMinutes": "Focus (minutes)",
+      "shortBreakMinutes": "Short break (minutes)",
+      "longBreakMinutes": "Long break (minutes)",
+      "sessionsBeforeLongBreak": "Focus sessions before a long break",
+      "autoStartBreaks": "Start breaks automatically",
+      "sound": "End sound",
+      "testSound": "Test sound",
+      "sounds": {
+        "bell": "Bell",
+        "chime": "Chime",
+        "none": "None"
+      }
+    },
+    "stats": {
+      "title": "Focus statistics",
+      "range": {
+        "week": "Last 7 days",
+        "month": "Last 30 days"
+      },
+      "today": "Today",
+      "total": {
+        "week": "Last 7 days",
+        "month": "Last 30 days"
+      },
+      "sessions": "Completed sessions",
+      "streak": "Daily streak",
+      "days": "{count} day | {count} days",
+      "perDay": "Focus time per day",
+      "byTask": "By task",
+      "byProject": "By project",
+      "none": "No focus time yet",
+      "unknownTask": "Deleted or hidden task"
     }
   }
 }
