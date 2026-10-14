@@ -28,7 +28,13 @@ jobs:
 
   release:
     name: Release
-    if: ${{ github.ref_type == 'tag' || github.ref_name == 'main' }}
+    # Upstream's release needs Vikunja's runners and secrets; this fork
+    # publishes through hefzul-image.yml and hefzul-android.yml instead.
+    if: ${{ github.repository == 'go-vikunja/vikunja' && (github.ref_type == 'tag' || github.ref_name == 'main') }}
+    # A called workflow may not ask for more than its caller grants, even when
+    # skipped; without this the whole ci run fails to start.
+    permissions:
+      contents: write
     uses: ./.github/workflows/release.yml
     needs:
       - test
