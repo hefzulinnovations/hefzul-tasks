@@ -75,6 +75,8 @@ func GetTables() []interface{} {
 		&Session{},
 		&OAuthCode{},
 		&TimeEntry{},
+		&FocusSettings{},
+		&FocusSession{},
 		&UserInviteLink{},
 		&UserInviteLinkTeam{},
 	}

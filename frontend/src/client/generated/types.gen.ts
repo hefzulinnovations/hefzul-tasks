@@ -654,6 +654,207 @@ export type File = {
     readonly size?: number;
 };
 
+export type FocusFinishInputBody = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * completed when the session ran its full length, abandoned when it was stopped early.
+     */
+    status?: 'completed' | 'abandoned';
+};
+
+export type FocusSession = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * Seconds actually spent, excluding pauses. Set when the session ends.
+     */
+    readonly actual_seconds?: number;
+    /**
+     * A timestamp when this session was created.
+     */
+    readonly created?: string;
+    /**
+     * Free-form name of the device that started the session, such as web or android.
+     */
+    device?: string;
+    /**
+     * When the session was completed or abandoned. Null while it runs.
+     */
+    readonly ended_at?: string | null;
+    /**
+     * The unique, numeric id of this focus session.
+     */
+    readonly id?: number;
+    /**
+     * focus for work, short_break or long_break for a break.
+     */
+    kind?: 'focus' | 'short_break' | 'long_break';
+    /**
+     * When the current pause began. Null unless the session is paused.
+     */
+    readonly paused_at?: string | null;
+    /**
+     * Seconds spent in earlier, already resumed pauses.
+     */
+    readonly paused_seconds?: number;
+    /**
+     * Length of the session in seconds. 0 or omitted uses the user's timer settings for this kind.
+     */
+    planned_seconds?: number;
+    /**
+     * When the session started (server time). Clients count down from this, not from their own clock.
+     */
+    readonly started_at?: string;
+    /**
+     * Lifecycle state. Changed only through the pause, resume and finish actions.
+     */
+    readonly status?: 'running' | 'paused' | 'completed' | 'abandoned';
+    /**
+     * The task worked on during this session, or 0 for none. You need read access to the task. Set to 0 when the task is deleted.
+     */
+    task_id?: number;
+    /**
+     * A timestamp when this session was last changed.
+     */
+    readonly updated?: string;
+    /**
+     * The user this session belongs to. Set by the server.
+     */
+    readonly user_id?: number;
+};
+
+export type FocusSettings = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * Start the break right after a focus session completes.
+     */
+    auto_start_breaks?: boolean;
+    /**
+     * Length of a focus session in minutes.
+     */
+    focus_minutes?: number;
+    /**
+     * Length of a long break in minutes.
+     */
+    long_break_minutes?: number;
+    /**
+     * Completed focus sessions before the next break is a long one.
+     */
+    sessions_before_long_break?: number;
+    /**
+     * Length of a short break in minutes.
+     */
+    short_break_minutes?: number;
+    /**
+     * Sound played when a session ends; none for silence.
+     */
+    sound?: string;
+};
+
+export type FocusStats = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * Completed focus sessions in the range.
+     */
+    completed_sessions?: number;
+    /**
+     * Consecutive days, up to today, with at least one completed focus session. Today counts once it has one; until then the streak runs to yesterday.
+     */
+    current_streak_days?: number;
+    /**
+     * One entry per day in the range, oldest first, including days with no focus.
+     */
+    days?: Array<FocusStatsDay> | null;
+    /**
+     * First day of the range, YYYY-MM-DD.
+     */
+    from?: string;
+    /**
+     * Focus per project, most focused first, from the tasks you can still read.
+     */
+    projects?: Array<FocusStatsProject> | null;
+    /**
+     * Focus per task, most focused first. Sessions without a task are left out.
+     */
+    tasks?: Array<FocusStatsTask> | null;
+    /**
+     * The time zone days are counted in: the user's setting, or the server default.
+     */
+    timezone?: string;
+    /**
+     * Last day of the range (inclusive), YYYY-MM-DD.
+     */
+    to?: string;
+    /**
+     * Seconds of focus in the range.
+     */
+    total_focus_seconds?: number;
+};
+
+export type FocusStatsDay = {
+    /**
+     * Calendar date, YYYY-MM-DD, in the user's time zone.
+     */
+    date?: string;
+    /**
+     * Seconds spent in focus sessions that started on this day, pauses excluded.
+     */
+    focus_seconds?: number;
+    /**
+     * Completed focus sessions that started on this day.
+     */
+    sessions?: number;
+};
+
+export type FocusStatsProject = {
+    /**
+     * Seconds of focus on this project's tasks in the range.
+     */
+    focus_seconds?: number;
+    /**
+     * The project's id.
+     */
+    project_id?: number;
+    /**
+     * The project's title.
+     */
+    title?: string;
+};
+
+export type FocusStatsTask = {
+    /**
+     * Seconds of focus on this task in the range.
+     */
+    focus_seconds?: number;
+    /**
+     * The task's project; 0 if unknown.
+     */
+    project_id?: number;
+    /**
+     * Completed focus sessions on this task in the range.
+     */
+    sessions?: number;
+    /**
+     * The task's id.
+     */
+    task_id?: number;
+    /**
+     * The task's title; empty if the task was deleted or you can no longer read it.
+     */
+    title?: string;
+};
+
 export type HealthBodyBody = {
     /**
      * A URL to the JSON Schema for this object.
@@ -1212,6 +1413,18 @@ export type PaginatedDatabaseNotification = {
      */
     readonly $schema?: string;
     items?: Array<DatabaseNotification> | null;
+    page?: number;
+    per_page?: number;
+    total?: number;
+    total_pages?: number;
+};
+
+export type PaginatedFocusSession = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    items?: Array<FocusSession> | null;
     page?: number;
     per_page?: number;
     total?: number;
@@ -3826,6 +4039,98 @@ export type EmailConfirmWritable = {
     token?: string;
 };
 
+export type FocusFinishInputBodyWritable = {
+    /**
+     * completed when the session ran its full length, abandoned when it was stopped early.
+     */
+    status?: 'completed' | 'abandoned';
+};
+
+export type FocusSessionWritable = {
+    /**
+     * Free-form name of the device that started the session, such as web or android.
+     */
+    device?: string;
+    /**
+     * focus for work, short_break or long_break for a break.
+     */
+    kind?: 'focus' | 'short_break' | 'long_break';
+    /**
+     * Length of the session in seconds. 0 or omitted uses the user's timer settings for this kind.
+     */
+    planned_seconds?: number;
+    /**
+     * The task worked on during this session, or 0 for none. You need read access to the task. Set to 0 when the task is deleted.
+     */
+    task_id?: number;
+};
+
+export type FocusSettingsWritable = {
+    /**
+     * Start the break right after a focus session completes.
+     */
+    auto_start_breaks?: boolean;
+    /**
+     * Length of a focus session in minutes.
+     */
+    focus_minutes?: number;
+    /**
+     * Length of a long break in minutes.
+     */
+    long_break_minutes?: number;
+    /**
+     * Completed focus sessions before the next break is a long one.
+     */
+    sessions_before_long_break?: number;
+    /**
+     * Length of a short break in minutes.
+     */
+    short_break_minutes?: number;
+    /**
+     * Sound played when a session ends; none for silence.
+     */
+    sound?: string;
+};
+
+export type FocusStatsWritable = {
+    /**
+     * Completed focus sessions in the range.
+     */
+    completed_sessions?: number;
+    /**
+     * Consecutive days, up to today, with at least one completed focus session. Today counts once it has one; until then the streak runs to yesterday.
+     */
+    current_streak_days?: number;
+    /**
+     * One entry per day in the range, oldest first, including days with no focus.
+     */
+    days?: Array<FocusStatsDay> | null;
+    /**
+     * First day of the range, YYYY-MM-DD.
+     */
+    from?: string;
+    /**
+     * Focus per project, most focused first, from the tasks you can still read.
+     */
+    projects?: Array<FocusStatsProject> | null;
+    /**
+     * Focus per task, most focused first. Sessions without a task are left out.
+     */
+    tasks?: Array<FocusStatsTask> | null;
+    /**
+     * The time zone days are counted in: the user's setting, or the server default.
+     */
+    timezone?: string;
+    /**
+     * Last day of the range (inclusive), YYYY-MM-DD.
+     */
+    to?: string;
+    /**
+     * Seconds of focus in the range.
+     */
+    total_focus_seconds?: number;
+};
+
 export type HealthBodyBodyWritable = {
     /**
      * Availability of each configured OpenID Connect provider, from cached state — this endpoint never contacts the providers. Omitted when OpenID Connect authentication is not configured or the providers have not been initialized yet right after startup.
@@ -4043,6 +4348,14 @@ export type PaginatedBucketWritable = {
 
 export type PaginatedDatabaseNotificationWritable = {
     items?: Array<unknown> | null;
+    page?: number;
+    per_page?: number;
+    total?: number;
+    total_pages?: number;
+};
+
+export type PaginatedFocusSessionWritable = {
+    items?: Array<FocusSessionWritable> | null;
     page?: number;
     per_page?: number;
     total?: number;
@@ -5868,6 +6181,300 @@ export type FiltersUpdateResponses = {
 };
 
 export type FiltersUpdateResponse = FiltersUpdateResponses[keyof FiltersUpdateResponses];
+
+export type FocusSessionsListData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * 1-based page number.
+         */
+        page?: number;
+        /**
+         * Items per page. Defaults to the instance's configured maximum (service.maxitemsperpage, reported as max_items_per_page by /info) and is silently capped at it; asking for more is not an error.
+         */
+        per_page?: number;
+        /**
+         * Search query; filters the list to items matching this string.
+         */
+        q?: string;
+        /**
+         * Only sessions that started at or after this time (RFC 3339).
+         */
+        from?: string;
+        /**
+         * Only sessions that started before this time (RFC 3339).
+         */
+        to?: string;
+        /**
+         * Only sessions linked to this task.
+         */
+        task_id?: number;
+        /**
+         * Only sessions linked to a task in this project.
+         */
+        project_id?: number;
+    };
+    url: '/focus/sessions';
+};
+
+export type FocusSessionsListErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type FocusSessionsListError = FocusSessionsListErrors[keyof FocusSessionsListErrors];
+
+export type FocusSessionsListResponses = {
+    /**
+     * OK
+     */
+    200: PaginatedFocusSession;
+};
+
+export type FocusSessionsListResponse = FocusSessionsListResponses[keyof FocusSessionsListResponses];
+
+export type FocusSessionsStartData = {
+    body: FocusSessionWritable;
+    path?: never;
+    query?: never;
+    url: '/focus/sessions';
+};
+
+export type FocusSessionsStartErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type FocusSessionsStartError = FocusSessionsStartErrors[keyof FocusSessionsStartErrors];
+
+export type FocusSessionsStartResponses = {
+    /**
+     * Created
+     */
+    201: FocusSession;
+};
+
+export type FocusSessionsStartResponse = FocusSessionsStartResponses[keyof FocusSessionsStartResponses];
+
+export type FocusSessionsCurrentData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/focus/sessions/current';
+};
+
+export type FocusSessionsCurrentErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type FocusSessionsCurrentError = FocusSessionsCurrentErrors[keyof FocusSessionsCurrentErrors];
+
+export type FocusSessionsCurrentResponses = {
+    /**
+     * OK
+     */
+    200: FocusSession;
+};
+
+export type FocusSessionsCurrentResponse = FocusSessionsCurrentResponses[keyof FocusSessionsCurrentResponses];
+
+export type FocusSessionsFinishData = {
+    body: FocusFinishInputBodyWritable;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/focus/sessions/{id}/finish';
+};
+
+export type FocusSessionsFinishErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type FocusSessionsFinishError = FocusSessionsFinishErrors[keyof FocusSessionsFinishErrors];
+
+export type FocusSessionsFinishResponses = {
+    /**
+     * OK
+     */
+    200: FocusSession;
+};
+
+export type FocusSessionsFinishResponse = FocusSessionsFinishResponses[keyof FocusSessionsFinishResponses];
+
+export type FocusSessionsPauseData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/focus/sessions/{id}/pause';
+};
+
+export type FocusSessionsPauseErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type FocusSessionsPauseError = FocusSessionsPauseErrors[keyof FocusSessionsPauseErrors];
+
+export type FocusSessionsPauseResponses = {
+    /**
+     * OK
+     */
+    200: FocusSession;
+};
+
+export type FocusSessionsPauseResponse = FocusSessionsPauseResponses[keyof FocusSessionsPauseResponses];
+
+export type FocusSessionsResumeData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/focus/sessions/{id}/resume';
+};
+
+export type FocusSessionsResumeErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type FocusSessionsResumeError = FocusSessionsResumeErrors[keyof FocusSessionsResumeErrors];
+
+export type FocusSessionsResumeResponses = {
+    /**
+     * OK
+     */
+    200: FocusSession;
+};
+
+export type FocusSessionsResumeResponse = FocusSessionsResumeResponses[keyof FocusSessionsResumeResponses];
+
+export type FocusSettingsReadData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/focus/settings';
+};
+
+export type FocusSettingsReadErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type FocusSettingsReadError = FocusSettingsReadErrors[keyof FocusSettingsReadErrors];
+
+export type FocusSettingsReadResponses = {
+    /**
+     * OK
+     */
+    200: FocusSettings;
+};
+
+export type FocusSettingsReadResponse = FocusSettingsReadResponses[keyof FocusSettingsReadResponses];
+
+export type PatchFocusSettingsReadData = {
+    body: Array<JsonPatchOp> | null;
+    path?: never;
+    query?: never;
+    url: '/focus/settings';
+};
+
+export type PatchFocusSettingsReadErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PatchFocusSettingsReadError = PatchFocusSettingsReadErrors[keyof PatchFocusSettingsReadErrors];
+
+export type PatchFocusSettingsReadResponses = {
+    /**
+     * OK
+     */
+    200: FocusSettings;
+};
+
+export type PatchFocusSettingsReadResponse = PatchFocusSettingsReadResponses[keyof PatchFocusSettingsReadResponses];
+
+export type FocusSettingsUpdateData = {
+    body: FocusSettingsWritable;
+    path?: never;
+    query?: never;
+    url: '/focus/settings';
+};
+
+export type FocusSettingsUpdateErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type FocusSettingsUpdateError = FocusSettingsUpdateErrors[keyof FocusSettingsUpdateErrors];
+
+export type FocusSettingsUpdateResponses = {
+    /**
+     * OK
+     */
+    200: FocusSettings;
+};
+
+export type FocusSettingsUpdateResponse = FocusSettingsUpdateResponses[keyof FocusSettingsUpdateResponses];
+
+export type FocusStatsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * First day, YYYY-MM-DD. Defaults to 6 days before to.
+         */
+        from?: string;
+        /**
+         * Last day (inclusive), YYYY-MM-DD. Defaults to today.
+         */
+        to?: string;
+    };
+    url: '/focus/stats';
+};
+
+export type FocusStatsErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type FocusStatsError = FocusStatsErrors[keyof FocusStatsErrors];
+
+export type FocusStatsResponses = {
+    /**
+     * OK
+     */
+    200: FocusStats;
+};
+
+export type FocusStatsResponse = FocusStatsResponses[keyof FocusStatsResponses];
 
 export type HealthData = {
     body?: never;

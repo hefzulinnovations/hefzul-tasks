@@ -116,6 +116,30 @@ func (l *TimeEntryListener) Handle(msg *message.Message) error {
 	return nil
 }
 
+// FocusSessionListener pushes focus session changes to the owner's other devices,
+// so a timer started on the phone shows up on the desktop.
+type FocusSessionListener struct{}
+
+// Name defines the name for the FocusSessionListener listener
+func (l *FocusSessionListener) Name() string { return "websocket.focus.session" }
+
+// Handle is executed when the event FocusSessionListener listens on is fired
+func (l *FocusSessionListener) Handle(msg *message.Message) error {
+	var event models.FocusSessionUpdatedEvent
+	if err := json.Unmarshal(msg.Payload, &event); err != nil {
+		return err
+	}
+	if event.Session == nil {
+		return nil
+	}
+	hub := GetHub()
+	if hub == nil {
+		return nil
+	}
+	hub.PublishForUser(event.Session.UserID, "focus.updated", event.Session)
+	return nil
+}
+
 type SessionsRevokedListener struct{}
 
 // Name defines the name for the SessionsRevokedListener listener
@@ -149,4 +173,5 @@ func RegisterListeners() {
 	events.RegisterListener((&models.TimeEntryUpdatedEvent{}).Name(), &TimeEntryListener{wsEvent: "timer.updated"})
 	events.RegisterListener((&models.TimeEntryDeletedEvent{}).Name(), &TimeEntryListener{wsEvent: "timer.deleted"})
 	events.RegisterListener((&models.SessionsRevokedEvent{}).Name(), &SessionsRevokedListener{})
+	events.RegisterListener((&models.FocusSessionUpdatedEvent{}).Name(), &FocusSessionListener{})
 }

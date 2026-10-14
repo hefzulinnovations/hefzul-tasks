@@ -184,6 +184,10 @@ func DeleteUser(s *xorm.Session, u *user.User) (err error) {
 		}
 	}
 
+	if err = deleteFocusDataForUser(s, u.ID); err != nil {
+		return err
+	}
+
 	err = DeleteAllUserSessions(s, u.ID)
 	if err != nil {
 		return err

@@ -406,6 +406,29 @@ func (e *TimeEntryDeletedEvent) Name() string {
 	return "time-entry.deleted"
 }
 
+// FocusSessionUpdatedEvent represents a focus session being started, paused,
+// resumed or finished. It is pushed to the user's other devices.
+type FocusSessionUpdatedEvent struct {
+	Session *FocusSession `json:"session"`
+}
+
+// Name defines the name for FocusSessionUpdatedEvent
+func (e *FocusSessionUpdatedEvent) Name() string {
+	return "focus.session.updated"
+}
+
+// FocusSessionCompletedEvent represents a focus session that ran its full length.
+// It is a user-directed webhook event.
+type FocusSessionCompletedEvent struct {
+	Session *FocusSession `json:"session"`
+	User    *user.User    `json:"user"`
+}
+
+// Name defines the name for FocusSessionCompletedEvent
+func (e *FocusSessionCompletedEvent) Name() string {
+	return "focus.session.completed"
+}
+
 ////////////////////
 // API Token Events
 

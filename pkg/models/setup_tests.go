@@ -49,6 +49,8 @@ func SetupTests() {
 
 	err = db.InitTestFixtures(
 		"files",
+		"focus_sessions",
+		"focus_settings",
 		"label_tasks",
 		"labels",
 		"link_shares",
