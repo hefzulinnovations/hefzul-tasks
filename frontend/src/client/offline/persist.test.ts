@@ -44,4 +44,29 @@ describe('query cache persistence', () => {
 		expect(query?.isStaleByTime(60_000)).toBe(true)
 		expect(restored.getQueryData(['unrelated'])).toBeUndefined()
 	})
+
+	it('keeps stored queries this session did not load', async () => {
+		vi.useFakeTimers()
+		const {persistQueryCache} = await freshModule()
+		const first = new QueryClient()
+		const stopFirst = persistQueryCache(first)
+		first.setQueryData(['habits', 'list', false], ['Read'])
+		first.setQueryData(['tasks', 1], {id: 1, title: 'Old title'})
+		await vi.advanceTimersByTimeAsync(1000)
+		stopFirst()
+
+		// The next start is online: nothing restored, only the task is loaded again.
+		const second = new QueryClient()
+		const stopSecond = persistQueryCache(second)
+		second.setQueryData(['tasks', 1], {id: 1, title: 'New title'})
+		await vi.advanceTimersByTimeAsync(1000)
+		stopSecond()
+		vi.useRealTimers()
+
+		const {restoreQueryCache} = await freshModule()
+		const restored = new QueryClient()
+		await restoreQueryCache(restored)
+		expect(restored.getQueryData(['tasks', 1])).toEqual({id: 1, title: 'New title'})
+		expect(restored.getQueryData(['habits', 'list', false])).toEqual(['Read'])
+	})
 })
