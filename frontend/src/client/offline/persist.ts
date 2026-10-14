@@ -51,7 +51,9 @@ export function persistQueryCache(client: QueryClient): () => void {
 			...state,
 			queries: state.queries.map(query => ({
 				...query,
-				state: {...query.state, status: 'success' as const, error: null, fetchStatus: 'idle' as const},
+				// Invalidated, so a restored query shows at once but still refetches
+				// when online instead of counting as fresh for the rest of its staleTime.
+				state: {...query.state, status: 'success' as const, error: null, fetchStatus: 'idle' as const, isInvalidated: true},
 			})),
 		}
 		kvSet(STORAGE_KEY, JSON.parse(JSON.stringify({version: CACHE_VERSION, savedAt: Date.now(), state: clean}))).catch(() => undefined)
