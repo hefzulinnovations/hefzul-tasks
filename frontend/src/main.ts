@@ -1,3 +1,5 @@
+// Must stay first, see the module.
+import './native/install'
 import './client/inviteLink'
 import {createApp} from 'vue'
 import {VueQueryPlugin} from '@tanstack/vue-query'
@@ -9,6 +11,7 @@ import {error, success} from './message'
 import {configureApiClient} from './client/http'
 import {normalizeApiUrl} from './helpers/apiUrl'
 import {queryClient} from './client/queryClient'
+import {persistQueryCache, restoreQueryCache} from './client/offline/persist'
 
 // Notifications
 import Notifications from '@kyvg/vue3-notification'
@@ -58,7 +61,12 @@ handleChunkLoadErrors()
 // We're loading the language before creating the app so that it won't fail to load when the user's 
 // language file is not yet loaded.
 const browserLanguage = getBrowserLanguage()
-setLanguage(browserLanguage).then(() => {
+// Offline, the cache is restored first so the app can open without a network.
+// Online, the app loads fresh data; the auth store still falls back to the cache
+// when the server turns out to be unreachable.
+const restoreOffline = navigator.onLine ? Promise.resolve() : restoreQueryCache(queryClient)
+Promise.all([setLanguage(browserLanguage), restoreOffline]).then(() => {
+	persistQueryCache(queryClient)
 	const app = createApp(App)
 
 	if (window.SENTRY_ENABLED) {

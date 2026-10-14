@@ -39,8 +39,8 @@
 		"addToHomeScreen": "Daha hızlı erişmek ve keyifli bir deneyim yaşamak için uygulamayı ana ekranına ekleyebilirsin.",
 		"goToOverview": "Genel bakışa git",
 		"project": {
-			"importText": "Projelerini ve görevlerini başka platformlardan Vikunja'ya kolayca aktar:",
-			"import": "Verilerini Vikunja'ya aktar"
+			"importText": "Projelerini ve görevlerini başka platformlardan Hefzul Tasks'ya kolayca aktar:",
+			"import": "Verilerini Hefzul Tasks'ya aktar"
 		}
 	},
 	"demo": {
@@ -49,7 +49,7 @@
 		"accountWillBeDeleted": "Oluşturduğun projeler, görevler ve ekler de dahil olmak üzere hesabın tamamen silinecektir."
 	},
 	"ready": {
-		"loading": "Vikunja yükleniyor…",
+		"loading": "Hefzul Tasks yükleniyor…",
 		"errorOccured": "Bir sorun çıktı:",
 		"checkApiUrl": "Lütfen API adresinin doğruluğunu kontrol et.",
 		"rateLimited": "Sunucuya çok fazla istek gitti. Lütfen biraz soluklanıp sayfayı yeniden yükle.",
@@ -87,7 +87,7 @@
 			"oauthRedirectedToApp": "Uygulamaya yönlendirildin. Bu sekmeyi artık kapatabilirsin.",
 			"desktopTryDemo": "Demoyu dene",
 			"desktopCustomServer": "Özel Sunucu Adresi",
-			"desktopCustomServerDescription": "Hemen başlamak için Vikunja sunucunun adresini gir.",
+			"desktopCustomServerDescription": "Hemen başlamak için Hefzul Tasks sunucunun adresini gir.",
 			"desktopWaitingForAuth": "Giriş yapılması bekleniyor…",
 			"desktopOAuthError": "Kimlik doğrulama başarısız oldu: {error}",
 			"logout": "Çıkış yap",
@@ -226,9 +226,9 @@
 			},
 			"caldav": {
 				"title": "CalDAV",
-				"howTo": "Tüm görevlerini farklı takvim uygulamalarından görüp yönetmek için Vikunja'yı CalDAV istemcilerine bağlayabilirsin. Uygulamana şu adresi gir:",
+				"howTo": "Tüm görevlerini farklı takvim uygulamalarından görüp yönetmek için Hefzul Tasks'yı CalDAV istemcilerine bağlayabilirsin. Uygulamana şu adresi gir:",
 				"urlLabel": "CalDAV Adresi",
-				"more": "Vikunja'da CalDAV kullanımı hakkında detaylı bilgi",
+				"more": "Hefzul Tasks'da CalDAV kullanımı hakkında detaylı bilgi",
 				"tokens": "CalDAV Anahtarları",
 				"tokensHowTo": "CalDAV girişi için ister hesap şifreni, istersen de özel bir CalDAV erişim anahtarını kullanabilirsin.",
 				"createToken": "CalDAV anahtarı oluştur",
@@ -241,7 +241,7 @@
 			},
 			"feeds": {
 				"title": "Atom Akışı",
-				"howTo": "Vikunja bildirimlerini Atom destekleyen herhangi bir haber okuyucu ile takip edebilirsin. Şu bağlantıyı kullan:",
+				"howTo": "Hefzul Tasks bildirimlerini Atom destekleyen herhangi bir haber okuyucu ile takip edebilirsin. Şu bağlantıyı kullan:",
 				"usernameIs": "Akış için kullanıcı adın: {0}",
 				"apiTokenHint": "{scope} yetkisine sahip bir API anahtarı ile giriş yapabilirsin. {link} üzerinden oluşturabilirsin.",
 				"tokenTitle": "Atom akışı"
@@ -281,7 +281,7 @@
 			},
 			"apiTokens": {
 				"title": "API Anahtarları",
-				"general": "API anahtarları, kullanıcı şifrene ihtiyaç duymadan Vikunja API'sini kullanmanı sağlar.",
+				"general": "API anahtarları, kullanıcı şifrene ihtiyaç duymadan Hefzul Tasks API'sini kullanmanı sağlar.",
 				"apiDocs": "API dokümantasyonuna göz at",
 				"createAToken": "Bir anahtar oluştur",
 				"createToken": "Anahtar oluştur",
@@ -330,7 +330,7 @@
 			},
 			"mcp": {
 				"intro": "Model Context Protocol (MCP) ile yapay zekâ asistanını görevlerine, projelerine ve etiketlerine bağla.",
-				"more": "Vikunja'da MCP hakkında daha fazla bilgi",
+				"more": "Hefzul Tasks'da MCP hakkında daha fazla bilgi",
 				"endpoint": "MCP uç noktası",
 				"tokens": "MCP anahtarları",
 				"manageTokens": "Tüm API anahtarlarını yönet",
@@ -352,18 +352,18 @@
 					},
 					"claudeDesktop": {
 						"open": "Özelleştir → Bağlayıcılar → Özel bağlayıcı ekle yolunu izle. Ekip veya Kurumsal planda yönetici bunu Organizasyon ayarları → Bağlayıcılar altından ekler.",
-						"url": "Bağlayıcıya Vikunja adını ver ve şu adresi gir: {value}",
+						"url": "Bağlayıcıya Hefzul Tasks adını ver ve şu adresi gir: {value}",
 						"auth": "Kimlik doğrulamayı 'Giriş yapılmadı' olarak ayarla.",
 						"header": "İstek başlıkları (Request headers) altında 'authorization'ı seç; 'Bearer' ve boşluk dahil şu değerin tamamını yapıştırıp bağlayıcıyı ekle: {value}",
-						"beta": "İstek başlıkları özelliği bazı organizasyonlar için henüz beta aşamasındadır. Bu bölüm görünmüyorsa hesabın henüz Vikunja bağlantısını desteklemiyor olabilir."
+						"beta": "İstek başlıkları özelliği bazı organizasyonlar için henüz beta aşamasındadır. Bu bölüm görünmüyorsa hesabın henüz Hefzul Tasks bağlantısını desteklemiyor olabilir."
 					},
 					"mistral": {
 						"open": "Sol menüden Bağlam → Bağlayıcılar → Bağlayıcı Ekle → Özel Bağlayıcı Ekle adımlarını izle.",
-						"url": "Bağlayıcıya Vikunja adını ver, bu adresi gir ve Bağlan'a tıkla: {value}",
+						"url": "Bağlayıcıya Hefzul Tasks adını ver, bu adresi gir ve Bağlan'a tıkla: {value}",
 						"token": "HTTP Bearer kimlik doğrulamasını seç ve bu anahtarı yapıştır: {value}"
 					},
 					"chatgpt": {
-						"unavailable": "ChatGPT, Vikunja'ya bağlanmak için OAuth gerektirir. MCP OAuth henüz desteklenmediği için bu anahtar ChatGPT ile kullanılamaz."
+						"unavailable": "ChatGPT, Hefzul Tasks'ya bağlanmak için OAuth gerektirir. MCP OAuth henüz desteklenmediği için bu anahtar ChatGPT ile kullanılamaz."
 					},
 					"other": {
 						"title": "Diğer",
@@ -374,7 +374,7 @@
 			}
 		},
 		"deletion": {
-			"title": "Vikunja Hesabını Sil",
+			"title": "Hefzul Tasks Hesabını Sil",
 			"text1": "Hesabını silme işlemi kalıcıdır ve geri alınamaz. Tüm projelerin, görevlerin ve bunlara bağlı her şey tamamen silinecektir.",
 			"text2": "Devam etmek için lütfen şifreni gir. Sana ayrıntılı talimatları içeren bir e-posta göndereceğiz.",
 			"text3": "Devam etmek için aşağıdaki butona tıkla. Sana ayrıntılı talimatları içeren bir e-posta göndereceğiz.",
@@ -382,7 +382,7 @@
 			"requestSuccess": "Talebin alındı. Yapman gerekenleri anlatan bir e-posta gönderdik.",
 			"passwordRequired": "Lütfen şifreni gir.",
 			"confirmSuccess": "Hesap silme talebini onayladın. Hesabın üç gün içinde tamamen silinecektir.",
-			"scheduled": "Vikunja hesabın {date} tarihinde silinecek ({dateSince}).",
+			"scheduled": "Hefzul Tasks hesabın {date} tarihinde silinecek ({dateSince}).",
 			"scheduledCancel": "Hesabının silinmesini iptal etmek için buraya tıkla.",
 			"scheduledCancelText": "Hesabının silinmesini iptal etmek için lütfen aşağıya şifreni gir:",
 			"scheduledCancelButton": "Hesabının silinmesini iptal etmek için lütfen aşağıdaki butona tıkla:",
@@ -390,8 +390,8 @@
 			"scheduledCancelSuccess": "İşlem iptal edildi; hesabın silinmeyecek."
 		},
 		"export": {
-			"title": "Vikunja Verilerini Dışa Aktar",
-			"description": "Vikunja'daki tüm verilerinin bir kopyasını talep edebilirsin. Buna projeler, görevler ve bunlarla ilişkili her şey dahildir. Bu verileri daha sonra herhangi bir Vikunja sistemine kolayca geri yükleyebilirsin.",
+			"title": "Hefzul Tasks Verilerini Dışa Aktar",
+			"description": "Hefzul Tasks'daki tüm verilerinin bir kopyasını talep edebilirsin. Buna projeler, görevler ve bunlarla ilişkili her şey dahildir. Bu verileri daha sonra herhangi bir Hefzul Tasks sistemine kolayca geri yükleyebilirsin.",
 			"descriptionPasswordRequired": "Devam etmek için lütfen şifreni gir:",
 			"request": "Verilerimin bir kopyasını hazırla",
 			"success": "Veri talebin alındı! İndirmeye hazır olduğunda sana bir e-posta göndereceğiz.",
@@ -485,7 +485,7 @@
 			"links": {
 				"title": "Paylaşım Bağlantıları",
 				"what": "Paylaşım bağlantısı nedir?",
-				"explanation": "Paylaşım bağlantıları, projeyi Vikunja hesabı olmayan kişilerle bile kolayca paylaşmanı sağlar.",
+				"explanation": "Paylaşım bağlantıları, projeyi Hefzul Tasks hesabı olmayan kişilerle bile kolayca paylaşmanı sağlar.",
 				"create": "Paylaşım bağlantısı oluştur",
 				"name": "İsim (isteğe bağlı)",
 				"namePlaceholder": "ör. Müşteri Sunumu",
@@ -761,18 +761,18 @@
 	},
 	"migrate": {
 		"title": "Diğer servislerden içe aktar",
-		"titleService": "Verilerini {name} üzerinden Vikunja'ya aktar",
+		"titleService": "Verilerini {name} üzerinden Hefzul Tasks'ya aktar",
 		"description": "Başlamak için aşağıdaki harici servislerden birinin logosuna tıkla.",
-		"descriptionDo": "Vikunja erişebildiğin tüm listeleri, görevleri, notları, hatırlatıcıları ve ekleri içeri aktaracaktır.",
-		"authorize": "Vikunja'ya {name} hesabına erişim yetkisi vermek için aşağıdaki butona tıkla.",
+		"descriptionDo": "Hefzul Tasks erişebildiğin tüm listeleri, görevleri, notları, hatırlatıcıları ve ekleri içeri aktaracaktır.",
+		"authorize": "Hefzul Tasks'ya {name} hesabına erişim yetkisi vermek için aşağıdaki butona tıkla.",
 		"getStarted": "Başla",
 		"inProgress": "İçe aktarılıyor…",
 		"alreadyMigrated1": "Görünüşe göre {name} üzerindeki verilerini {date} tarihinde zaten içeri aktarmışsın.",
 		"alreadyMigrated2": "Tekrar aktarabilirsin ancak mükerrer kayıtlar oluşabilir. Devam etmek istiyor musun?",
 		"confirm": "Eminim, aktarımı hemen başlat!",
-		"importUpload": "{name} verilerini Vikunja'ya aktarmak için aşağıdaki butona tıklayıp dosyanı seç.",
+		"importUpload": "{name} verilerini Hefzul Tasks'ya aktarmak için aşağıdaki butona tıklayıp dosyanı seç.",
 		"upload": "Dosya yükle",
-		"migrationStartedWillReciveEmail": "Vikunja şimdi {service} üzerindeki listelerini, görevlerini, notlarını ve dosyalarını aktarmaya başlıyor. Bu işlem biraz zaman alabileceği için tamamlandığında sana bir e-posta göndereceğiz. Artık bu pencereyi kapatabilirsin.",
+		"migrationStartedWillReciveEmail": "Hefzul Tasks şimdi {service} üzerindeki listelerini, görevlerini, notlarını ve dosyalarını aktarmaya başlıyor. Bu işlem biraz zaman alabileceği için tamamlandığında sana bir e-posta göndereceğiz. Artık bu pencereyi kapatabilirsin.",
 		"migrationFinished": "{service} servisinden içe aktarma tamamlandı! Aktarılan her şey artık projelerinde seni bekliyor.",
 		"migrationFailed": "{service} üzerinden içe aktarma başarısız oldu: {reason}",
 		"failure": {
@@ -784,7 +784,7 @@
 		},
 		"migrationInProgress": "Şu anda devam eden bir içe aktarma işlemi var. Lütfen bitmesini bekle.",
 		"credentials": {
-			"description": "{name} sunucunun adresini ve Vikunja'nın nasıl giriş yapacağını belirt. Vikunja erişebildiğin tüm proje ve panoları aktarır; giriş bilgilerin yalnızca bu işlem için kullanılır ve kaydedilmez.",
+			"description": "{name} sunucunun adresini ve Hefzul Tasks'nın nasıl giriş yapacağını belirt. Hefzul Tasks erişebildiğin tüm proje ve panoları aktarır; giriş bilgilerin yalnızca bu işlem için kullanılır ve kaydedilmez.",
 			"url": "{name} Adresi",
 			"authMethod": "Giriş yöntemi",
 			"apiKey": "API anahtarı",
@@ -800,7 +800,7 @@
 			"description": "Özel sütun eşleştirmesi ile bir CSV dosyasından görevleri içe aktar.",
 			"uploadDescription": "İçe aktarmak istediğin CSV dosyasını seç. Dosyanın ilk satırında sütun başlıkları bulunmalıdır.",
 			"selectFile": "CSV dosyası seç",
-			"columnMappingDescription": "CSV dosyadaki her bir sütunu bir görev özelliğiyle eşleştir. Vikunja en olası eşleşmeleri otomatik belirledi. Ayarları değiştirdikçe aşağıdaki önizleme güncellenecektir.",
+			"columnMappingDescription": "CSV dosyadaki her bir sütunu bir görev özelliğiyle eşleştir. Hefzul Tasks en olası eşleşmeleri otomatik belirledi. Ayarları değiştirdikçe aşağıdaki önizleme güncellenecektir.",
 			"parsingOptions": "Ayrıştırma Seçenekleri",
 			"delimiter": "Ayırıcı",
 			"dateFormat": "Tarih Biçimi",
@@ -860,7 +860,7 @@
 		"imprint": "Künye",
 		"privacy": "Gizlilik Politikası",
 		"closeSidebar": "Kenar çubuğunu kapat",
-		"home": "Vikunja Ana Sayfa",
+		"home": "Hefzul Tasks Ana Sayfa",
 		"toggleChildProjects": "Alt projeleri göster/gizle",
 		"main": "Ana menü",
 		"savedFilters": "Kayıtlı filtreler"
@@ -877,7 +877,7 @@
 		"searchPlaceholder": "Aramak için yaz…",
 		"previous": "Önceki",
 		"next": "Sonraki",
-		"poweredBy": "Vikunja altyapısıyla çalışır",
+		"poweredBy": "Hefzul Tasks altyapısıyla çalışır",
 		"create": "Oluştur",
 		"doit": "Uygula!",
 		"saving": "Kaydediliyor…",
@@ -1056,7 +1056,7 @@
 			"canuse": "Göreceli tarihlerle filtreleme yapmak için tarih matematiğini kullanabilirsin.",
 			"learnhow": "Nasıl çalıştığına göz at",
 			"title": "Tarih Matematiği",
-			"intro": "Filtre uygulanırken Vikunja tarafından anlık olarak çözümlenen dinamik tarihler belirtebilirsin.",
+			"intro": "Filtre uygulanırken Hefzul Tasks tarafından anlık olarak çözümlenen dinamik tarihler belirtebilirsin.",
 			"expression": "Her bir ifade bir referans tarihiyle başlar; bu ya {0} ya da sonu {1} ile biten bir tarih dizgisi olabilir. Bu referansın ardına matematiksel ifadeler eklenebilir.",
 			"similar": "Bu ifadeler {0} ve {1} tarafından sunulan mantığa çok benzerdir.",
 			"add1Day": "Bir gün ekle",
@@ -1337,12 +1337,12 @@
 		},
 		"quickAddMagic": {
 			"hint": "Bitiş tarihi, atanan kişi gibi özellikleri tek hamlede belirlemek için sihirli kısayolları kullan.",
-			"quickEntryHint": "Tarih, etiket ve diğer alanlar için sihirli ön ekleri kullanabilirsin. Detaylar için Vikunja ana uygulamasındaki görev giriş ipucuna göz at.",
+			"quickEntryHint": "Tarih, etiket ve diğer alanlar için sihirli ön ekleri kullanabilirsin. Detaylar için Hefzul Tasks ana uygulamasındaki görev giriş ipucuna göz at.",
 			"title": "Sihirli Hızlı Ekleme",
 			"intro": "Görev oluştururken özel anahtar kelimeler kullanarak özellikleri doğrudan göreve tanımlayabilirsin. Bu sayede sık kullanılan alanları tek seferde ve hızla doldurabilirsin.",
 			"multiple": "Bunu birden çok kez kullanabilirsin.",
 			"label1": "Etiket eklemek için etiket adının başına {prefix} koyman yeterlidir.",
-			"label2": "Vikunja önce etiketin var olup olmadığını kontrol eder, yoksa yenisini oluşturur.",
+			"label2": "Hefzul Tasks önce etiketin var olup olmadığını kontrol eder, yoksa yenisini oluşturur.",
 			"label3": "Boşluklu etiketler için ismin başına ve sonuna \" veya ' işareti koyabilirsin.",
 			"label4": "Örneğin: {prefix}\"Boşluklu etiket\".",
 			"priority1": "Öncelik belirlemek için {prefix} işaretinin yanına 1-5 arası bir sayı yaz.",
@@ -1495,12 +1495,12 @@
 		"views": "Görünümler"
 	},
 	"apiConfig": {
-		"url": "Vikunja Adresi",
+		"url": "Hefzul Tasks Adresi",
 		"urlPlaceholder": "ör. https://localhost:3456",
 		"change": "değiştir",
-		"use": "Kullanılan Vikunja sunucusu: {0}",
-		"error": "\"{domain}\" adresindeki Vikunja sunucusuna bağlanılamadı. Lütfen adresin doğruluğunu ve doğrudan tarayıcıdan erişilip erişilmediğini kontrol edip tekrar dene.",
-		"success": "\"{domain}\" adresindeki Vikunja sunucusu kullanılıyor.",
+		"use": "Kullanılan Hefzul Tasks sunucusu: {0}",
+		"error": "\"{domain}\" adresindeki Hefzul Tasks sunucusuna bağlanılamadı. Lütfen adresin doğruluğunu ve doğrudan tarayıcıdan erişilip erişilmediğini kontrol edip tekrar dene.",
+		"success": "\"{domain}\" adresindeki Hefzul Tasks sunucusu kullanılıyor.",
 		"urlRequired": "Bir adres girilmesi zorunludur."
 	},
 	"loadingError": {
@@ -1523,7 +1523,7 @@
 	},
 	"quickActions": {
 		"title": "Arama ve hızlı işlemler",
-		"notLoggedIn": "Lütfen önce ana Vikunja penceresinden giriş yap.",
+		"notLoggedIn": "Lütfen önce ana Hefzul Tasks penceresinden giriş yap.",
 		"commands": "Komutlar",
 		"placeholder": "Bir komut yaz veya arama yap…",
 		"hint": "Aramayı belirli bir projeyle sınırlandırmak için {project} yazabilirsin. Belirli etiketleri veya projeleri aramak için {project} veya {label} parametrelerini arama teriminle birleştir. Yalnızca ekipleri aramak için {assignee} kullan.",
@@ -1654,16 +1654,16 @@
 		"14001": "Girilen API anahtarı geçersiz.",
 		"14002": "{group} grubunun {permission} yetkisi geçersiz.",
 		"14005": "Bu servisten içe aktarma işlemi zaten çalışıyor. Lütfen bitmesini bekle.",
-		"14009": "Yüklenen ZIP dosyasında Vikunja veri dosyası bulunamadı. Lütfen geçerli bir Vikunja yedeği yüklediğinden emin ol.",
+		"14009": "Yüklenen ZIP dosyasında Hefzul Tasks veri dosyası bulunamadı. Lütfen geçerli bir Hefzul Tasks yedeği yüklediğinden emin ol.",
 		"14010": "Yüklenen dosya okunamadı. Lütfen geçerli bir dışa aktarma dosyası olduğundan emin ol.",
 		"14011": "Yüklenen dosya geçerli bir ZIP arşivi değil.",
 		"14012": "Yüklenen dosyanın içi boş.",
-		"14013": "Bu yedek dosyası, içe aktarılamayacak kadar eski bir Vikunja sürümünde oluşturulmuş. Lütfen daha güncel bir sürümle yeni bir yedek al.",
+		"14013": "Bu yedek dosyası, içe aktarılamayacak kadar eski bir Hefzul Tasks sürümünde oluşturulmuş. Lütfen daha güncel bir sürümle yeni bir yedek al.",
 		"14016": "İçe aktarma yapılandırması çözümlenemedi. Lütfen geçerli bir JSON nesnesi olduğundan emin ol.",
 		"14201": "Planka girdiğin bilgileri reddetti. Adresi, API anahtarını veya kullanıcı adı ile şifreni kontrol et.",
 		"14202": "Bu Planka hesabı ek bir doğrulama adımı (iki adımlı kod veya sözleşme onayı) gerektiriyor. Planka'ya tarayıcıdan bir kez giriş yap veya şifre yerine API anahtarı kullan.",
 		"14203": "Bir Planka adresi ve bununla birlikte API anahtarı ya da kullanıcı adı/şifre gereklidir.",
-		"14204": "Belirtilen adresteki Planka API'sine ulaşılamadı. Adresin doğruluğunu ve Vikunja'nın bu adrese erişebildiğini kontrol et.",
+		"14204": "Belirtilen adresteki Planka API'sine ulaşılamadı. Adresin doğruluğunu ve Hefzul Tasks'nın bu adrese erişebildiğini kontrol et.",
 		"error": "Hata",
 		"success": "Başarılı",
 		"0001": "Bunu yapmaya yetkin yok."

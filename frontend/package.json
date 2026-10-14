@@ -52,6 +52,10 @@
     "story:preview": "histoire preview"
   },
   "dependencies": {
+    "@capacitor/app": "8.1.2",
+    "@capacitor/browser": "8.0.5",
+    "@capacitor/core": "8.5.3",
+    "@capacitor/local-notifications": "8.3.1",
     "@floating-ui/dom": "1.8.0",
     "@fortawesome/fontawesome-svg-core": "7.3.1",
     "@fortawesome/free-regular-svg-icons": "7.3.1",

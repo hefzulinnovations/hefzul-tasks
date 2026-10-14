@@ -116,6 +116,6 @@ func (err *ErrNoPlankaAtURL) HTTPError() web.HTTPError {
 	return web.HTTPError{
 		HTTPCode: http.StatusBadRequest,
 		Code:     ErrCodeNoPlankaAtURL,
-		Message:  "Could not reach a Planka API at the given url. Check the url and that Vikunja can reach the instance.",
+		Message:  "Could not reach a Planka API at the given url. Check the url and that Hefzul Tasks can reach the instance.",
 	}
 }

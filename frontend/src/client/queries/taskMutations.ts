@@ -26,6 +26,9 @@ import {
 } from '@/client/generated'
 import {assertClientRequestContext, captureClientRequestContext} from '@/client/requestContext'
 import {contextMutationOptions} from './contextMutation'
+import {offlineFirst} from '@/client/offline/offlineFirst'
+import {queryClient} from '@/client/queryClient'
+import {cachedTask, enqueue, newTempId} from '@/client/offline/outbox'
 import {normalizeTask, taskKeys, type PaginatedTaskResponse, type TaskResponse} from './tasks'
 import {bucketKeys, kanbanKeys, normalizeBucket, type BoardData} from './kanban'
 import {
@@ -168,23 +171,60 @@ function insertTaskIntoBoards(client: QueryClient, created: Task) {
 	}
 }
 
+// A task created offline cannot be refetched yet; put it at the top of the
+// cached lists of its project so it shows until the outbox syncs it.
+function insertOfflineTask(client: QueryClient, task: Task) {
+	const normalized = normalizeTask(task)
+	client.setQueriesData<TaskResponse[]>({queryKey: taskKeys.allLists}, current =>
+		current ? [normalized, ...current] : current)
+	client.setQueriesData<PaginatedTaskResponse>({queryKey: taskKeys.lists}, current =>
+		current ? {...current, items: [normalized, ...current.items], total: current.total + 1} : current)
+}
+
 export function createTaskMutationOptions() {
 	return contextMutationOptions({
-		mutationFn: async (task: Task & Required<Pick<Task, 'project_id'>>) => (await tasksCreate({
-			path: {project: task.project_id},
-			body: taskWriteBody(task),
-		})).data,
-		onSuccess: (task, _input, client) => insertTaskIntoBoards(client, task),
+		mutationFn: async (task: Task & Required<Pick<Task, 'project_id'>>) => offlineFirst(
+			async headers => (await tasksCreate({
+				path: {project: task.project_id},
+				body: taskWriteBody(task),
+				...headers,
+			})).data,
+			async key => {
+				const body = taskWriteBody(task)
+				const tempId = newTempId()
+				await enqueue({kind: 'task.create', key, createdAt: new Date().toISOString(), tempId, projectId: task.project_id, body})
+				const now = new Date().toISOString()
+				return {...body, id: tempId, project_id: task.project_id, created: now, updated: now} as Task
+			},
+		),
+		onSuccess: (task, _input, client) => {
+			insertTaskIntoBoards(client, task)
+			if ((task.id ?? 0) < 0) insertOfflineTask(client, task)
+		},
 		onSettled: (_task, client) => invalidateTaskMembership(client, undefined, 'active'),
 	})
 }
 
 export function updateTaskMutationOptions(optimistic = false) {
 	return contextMutationOptions({
-		mutationFn: async (task: Task & Required<Pick<Task, 'id'>>) => (await patchTasksRead({
-			path: {task: task.id},
-			body: taskPatchBody(task),
-		})).data,
+		mutationFn: async (task: Task & Required<Pick<Task, 'id'>>) => offlineFirst(
+			async headers => (await patchTasksRead({
+				path: {task: task.id},
+				body: taskPatchBody(task),
+				...headers,
+			})).data,
+			async key => {
+				const cached = cachedTask(queryClient, task.id)
+				const changes = taskWriteBody(task) as Record<string, unknown>
+				delete changes.id
+				const base = Object.fromEntries(Object.keys(changes).map(field => [field, (cached as Record<string, unknown> | undefined)?.[field]]))
+				await enqueue({
+					kind: 'task.update', key, createdAt: new Date().toISOString(), taskId: task.id,
+					changes, base, baseUpdated: cached?.updated ?? '', title: task.title ?? cached?.title ?? '',
+				})
+				return {...cached, ...changes, id: task.id} as Task
+			},
+		),
 		optimistic: optimistic ? {
 			queryKeys: ({id}, client) => taskQueryKeys(client, id),
 			update: (task, client) => replaceTaskEverywhere(client, task),
@@ -199,7 +239,13 @@ export function updateTaskMutationOptions(optimistic = false) {
 
 export function deleteTaskMutationOptions() {
 	return contextMutationOptions({
-		mutationFn: async (id: number) => { await tasksDelete({path: {task: id}}) },
+		mutationFn: async (id: number) => offlineFirst(
+			async headers => { await tasksDelete({path: {task: id}, ...headers}) },
+			async key => {
+				const cached = cachedTask(queryClient, id)
+				await enqueue({kind: 'task.delete', key, createdAt: new Date().toISOString(), taskId: id, baseUpdated: cached?.updated ?? '', title: cached?.title ?? ''})
+			},
+		),
 		onSuccess: (_data, id, client) => removeTaskEverywhere(client, id),
 		onSettled: (_id, client) => invalidateTaskMembership(client, undefined, 'active'),
 	})

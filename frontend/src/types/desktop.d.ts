@@ -6,6 +6,8 @@ export interface OAuthTokens {
 
 export interface VikunjaDesktop {
 	isDesktop: boolean
+	/** Unset in the Electron app, which predates the field. */
+	platform?: 'electron' | 'android'
 	startOAuthLogin: (apiUrl: string) => Promise<void>
 	onOAuthTokens: (callback: (tokens: OAuthTokens) => void) => void
 	onOAuthError: (callback: (error: string) => void) => void

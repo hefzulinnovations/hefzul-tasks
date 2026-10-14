@@ -92,6 +92,17 @@ import {
 	faUmbrellaBeach,
 	faCalendarPlus,
 	faFlagCheckered,
+	faCalendarDay,
+	faCalendarWeek,
+	faChartBar,
+	faPause,
+	faStopwatch,
+	faThumbtack,
+	faHourglassHalf,
+	faRepeat,
+	faCalendarDays,
+	faChevronLeft,
+	faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import {
 	faBellSlash,
@@ -112,6 +123,17 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import type {FontAwesomeIcon as FontAwesomeIconFixedTypes} from '@/types/vue-fontawesome'
 
 library.add(faBold)
+library.add(faCalendarDay)
+library.add(faCalendarWeek)
+library.add(faChartBar)
+library.add(faPause)
+library.add(faStopwatch)
+library.add(faThumbtack)
+library.add(faHourglassHalf)
+library.add(faRepeat)
+library.add(faCalendarDays)
+library.add(faChevronLeft)
+library.add(faChevronRight)
 library.add(faUndo)
 library.add(faRedo)
 library.add(faItalic)

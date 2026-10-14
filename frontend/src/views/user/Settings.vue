@@ -11,6 +11,7 @@ import {useI18n} from 'vue-i18n'
 import {useTitle} from '@/composables/useTitle'
 import {useConfigStore} from '@/stores/config'
 import {useAuthStore} from '@/stores/auth'
+import {isAndroidApp} from '@/helpers/desktopAuth'
 
 import SideNavShell from '@/components/misc/SideNavShell.vue'
 
@@ -66,6 +67,12 @@ const navigationItems = computed(() => {
 		{
 			title: 'MCP',
 			routeName: 'user.settings.mcp',
+		},
+		{
+			title: t('user.settings.push.title'),
+			routeName: 'user.settings.push',
+			// The Android app notifies natively; Web Push does not reach a WebView.
+			condition: !isAndroidApp(),
 		},
 		{
 			title: t('user.settings.feeds.title'),

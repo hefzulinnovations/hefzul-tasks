@@ -5,6 +5,7 @@ import {getApiBaseUrl, getApiRootUrl, InvalidApiUrlProvidedError} from '@/helper
 import {canonicalApiBaseUrl} from '@/client/requestContext'
 import {info, type VikunjaInfos, type AuthInfo} from '@/client/generated'
 import {publicClient} from '@/client/publicClient'
+import {isNetworkError} from '@/client/offline/network'
 import {ApiError} from '@/client/problem'
 import {captureClientRequestContext, isClientRequestContextCurrent} from '@/client/requestContext'
 
@@ -88,6 +89,17 @@ function defaultConfig(): ConfigState {
 	}
 }
 
+const OFFLINE_CONFIG_KEY = 'hefzul.offlineConfig'
+
+function cachedConfig(apiUrl: string): VikunjaInfos | null {
+	try {
+		const stored = JSON.parse(localStorage.getItem(OFFLINE_CONFIG_KEY) ?? 'null') as {apiUrl?: string, config?: VikunjaInfos} | null
+		return stored?.apiUrl === apiUrl && stored.config ? stored.config : null
+	} catch {
+		return null
+	}
+}
+
 export const useConfigStore = defineStore('config', () => {
 	const state: ConfigState = reactive(defaultConfig())
 
@@ -139,7 +151,18 @@ export const useConfigStore = defineStore('config', () => {
 				baseUrl: canonicalApiBaseUrl(getApiBaseUrl()),
 			})
 			config = response.data
+			try {
+				localStorage.setItem(OFFLINE_CONFIG_KEY, JSON.stringify({apiUrl: getApiBaseUrl(), config}))
+			} catch {
+				// The offline copy is a convenience.
+			}
 		} catch (e) {
+			// Offline: start from the last config this server sent, so cached data can be used.
+			const cached = isNetworkError(e) ? cachedConfig(getApiBaseUrl()) : null
+			if (cached) {
+				setConfig(cached)
+				return true
+			}
 			throw e instanceof Error && !(e instanceof ApiError) ? e : new InvalidApiUrlProvidedError()
 		}
 

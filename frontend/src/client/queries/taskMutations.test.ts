@@ -115,6 +115,7 @@ describe('task mutations', () => {
 		expect(sdk.patchTasksRead).toHaveBeenCalledWith({
 			path: {task: 1},
 			body: [{op: 'add', path: '/title', value: 'new'}],
+			headers: {'Idempotency-Key': expect.any(String)},
 		})
 		expect(client.getQueryData<Task>(taskKeys.detail(1))?.title).toBe('new')
 	})
@@ -125,7 +126,7 @@ describe('task mutations', () => {
 		await client.getMutationCache()
 			.build(client, deleteTaskMutationOptions())
 			.execute(1)
-		expect(sdk.tasksDelete).toHaveBeenCalledWith({path: {task: 1}})
+		expect(sdk.tasksDelete).toHaveBeenCalledWith({path: {task: 1}, headers: {'Idempotency-Key': expect.any(String)}})
 	})
 
 	it('patches embedded assignees without creating an assignee cache', async () => {

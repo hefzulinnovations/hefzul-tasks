@@ -1,0 +1,22 @@
+{
+  "name": "hefzul-tasks-android",
+  "private": true,
+  "description": "Hefzul Tasks for Android: a Capacitor shell around the web app.",
+  "license": "AGPL-3.0-or-later",
+  "packageManager": "pnpm@11.27.0",
+  "scripts": {
+    "build:web": "cd ../frontend && pnpm run build",
+    "sync": "cap sync android",
+    "build": "pnpm run build:web && pnpm run sync && cd native && ./gradlew assembleRelease"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/app": "8.1.2",
+    "@capacitor/browser": "8.0.5",
+    "@capacitor/core": "8.5.3",
+    "@capacitor/local-notifications": "8.3.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3"
+  }
+}

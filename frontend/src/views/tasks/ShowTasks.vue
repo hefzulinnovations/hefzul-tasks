@@ -32,6 +32,10 @@
 				<Icon icon="times" />
 			</BaseButton>
 		</Message>
+		<ComingUp
+			v-if="route.name === 'tasks.today'"
+			:show-habits="true"
+		/>
 		<Message
 			v-if="savedFilterIgnored"
 			class="mbe-2"
@@ -124,6 +128,7 @@ import DatepickerWithRange from '@/components/date/DatepickerWithRange.vue'
 import XLabel from '@/components/tasks/partials/Label.vue'
 import {DATE_RANGES} from '@/components/date/dateRanges'
 import LlamaCool from '@/assets/llama-cool.svg?component'
+import ComingUp from '@/components/home/ComingUp.vue'
 import {useAuthStore} from '@/stores/auth'
 import {useProjects} from '@/composables/useProjects'
 import {useLabels} from '@/composables/useLabels'

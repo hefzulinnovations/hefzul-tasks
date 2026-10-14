@@ -1,8 +1,10 @@
 import {register} from 'register-service-worker'
 
 import {getFullBaseUrl} from './helpers/getFullBaseUrl'
+import {isAndroidApp} from './helpers/desktopAuth'
 
-if (import.meta.env.PROD) {
+// The Android app ships its files, so it needs no service worker.
+if (import.meta.env.PROD && !isAndroidApp()) {
 	register(getFullBaseUrl() + 'sw.js', {
 		ready() {
 			console.log('App is being served from cache by a service worker.')

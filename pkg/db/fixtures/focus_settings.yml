@@ -1,0 +1,9 @@
+- user_id: 2
+  focus_minutes: 50
+  short_break_minutes: 10
+  long_break_minutes: 30
+  sessions_before_long_break: 2
+  auto_start_breaks: true
+  sound: none
+  created: 2026-10-01 09:00:00
+  updated: 2026-10-01 09:00:00

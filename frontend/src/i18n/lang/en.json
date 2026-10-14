@@ -1,5 +1,7 @@
 {
   "home": {
+    "habitsToday": "Habits today: {done} of {total}",
+    "countdowns": "Coming up",
     "welcomeNight": "Good Night {username}!",
     "welcomeNightOwl": "Hello, night owl {username}",
     "welcomeNightBurning": "Burning the midnight oil, {username}?",
@@ -35,8 +37,8 @@
     "addToHomeScreen": "Add this app to your home screen for faster access and improved experience.",
     "goToOverview": "Go to overview",
     "project": {
-      "importText": "Import your projects and tasks from other services into Vikunja:",
-      "import": "Import your data into Vikunja"
+      "importText": "Import your projects and tasks from other services into Hefzul Tasks:",
+      "import": "Import your data into Hefzul Tasks"
     }
   },
   "demo": {
@@ -49,7 +51,7 @@
     "text": "The page you requested does not exist."
   },
   "ready": {
-    "loading": "Vikunja is loading…",
+    "loading": "Hefzul Tasks is loading…",
     "errorOccured": "An error occurred:",
     "checkApiUrl": "Please check if the api url is correct.",
     "rateLimited": "The server received too many requests. Please wait a moment and reload the page.",
@@ -85,9 +87,8 @@
       "openIdTotpSubmit": "Continue",
       "oauthMissingParams": "Missing required OAuth parameters: {params}",
       "oauthRedirectedToApp": "You have been redirected to the app. You can close this tab now.",
-      "desktopTryDemo": "Try the Demo",
-      "desktopCustomServer": "Custom Server URL",
-      "desktopCustomServerDescription": "Enter the URL of your Vikunja server to get started.",
+      "oauthOpenApp": "Open the app",
+      "desktopCustomServerDescription": "Enter the URL of your Hefzul Tasks server to get started.",
       "desktopWaitingForAuth": "Waiting for authentication…",
       "desktopOAuthError": "Authentication failed: {error}",
       "logout": "Logout",
@@ -226,9 +227,9 @@
       },
       "caldav": {
         "title": "CalDAV",
-        "howTo": "You can connect Vikunja to CalDAV clients to view and manage all your tasks from different clients. Enter this URL into your client:",
+        "howTo": "You can connect Hefzul Tasks to CalDAV clients to view and manage all your tasks from different clients. Enter this URL into your client:",
         "urlLabel": "CalDAV URL",
-        "more": "More information about CalDAV in Vikunja",
+        "more": "More information about CalDAV in Hefzul Tasks",
         "tokens": "CalDAV Tokens",
         "tokensHowTo": "For CalDAV authentication you can use either your normal account password or a dedicated CalDAV token.",
         "createToken": "Create a CalDAV token",
@@ -239,9 +240,29 @@
         "usernameIs": "Your username for CalDAV is: {0}",
         "apiTokenHint": "You can also use an API token with CalDAV permission. Create one in {link}."
       },
+      "push": {
+        "title": "Push notifications",
+        "intro": "Get reminders, mentions, habit reminders and the end of a focus session as notifications on this device, even when Hefzul Tasks is closed.",
+        "unsupported": "This browser does not support push notifications. On iPhone and iPad, add Hefzul Tasks to the home screen first.",
+        "thisDevice": "This device",
+        "on": "notifications on",
+        "off": "notifications off",
+        "includeContent": "Show task and habit titles in notifications",
+        "includeContentHint": "Off: notifications only say what happened, such as \"You have a task reminder\", and your titles never pass through the push service.",
+        "enable": "Turn on for this device",
+        "update": "Save for this device",
+        "disable": "Turn off for this device",
+        "test": "Send a test notification",
+        "enabled": "Push notifications are on for this device.",
+        "testSent": "Sent to {count} device. | Sent to {count} devices.",
+        "devices": "Devices",
+        "unknownDevice": "Unknown device",
+        "withTitles": "with titles",
+        "private": "titles hidden"
+      },
       "feeds": {
         "title": "Atom Feed",
-        "howTo": "You can subscribe to your Vikunja notifications from any Atom-compatible feed reader. Use the following URL:",
+        "howTo": "You can subscribe to your Hefzul Tasks notifications from any Atom-compatible feed reader. Use the following URL:",
         "usernameIs": "Your username for the feed is: {0}",
         "apiTokenHint": "Authenticate with an API token that has the {scope} permission. Create one in {link}.",
         "tokenTitle": "Atom feed"
@@ -281,7 +302,7 @@
       },
       "apiTokens": {
         "title": "API Tokens",
-        "general": "API tokens allow you to use Vikunja's API without user credentials.",
+        "general": "API tokens allow you to use Hefzul Tasks's API without user credentials.",
         "apiDocs": "Check out the api docs",
         "createAToken": "Create a token",
         "createToken": "Create token",
@@ -330,7 +351,7 @@
       },
       "mcp": {
         "intro": "Connect an AI assistant to your tasks, projects, and labels with the Model Context Protocol (MCP).",
-        "more": "More information about MCP in Vikunja",
+        "more": "More information about MCP in Hefzul Tasks",
         "endpoint": "MCP endpoint",
         "tokens": "MCP tokens",
         "manageTokens": "Manage all API tokens",
@@ -352,18 +373,18 @@
           },
           "claudeDesktop": {
             "open": "Open Customize → Connectors → Add custom connector. On Team or Enterprise, an owner adds it under Organization settings → Connectors.",
-            "url": "Name the connector Vikunja and enter this URL: {value}",
+            "url": "Name the connector Hefzul Tasks and enter this URL: {value}",
             "auth": "Set Authentication to No sign-in.",
             "header": "Under Request headers, choose authorization and paste this full value, including Bearer and the space, then add the connector: {value}",
-            "beta": "Request headers are in beta for a limited set of organizations. If this section is missing, connecting Vikunja is not available for your account yet."
+            "beta": "Request headers are in beta for a limited set of organizations. If this section is missing, connecting Hefzul Tasks is not available for your account yet."
           },
           "mistral": {
             "open": "In the sidebar on the left open Context → Connectors → Add Connector → Add Custom Connector.",
-            "url": "Name the connector Vikunja, enter this URL, and select Connect: {value}",
+            "url": "Name the connector Hefzul Tasks, enter this URL, and select Connect: {value}",
             "token": "Choose HTTP Bearer authentication and paste this token: {value}"
           },
           "chatgpt": {
-            "unavailable": "ChatGPT requires OAuth to connect to Vikunja. MCP OAuth is not supported yet, so this token cannot be used in ChatGPT."
+            "unavailable": "ChatGPT requires OAuth to connect to Hefzul Tasks. MCP OAuth is not supported yet, so this token cannot be used in ChatGPT."
           },
           "other": {
             "title": "Other",
@@ -374,7 +395,7 @@
       }
     },
     "deletion": {
-      "title": "Delete your Vikunja Account",
+      "title": "Delete your Hefzul Tasks Account",
       "text1": "The deletion of your account is permanent and cannot be undone. We will delete all your projects, tasks and everything associated with it.",
       "text2": "To proceed, please enter your password. You will receive an email with further instructions.",
       "text3": "To proceed, please press the button below. You will receive an email with further instructions.",
@@ -382,7 +403,7 @@
       "requestSuccess": "The request was successful. You'll receive an email with further instructions.",
       "passwordRequired": "Please enter your password.",
       "confirmSuccess": "You've successfully confirmed the deletion of your account. We will delete your account in three days.",
-      "scheduled": "We will delete your Vikunja account at {date} ({dateSince}).",
+      "scheduled": "We will delete your Hefzul Tasks account at {date} ({dateSince}).",
       "scheduledCancel": "To cancel the deletion of your account, click here.",
       "scheduledCancelText": "To cancel the deletion of your account, please enter your password below:",
       "scheduledCancelButton": "To cancel the deletion of your account, please press the button below:",
@@ -390,12 +411,12 @@
       "scheduledCancelSuccess": "We will not delete your account."
     },
     "export": {
-      "title": "Export your Vikunja data",
-      "description": "You can request a copy of all your Vikunja data. This includes Projects, Tasks and everything associated to them. You can import this data in any Vikunja instance through the migration function.",
+      "title": "Export your Hefzul Tasks data",
+      "description": "You can request a copy of all your Hefzul Tasks data. This includes Projects, Tasks and everything associated to them. You can import this data in any Hefzul Tasks instance through the migration function.",
       "descriptionPasswordRequired": "Please enter your password to proceed:",
-      "request": "Request a copy of my Vikunja Data",
-      "success": "You've successfully requested your Vikunja Data! We will send you an email once it's ready to download.",
-      "downloadTitle": "Download your exported Vikunja data",
+      "request": "Request a copy of my Hefzul Tasks Data",
+      "success": "You've successfully requested your Hefzul Tasks Data! We will send you an email once it's ready to download.",
+      "downloadTitle": "Download your exported Hefzul Tasks data",
       "ready": "Your export is ready to download. You can download it until {0}.",
       "requestNew": "Request another export"
     }
@@ -485,7 +506,7 @@
       "links": {
         "title": "Share Links",
         "what": "What is a share link?",
-        "explanation": "Share Links allow you to easily share a project with other users who don't have an account on Vikunja.",
+        "explanation": "Share Links allow you to easily share a project with other users who don't have an account on Hefzul Tasks.",
         "create": "Create a link share",
         "name": "Name (optional)",
         "namePlaceholder": "e.g. Lorem Ipsum",
@@ -761,18 +782,18 @@
   },
   "migrate": {
     "title": "Import from other services",
-    "titleService": "Import your data from {name} into Vikunja",
+    "titleService": "Import your data from {name} into Hefzul Tasks",
     "description": "Click on the logo of one of the third-party services below to get started.",
-    "descriptionDo": "Vikunja will import all lists, tasks, notes, reminders and files you have access to.",
-    "authorize": "To authorize Vikunja to access your {name} Account, click the button below.",
+    "descriptionDo": "Hefzul Tasks will import all lists, tasks, notes, reminders and files you have access to.",
+    "authorize": "To authorize Hefzul Tasks to access your {name} Account, click the button below.",
     "getStarted": "Get Started",
     "inProgress": "Importing in progress…",
     "alreadyMigrated1": "It looks like you've already imported your stuff from {name} at {date}.",
     "alreadyMigrated2": "Importing again is possible, but might create duplicates. Are you sure?",
     "confirm": "I am sure, please start migrating now!",
-    "importUpload": "To import data from {name} into Vikunja, click the button below to select a file.",
+    "importUpload": "To import data from {name} into Hefzul Tasks, click the button below to select a file.",
     "upload": "Upload file",
-    "migrationStartedWillReciveEmail": "Vikunja will now import your lists/projects, tasks, notes, reminders and files from {service}. As this will take a while, we will send you an email once done. You can close this window now.",
+    "migrationStartedWillReciveEmail": "Hefzul Tasks will now import your lists/projects, tasks, notes, reminders and files from {service}. As this will take a while, we will send you an email once done. You can close this window now.",
     "migrationFinished": "The import from {service} has finished. Everything it imported is now available in your projects.",
     "migrationFailed": "The import from {service} failed: {reason}",
     "failure": {
@@ -784,7 +805,7 @@
     },
     "migrationInProgress": "A migration is currently in progress. Please wait until it is done.",
     "credentials": {
-      "description": "Enter the address of your {name} instance and how Vikunja should log in. Vikunja imports all projects and boards you have access to; the credentials are only used for this import and are not stored.",
+      "description": "Enter the address of your {name} instance and how Hefzul Tasks should log in. Hefzul Tasks imports all projects and boards you have access to; the credentials are only used for this import and are not stored.",
       "url": "{name} URL",
       "authMethod": "Log in with",
       "apiKey": "API key",
@@ -800,7 +821,7 @@
       "description": "Import tasks from a CSV file with custom column mapping.",
       "uploadDescription": "Select a CSV file to import. The file should contain task data with headers in the first row.",
       "selectFile": "Select CSV file",
-      "columnMappingDescription": "Map each column in your CSV file to a task attribute. Vikunja has auto-detected the most likely mappings. The preview below will update automatically when you change settings.",
+      "columnMappingDescription": "Map each column in your CSV file to a task attribute. Hefzul Tasks has auto-detected the most likely mappings. The preview below will update automatically when you change settings.",
       "parsingOptions": "Parsing Options",
       "delimiter": "Delimiter",
       "dateFormat": "Date Format",
@@ -856,11 +877,18 @@
   "navigation": {
     "overview": "Overview",
     "upcoming": "Upcoming",
+    "today": "Today",
+    "next7Days": "Next 7 days",
+    "calendar": "Calendar",
+    "matrix": "Matrix",
+    "focus": "Focus",
+    "habits": "Habits",
+    "countdowns": "Countdowns",
     "settings": "Settings",
     "imprint": "Imprint",
     "privacy": "Privacy Policy",
     "closeSidebar": "Close sidebar",
-    "home": "Vikunja home",
+    "home": "Hefzul Tasks home",
     "toggleChildProjects": "Toggle sub-projects",
     "main": "Main navigation",
     "savedFilters": "Saved filters"
@@ -877,7 +905,7 @@
     "searchPlaceholder": "Type to search…",
     "previous": "Previous",
     "next": "Next",
-    "poweredBy": "Powered by Vikunja",
+    "poweredBy": "Source code · based on Vikunja",
     "create": "Create",
     "doit": "Do it!",
     "saving": "Saving…",
@@ -1056,7 +1084,7 @@
       "canuse": "You can use date math to filter for relative dates.",
       "learnhow": "Check out how it works",
       "title": "Date Math",
-      "intro": "Specify relative dates which are resolved on the fly by Vikunja when applying the filter.",
+      "intro": "Specify relative dates which are resolved on the fly by Hefzul Tasks when applying the filter.",
       "expression": "Each Date Math expression starts with an anchor date, which can either be {0}, or a date string ending with {1}. This anchor date can optionally be followed by one or more maths expressions.",
       "similar": "These expressions are similar to the ones provided by {0} and {1}.",
       "add1Day": "Add one day",
@@ -1107,6 +1135,31 @@
       "filterByLabel": "Filtering by label {label}",
       "clearLabelFilter": "Clear label filter",
       "savedFilterIgnored": "Your saved homepage filter is not applied while viewing tasks by label."
+    },
+    "matrix": {
+      "title": "Eisenhower Matrix",
+      "explanation": "Important means priority High or above. Urgent means overdue or due within {days} days. Drag a task to another quadrant to change its priority and due date.",
+      "important": "Important",
+      "notImportant": "Not important",
+      "urgent": "Urgent",
+      "notUrgent": "Not urgent",
+      "do": "Do first",
+      "schedule": "Schedule",
+      "delegate": "Delegate",
+      "eliminate": "Eliminate",
+      "doHint": "Important and urgent",
+      "scheduleHint": "Important, not urgent",
+      "delegateHint": "Urgent, not important",
+      "eliminateHint": "Neither important nor urgent",
+      "empty": "No tasks here",
+      "moveTo": "Move to quadrant",
+      "readOnly": "You can't edit this task",
+      "project": "Project",
+      "label": "Label",
+      "allProjects": "All projects",
+      "allLabels": "All labels",
+      "urgentWithin": "Urgent if due within",
+      "days": "{count} day | {count} days"
     },
     "detail": {
       "chooseDueDate": "Click here to set a due date",
@@ -1337,12 +1390,12 @@
     },
     "quickAddMagic": {
       "hint": "Use magic prefixes to define due dates, assignees and other task properties.",
-      "quickEntryHint": "Use magic prefixes for dates, labels & more. Open the main Vikunja app and check the tooltip on the task input for more details.",
+      "quickEntryHint": "Use magic prefixes for dates, labels & more. Open the main Hefzul Tasks app and check the tooltip on the task input for more details.",
       "title": "Quick Add Magic",
       "intro": "When creating a task, you can use special keywords to directly add attributes to the newly created task. This allows to add commonly used attributes to tasks much faster.",
       "multiple": "You can use this multiple times.",
       "label1": "To add a label, simply prefix the name of the label with {prefix}.",
-      "label2": "Vikunja will first check if the label already exist and create it if not.",
+      "label2": "Hefzul Tasks will first check if the label already exist and create it if not.",
       "label3": "To use spaces, simply add a \" or ' around the label name.",
       "label4": "For example: {prefix}\"Label with spaces\".",
       "priority1": "To set a task's priority, add a number 1-5, prefixed with a {prefix}.",
@@ -1495,12 +1548,12 @@
     "views": "Views"
   },
   "apiConfig": {
-    "url": "Vikunja URL",
+    "url": "Hefzul Tasks URL",
     "urlPlaceholder": "eg. https://localhost:3456",
     "change": "change",
-    "use": "Using Vikunja installation at {0}",
-    "error": "Could not find or use Vikunja installation at \"{domain}\". Please check if the url has the correct format and you can reach it when accessing it directly and try again.",
-    "success": "Using Vikunja installation at \"{domain}\".",
+    "use": "Using Hefzul Tasks installation at {0}",
+    "error": "Could not find or use Hefzul Tasks installation at \"{domain}\". Please check if the url has the correct format and you can reach it when accessing it directly and try again.",
+    "success": "Using Hefzul Tasks installation at \"{domain}\".",
     "urlRequired": "A url is required."
   },
   "loadingError": {
@@ -1523,7 +1576,7 @@
   },
   "quickActions": {
     "title": "Search and quick actions",
-    "notLoggedIn": "Please log in to the main Vikunja window first.",
+    "notLoggedIn": "Please log in to the main Hefzul Tasks window first.",
     "commands": "Commands",
     "placeholder": "Type a command or search…",
     "hint": "You can use {project} to limit the search to a project. Combine {project} or {label} (labels) with a search query to search for a task with these labels or on that project. Use {assignee} to only search for teams.",
@@ -1657,23 +1710,25 @@
     "14001": "The provided api token is invalid.",
     "14002": "The permission {permission} of group {group} is invalid.",
     "14005": "A migration from this service is already running. Please wait until it is done.",
-    "14009": "The provided zip file does not contain a Vikunja data file. Make sure you upload a Vikunja export.",
+    "14009": "The provided zip file does not contain a Hefzul Tasks data file. Make sure you upload a Hefzul Tasks export.",
     "14010": "The provided file could not be parsed. Please make sure it is a valid export file.",
     "14011": "The provided file is not a valid zip file.",
     "14012": "The provided file does not contain any data.",
-    "14013": "The export was created with a Vikunja version that is too old to import. Please create a new export with a more recent version.",
+    "14013": "The export was created with a Hefzul Tasks version that is too old to import. Please create a new export with a more recent version.",
     "14016": "The import configuration could not be parsed. Please make sure it is a valid JSON object.",
     "14201": "Planka rejected the provided credentials. Check the URL and the API key or username and password.",
     "14202": "The Planka account requires an extra login step (two-factor code or accepting the terms). Log in to Planka in the browser once, or use an API key instead of username and password.",
     "14203": "A Planka URL and either an API key or username and password are required.",
-    "14204": "Could not reach a Planka API at the given URL. Check the URL and that Vikunja can reach the instance."
+    "14204": "Could not reach a Planka API at the given URL. Check the URL and that Hefzul Tasks can reach the instance."
   },
   "about": {
     "title": "About",
     "version": "Version: {version}",
     "frontendVersion": "Frontend version: {version}",
     "apiVersion": "API version: {version}",
-    "proActive": "Pro active"
+    "proActive": "Pro active",
+    "license": "Hefzul Tasks is free software under the GNU AGPL-3.0, based on Vikunja.",
+    "sourceCode": "Source code"
   },
   "timeTracking": {
     "title": "Time tracking",
@@ -1803,6 +1858,184 @@
       "empty": "No invite links yet. Create a link to invite people to this instance.",
       "futureExpiry": "Choose an expiry in the future.",
       "creatorDeleted": "Deleted user"
+    }
+  },
+  "offlineSync": {
+    "offline": "You are offline. Changes are saved on this device.",
+    "pending": "{count} change waiting to sync | {count} changes waiting to sync",
+    "syncing": "Syncing {count} change… | Syncing {count} changes…",
+    "syncNow": "Sync now",
+    "signInAgain": "Your sign-in expired. Sign in again to send {count} saved change. | Your sign-in expired. Sign in again to send {count} saved changes.",
+    "signIn": "Sign in",
+    "deleteSkipped": "\"{title}\" was changed by someone else, so your offline delete was not applied.",
+    "rejected": "The server did not accept {title}; it was not saved.",
+    "aChange": "a change",
+    "conflictTitle": "\"{title}\" changed while you were offline",
+    "conflictIntro": "Someone else changed these fields too. Choose which version to keep for each.",
+    "field": "Field",
+    "yours": "Your version",
+    "theirs": "Server version",
+    "keepSelected": "Keep selected",
+    "yes": "Yes",
+    "no": "No",
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "done": "Done",
+      "dueDate": "Due date",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "priority": "Priority",
+      "percentDone": "Progress"
+    }
+  },
+  "calendar": {
+    "title": "Calendar",
+    "today": "Today",
+    "previous": "Previous",
+    "next": "Next",
+    "project": "Project",
+    "allDay": "All day",
+    "more": "+{count} more",
+    "unscheduled": "No date yet",
+    "dragHint": "Drag a task onto the calendar to give it a date and time, or select it to type one.",
+    "noUnscheduled": "Every open task has a date.",
+    "dueAt": "Date and time",
+    "openTask": "Open task",
+    "removeDate": "Remove date",
+    "mode": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month"
+    }
+  },
+  "habits": {
+    "title": "Habits",
+    "new": "New habit",
+    "empty": "No habits yet. Add one you want to keep up, such as reading or exercise.",
+    "showArchived": "Show archived",
+    "summary": "{done} of {due} done today",
+    "checkIn": "Check in on {title} ({count} of {target} today)",
+    "undo": "Undo the last check-in on {title}",
+    "edit": "Edit {title}",
+    "confirmDelete": "Delete \"{title}\" and all its check-ins? Archive it instead to keep the history.",
+    "remindAt": "reminder {time}",
+    "currentStreak": "Current streak",
+    "bestStreak": "Best streak",
+    "monthRate": "This month",
+    "days": "{count} day | {count} days",
+    "weeks": "{count} week | {count} weeks",
+    "timesADay": "{count} time a day | {count} times a day",
+    "dayCount": "{date}: {count}",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "schedule": {
+      "daily": "Every day",
+      "weekdays": "On certain days",
+      "timesPerWeek": "A number of times per week",
+      "timesPerWeekShort": "{count} time a week | {count} times a week"
+    },
+    "form": {
+      "icon": "Icon",
+      "title": "Habit",
+      "schedule": "Repeat",
+      "days": "Days",
+      "pickDays": "Pick at least one day.",
+      "timesPerWeek": "Times per week",
+      "dailyTarget": "Check-ins per day",
+      "reminder": "Reminder",
+      "color": "Colour",
+      "archived": "Archived"
+    }
+  },
+  "countdowns": {
+    "title": "Countdowns",
+    "new": "New countdown",
+    "empty": "No countdowns yet. Add birthdays, anniversaries or deadlines.",
+    "edit": "Edit {title}",
+    "confirmDelete": "Delete the countdown \"{title}\"?",
+    "today": "today",
+    "daysLeft": "day left | days left",
+    "daysAgo": "day ago | days ago",
+    "years": "{count} year | {count} years",
+    "everyYear": "every year",
+    "form": {
+      "title": "Title",
+      "date": "Date",
+      "repeatYearly": "Repeat every year (birthday, anniversary)",
+      "pinned": "Always show on the dashboard",
+      "color": "Colour"
+    }
+  },
+  "focus": {
+    "title": "Focus",
+    "timeLeft": "{time} left",
+    "paused": "Paused",
+    "pause": "Pause",
+    "resume": "Resume",
+    "stop": "Stop",
+    "skipBreak": "Skip break",
+    "start": "Start {kind}",
+    "sessionType": "Session type",
+    "task": "Task",
+    "noTask": "No task",
+    "minutes": "{count} min",
+    "wellDone": "Focus session done. Time for a break.",
+    "breakOver": "Break is over. Ready for the next focus session?",
+    "kind": {
+      "focus": "Focus",
+      "short_break": "Short break",
+      "long_break": "Long break"
+    },
+    "notification": {
+      "focusDoneTitle": "Focus session complete",
+      "focusDoneBody": "Well done. Take a break.",
+      "breakOverTitle": "Break is over",
+      "breakOverBody": "Ready to focus again?"
+    },
+    "settings": {
+      "title": "Timer settings",
+      "focusMinutes": "Focus (minutes)",
+      "shortBreakMinutes": "Short break (minutes)",
+      "longBreakMinutes": "Long break (minutes)",
+      "sessionsBeforeLongBreak": "Focus sessions before a long break",
+      "autoStartBreaks": "Start breaks automatically",
+      "sound": "End sound",
+      "testSound": "Test sound",
+      "sounds": {
+        "bell": "Bell",
+        "chime": "Chime",
+        "none": "None"
+      }
+    },
+    "stats": {
+      "title": "Focus statistics",
+      "range": {
+        "week": "Last 7 days",
+        "month": "Last 30 days"
+      },
+      "today": "Today",
+      "total": {
+        "week": "Last 7 days",
+        "month": "Last 30 days"
+      },
+      "sessions": "Completed sessions",
+      "streak": "Daily streak",
+      "days": "{count} day | {count} days",
+      "perDay": "Focus time per day",
+      "byTask": "By task",
+      "byProject": "By project",
+      "none": "No focus time yet",
+      "unknownTask": "Deleted or hidden task"
+    }
+  },
+  "native": {
+    "habitReminderTitle": "Habit reminder",
+    "updateAvailable": "Version {version} of the app is available.",
+    "updateDownload": "Download",
+    "channels": {
+      "focus": "Focus timer",
+      "habits": "Habit reminders"
     }
   }
 }

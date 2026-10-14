@@ -1,0 +1,120 @@
+# Hefzul Tasks production stack: app, PostgreSQL, Caddy (HTTPS) and a nightly
+# backup job. Copy .env.example to .env, fill it in, then: docker compose up -d
+# See README.md for the full setup, backup and restore steps.
+
+name: hefzul-tasks
+
+services:
+  # The app runs as uid 1000; a fresh named volume is owned by root.
+  files-permissions:
+    image: alpine:3.21
+    command: ["chown", "1000:1000", "/files"]
+    volumes:
+      - files:/files
+    restart: "no"
+
+  app:
+    image: ${HEFZUL_IMAGE:-ghcr.io/hefzulinnovations/hefzul-tasks:main}
+    restart: unless-stopped
+    environment:
+      VIKUNJA_SERVICE_PUBLICURL: https://${HEFZUL_DOMAIN}/
+      VIKUNJA_SERVICE_JWTSECRET: ${HEFZUL_JWT_SECRET:?set HEFZUL_JWT_SECRET in .env}
+      VIKUNJA_SERVICE_TIMEZONE: ${HEFZUL_TIMEZONE:-Asia/Dhaka}
+      VIKUNJA_SERVICE_ENABLEREGISTRATION: "false"
+      VIKUNJA_SERVICE_ENABLETOTP: "true"
+      # The Android app runs on https://localhost and calls the API cross-origin.
+      VIKUNJA_CORS_ENABLE: "true"
+      VIKUNJA_CORS_ORIGINS: ${HEFZUL_CORS_ORIGINS:-https://localhost}
+      VIKUNJA_DATABASE_TYPE: postgres
+      VIKUNJA_DATABASE_HOST: db
+      VIKUNJA_DATABASE_DATABASE: hefzul
+      VIKUNJA_DATABASE_USER: hefzul
+      VIKUNJA_DATABASE_PASSWORD: ${HEFZUL_DB_PASSWORD:?set HEFZUL_DB_PASSWORD in .env}
+      VIKUNJA_MAILER_ENABLED: ${HEFZUL_MAILER_ENABLED:-false}
+      VIKUNJA_MAILER_HOST: ${HEFZUL_MAILER_HOST:-}
+      VIKUNJA_MAILER_PORT: ${HEFZUL_MAILER_PORT:-587}
+      VIKUNJA_MAILER_USERNAME: ${HEFZUL_MAILER_USERNAME:-}
+      VIKUNJA_MAILER_PASSWORD: ${HEFZUL_MAILER_PASSWORD:-}
+      VIKUNJA_MAILER_FROMEMAIL: ${HEFZUL_MAILER_FROMEMAIL:-}
+    volumes:
+      - files:/app/vikunja/files
+    depends_on:
+      db:
+        condition: service_healthy
+      files-permissions:
+        condition: service_completed_successfully
+    mem_limit: 256m
+
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hefzul
+      POSTGRES_USER: hefzul
+      POSTGRES_PASSWORD: ${HEFZUL_DB_PASSWORD}
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hefzul -d hefzul"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    # Sized for a 1 vCPU / 2 GB VPS with up to 10 users.
+    command: ["postgres", "-c", "shared_buffers=64MB", "-c", "max_connections=30", "-c", "work_mem=4MB"]
+    mem_limit: 256m
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      HEFZUL_DOMAIN: ${HEFZUL_DOMAIN:?set HEFZUL_DOMAIN in .env}
+      HEFZUL_ACME_EMAIL: ${HEFZUL_ACME_EMAIL:-}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./downloads:/srv/downloads:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    mem_limit: 64m
+
+  backup:
+    build: ./backup
+    restart: unless-stopped
+    environment:
+      TZ: ${HEFZUL_TIMEZONE:-Asia/Dhaka}
+      BACKUP_TIME: ${HEFZUL_BACKUP_TIME:-02:30}
+      BACKUP_KEEP_DAYS: ${HEFZUL_BACKUP_KEEP_DAYS:-14}
+      PGHOST: db
+      PGDATABASE: hefzul
+      PGUSER: hefzul
+      PGPASSWORD: ${HEFZUL_DB_PASSWORD}
+      # Off-site copy through rclone; leave HEFZUL_OFFSITE_REMOTE empty to keep backups local only.
+      OFFSITE_REMOTE: ${HEFZUL_OFFSITE_REMOTE:-}
+      RCLONE_CONFIG_OFFSITE_TYPE: ${HEFZUL_OFFSITE_TYPE:-}
+      RCLONE_CONFIG_OFFSITE_PROVIDER: ${HEFZUL_OFFSITE_S3_PROVIDER:-}
+      RCLONE_CONFIG_OFFSITE_ENDPOINT: ${HEFZUL_OFFSITE_S3_ENDPOINT:-}
+      RCLONE_CONFIG_OFFSITE_ACCESS_KEY_ID: ${HEFZUL_OFFSITE_S3_ACCESS_KEY_ID:-}
+      RCLONE_CONFIG_OFFSITE_SECRET_ACCESS_KEY: ${HEFZUL_OFFSITE_S3_SECRET_ACCESS_KEY:-}
+      RCLONE_CONFIG_OFFSITE_REGION: ${HEFZUL_OFFSITE_S3_REGION:-}
+      RCLONE_CONFIG_OFFSITE_URL: ${HEFZUL_OFFSITE_WEBDAV_URL:-}
+      RCLONE_CONFIG_OFFSITE_VENDOR: ${HEFZUL_OFFSITE_WEBDAV_VENDOR:-other}
+      RCLONE_CONFIG_OFFSITE_USER: ${HEFZUL_OFFSITE_WEBDAV_USER:-}
+      RCLONE_CONFIG_OFFSITE_PASS: ${HEFZUL_OFFSITE_WEBDAV_PASS_OBSCURED:-}
+    volumes:
+      - files:/data/files
+      - ./backups:/backups
+    depends_on:
+      db:
+        condition: service_healthy
+    mem_limit: 128m
+
+volumes:
+  db:
+  files:
+  caddy_data:
+  caddy_config:

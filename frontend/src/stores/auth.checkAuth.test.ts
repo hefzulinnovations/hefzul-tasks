@@ -112,6 +112,9 @@ describe('auth store checkAuth refresh (issue #4023)', () => {
 		routerMock.push.mockReset()
 		routerMock.currentRoute.value = {name: 'home'}
 		localStorage.clear()
+		// The cached account decides offline sign-in; a leftover from another test must not leak in.
+		const {queryClient} = await import('@/client/queryClient')
+		queryClient.clear()
 	})
 
 	afterEach(() => {

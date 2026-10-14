@@ -127,6 +127,11 @@ const router = createRouter({
 					component: () => import('@/views/user/settings/DataExport.vue'),
 				},
 				{
+					path: '/user/settings/push',
+					name: 'user.settings.push',
+					component: () => import('@/views/user/settings/PushNotifications.vue'),
+				},
+				{
 					path: '/user/settings/feeds',
 					name: 'user.settings.feeds',
 					component: () => import('@/views/user/settings/AtomFeed.vue'),
@@ -231,6 +236,54 @@ const router = createRouter({
 				showNulls: route.query.showNulls === 'true',
 				showOverdue: route.query.showOverdue === 'true',
 			}),
+		},
+		{
+			path: '/tasks/by/today',
+			name: 'tasks.today',
+			component: UpcomingTasks,
+			props: route => ({
+				dateFrom: parseDateOrString(route.query.from as string, 'now/d'),
+				dateTo: parseDateOrString(route.query.to as string, 'now/d+1d'),
+				showNulls: route.query.showNulls === 'true',
+				// Overdue tasks belong in Today; sorting by due date lists them first.
+				showOverdue: route.query.showOverdue !== 'false',
+			}),
+		},
+		{
+			path: '/tasks/by/next-7-days',
+			name: 'tasks.next7Days',
+			component: UpcomingTasks,
+			props: route => ({
+				dateFrom: parseDateOrString(route.query.from as string, 'now'),
+				dateTo: parseDateOrString(route.query.to as string, 'now+7d'),
+				showNulls: route.query.showNulls === 'true',
+				showOverdue: route.query.showOverdue !== 'false',
+			}),
+		},
+		{
+			path: '/calendar',
+			name: 'calendar',
+			component: () => import('@/views/calendar/CalendarView.vue'),
+		},
+		{
+			path: '/habits',
+			name: 'habits',
+			component: () => import('@/views/habits/HabitsView.vue'),
+		},
+		{
+			path: '/countdowns',
+			name: 'countdowns',
+			component: () => import('@/views/countdowns/CountdownsView.vue'),
+		},
+		{
+			path: '/focus',
+			name: 'focus',
+			component: () => import('@/views/focus/FocusView.vue'),
+		},
+		{
+			path: '/tasks/by/matrix',
+			name: 'tasks.matrix',
+			component: () => import('@/views/tasks/EisenhowerMatrix.vue'),
 		},
 		{
 			// Redirect old list routes to the respective project routes

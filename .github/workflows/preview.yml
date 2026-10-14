@@ -11,6 +11,9 @@ on:
 
 jobs:
   docker:
+    # Previews deploy to Vikunja's own preview host; a fork has neither the
+    # host nor its secrets.
+    if: github.repository == 'go-vikunja/vikunja'
     runs-on: ubuntu-latest
     # Fork pull_request_target runs skip the usual outside-contributor approval prompt.
     # `preview-fork` carries required reviewers to put that gate back; `preview-trusted`

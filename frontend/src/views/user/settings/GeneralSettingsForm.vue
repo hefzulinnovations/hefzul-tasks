@@ -345,7 +345,7 @@ import {DATE_DISPLAY} from '@/constants/dateDisplay'
 import {TIME_FORMAT} from '@/constants/timeFormat'
 import {PRO_FEATURE} from '@/constants/proFeatures'
 import {RELATION_KINDS} from '@/types/IRelationKind'
-import {isDesktopApp} from '@/helpers/desktopAuth'
+import {isAndroidApp, isDesktopApp} from '@/helpers/desktopAuth'
 import ShortcutRecorder from '@/components/misc/ShortcutRecorder.vue'
 import Reminders from '@/components/tasks/partials/Reminders.vue'
 import {REMINDER_PERIOD_RELATIVE_TO_TYPES} from '@/types/IReminderPeriodRelativeTo'
@@ -354,7 +354,8 @@ const props = defineProps<{identity: AccountIdentity}>()
 
 defineOptions({name: 'UserSettingsGeneralForm'})
 
-const isDesktop = isDesktopApp()
+// The quick entry window is desktop-only.
+const isDesktop = isDesktopApp() && !isAndroidApp()
 
 const {t} = useI18n({useScope: 'global'})
 useTitle(() => `${t('user.settings.general.title')} - ${t('user.settings.title')}`)

@@ -2,7 +2,7 @@
 	"notifications": {
 		"email_confirm": {
 			"subject": "%[1]s, 请在Vikunja确认你的邮箱地址",
-			"welcome": "欢迎使用 Vikunja！",
+			"welcome": "欢迎使用 Hefzul Tasks！",
 			"confirm": "要确认您的电子邮件地址，请点击下面的链接："
 		},
 		"password": {
@@ -12,7 +12,7 @@
 				"warning": "如果不是你，这可能意味着有人破坏你的帐户。在这种情况下，请联系你的服务器管理员。"
 			},
 			"reset": {
-				"subject": "重置您在 Vikunja 上的密码",
+				"subject": "重置您在 Hefzul Tasks 上的密码",
 				"instructions": "如要重置您的密码，请点击下面的链接：",
 				"valid_duration": "此链接将有效期为24小时。"
 			}
@@ -24,7 +24,7 @@
 				"warning": "**如果不是你，意味着其他人知道你的密码。你应该立即设置一个新的密码！**"
 			},
 			"account_locked": {
-				"subject": "我们已在 Vikunja 禁用您的帐户",
+				"subject": "我们已在 Hefzul Tasks 禁用您的帐户",
 				"message": "有人试图使用您的凭据登录，但未能提供有效的TOTP密码。",
 				"disabled": "在10次尝试失败后，我们已禁用您的账户并重置您的密码。 若要设置一个新密码，请遵循我们刚刚发送给您的重置邮件中的说明。",
 				"reset_instructions": "如果您没有收到重置指令的电子邮件，您可以在 [%[1]s](%[2]s)请求新的重置指令。"
@@ -41,7 +41,7 @@
 		"account": {
 			"deletion": {
 				"confirm": {
-					"subject": "请确认删除您的 Vikunja 账户",
+					"subject": "请确认删除您的 Hefzul Tasks 账户",
 					"request": "您已请求删除您的帐户。要确认这一点，请点击下面的链接：",
 					"valid_duration": "此链接的有效期为24小时。",
 					"schedule_info": "一旦您确认删除，我们将在三天内删除您的帐户，然后那时再发送一封电子邮件。",
@@ -49,7 +49,7 @@
 					"changed_mind": "如果你没有请求删除或改变主意，你可以忽略这封电子邮件。"
 				},
 				"scheduled": {
-					"subject_days": "您的 Vikunja 帐户将在 %[1]s 天内删除",
+					"subject_days": "您的 Hefzul Tasks 帐户将在 %[1]s 天内删除",
 					"subject_tomorrow": "您的Vikunja账户明天将被删除",
 					"request_reminder": "您最近请求删除您的Vikunja帐户。",
 					"deletion_time_days": "我们将在 %[1]s 天内删除您的帐户。",
@@ -57,7 +57,7 @@
 					"changed_mind": "如果你改变了主意，只需点击下面的链接取消删除并按照下面的说明操作："
 				},
 				"completed": {
-					"subject": "您的 Vikunja 帐户已被删除",
+					"subject": "您的 Hefzul Tasks 帐户已被删除",
 					"confirmation": "按照要求，我们已删除您的Vikunja帐户。",
 					"permanent": "这个删除是永久性的。如果没有创建备份并且现在需要你的数据，请与你的管理员联系。"
 				}
@@ -98,8 +98,8 @@
 		},
 		"data_export": {
 			"ready": {
-				"subject": "您的 Vikunja 数据导出已准备好",
-				"message": "您的 Vikunja 数据导出已准备好下载。点击下面的按钮下载它：",
+				"subject": "您的 Hefzul Tasks 数据导出已准备好",
+				"message": "您的 Hefzul Tasks 数据导出已准备好下载。点击下面的按钮下载它：",
 				"availability": "能够在7天内下载。"
 			}
 		},
@@ -121,7 +121,7 @@
 			"have_nice_day": "祝你有愉快的一天！",
 			"copy_url": "如果上面的按钮无法工作，请复制下面的URL并将其粘贴到您的浏览器地址栏：",
 			"actions": {
-				"open_vikunja": "打开 Vikunja",
+				"open_vikunja": "打开 Hefzul Tasks",
 				"open_project": "打开项目",
 				"open_team": "打开团队",
 				"download": "下载",

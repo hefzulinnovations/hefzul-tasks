@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Hefzul Tasks</string>
+    <string name="title_activity_main">Hefzul Tasks</string>
+    <string name="package_name">com.hefzul.tasks</string>
+    <string name="custom_url_scheme">com.hefzul.tasks</string>
+    <string name="focus_channel_name">Focus timer</string>
+</resources>

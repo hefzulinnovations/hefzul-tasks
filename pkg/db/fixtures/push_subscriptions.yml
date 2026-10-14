@@ -1,0 +1,9 @@
+- id: 1
+  user_id: 1
+  endpoint: https://push.example.com/send/user1-device
+  endpoint_hash: 3b1e0f6a7c4d2e9b8a5f6c3d1e0b9a8f7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f
+  p256dh: BNcRdreALRFXTkOOUHK1EtK2wtaz5Ry4YfYCA_0QTpQtUbVlUls0VJXg7A8u-Ts1XbjhazAkj7I99e8QcYP7DkM
+  auth: tBHItJI5svbpez7KI4CCXg
+  include_content: false
+  device: test browser
+  created: 2026-10-01 09:00:00

@@ -1,0 +1,134 @@
+name: hefzul-android
+
+# Builds the Hefzul Tasks Android APK (android/) from the web app.
+# Pull requests only check that it builds. Pushes to main upload the APK and
+# latest.json as a workflow artifact; tags hefzul-v* also attach them to a
+# GitHub release. Copy both to the server's downloads folder (see
+# android/README.md) so the app can offer the update.
+#
+# Signing: set the repository secrets HEFZUL_KEYSTORE_BASE64,
+# HEFZUL_KEYSTORE_PASSWORD, HEFZUL_KEY_ALIAS and HEFZUL_KEY_PASSWORD. Without
+# them the APK is signed with the runner's throwaway debug key, and Android
+# will not install it over a build signed with a different key.
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'hefzul-v*'
+    paths:
+      - 'android/**'
+      - 'frontend/**'
+      - '.github/workflows/hefzul-android.yml'
+  pull_request:
+    paths:
+      - 'android/**'
+      - 'frontend/src/native/**'
+      - '.github/workflows/hefzul-android.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hefzul-android-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Build numbers keep growing across workflow runs; the offset leaves room
+  # for builds made by hand before this workflow existed.
+  VERSION_CODE_OFFSET: 100
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+        with:
+          package_json_file: frontend/package.json
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: frontend/.nvmrc
+          cache: pnpm
+          cache-dependency-path: |
+            frontend/pnpm-lock.yaml
+            android/pnpm-lock.yaml
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+          cache-dependency-path: android/native/**/*.gradle*
+      - name: Version
+        id: version
+        run: |
+          code=$((GITHUB_RUN_NUMBER + VERSION_CODE_OFFSET))
+          base=$(node -p "require('./frontend/package.json').version")
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          echo "name=$base-$code" >> "$GITHUB_OUTPUT"
+      - name: Build web app
+        working-directory: frontend
+        run: |
+          pnpm install --frozen-lockfile --prefer-offline --fetch-timeout 100000
+          pnpm run build
+      - name: Copy web app into the Android project
+        working-directory: android
+        run: |
+          pnpm install --frozen-lockfile --prefer-offline --fetch-timeout 100000
+          pnpm exec cap sync android
+      - name: Signing key
+        id: signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.HEFZUL_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/hefzul.jks"
+            echo "file=$RUNNER_TEMP/hefzul.jks" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::No signing key configured; the APK is signed with a throwaway debug key."
+          fi
+      - name: Build APK
+        working-directory: android/native
+        env:
+          HEFZUL_VERSION_CODE: ${{ steps.version.outputs.code }}
+          HEFZUL_VERSION_NAME: ${{ steps.version.outputs.name }}
+          HEFZUL_KEYSTORE_FILE: ${{ steps.signing.outputs.file }}
+          HEFZUL_KEYSTORE_PASSWORD: ${{ secrets.HEFZUL_KEYSTORE_PASSWORD }}
+          HEFZUL_KEY_ALIAS: ${{ secrets.HEFZUL_KEY_ALIAS }}
+          HEFZUL_KEY_PASSWORD: ${{ secrets.HEFZUL_KEY_PASSWORD }}
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon assembleRelease
+      - name: Collect APK and latest.json
+        env:
+          VERSION_CODE: ${{ steps.version.outputs.code }}
+          VERSION_NAME: ${{ steps.version.outputs.name }}
+        run: |
+          mkdir -p out
+          cp android/native/app/build/outputs/apk/release/app-release.apk out/hefzul-tasks.apk
+          cat > out/latest.json <<EOF
+          {
+            "versionCode": $VERSION_CODE,
+            "versionName": "$VERSION_NAME",
+            "url": "/downloads/android/hefzul-tasks.apk"
+          }
+          EOF
+          sha256sum out/hefzul-tasks.apk
+      - name: Upload artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: hefzul-tasks-android-${{ steps.version.outputs.name }}
+          path: out/
+      - name: Release
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
+        with:
+          files: |
+            out/hefzul-tasks.apk
+            out/latest.json

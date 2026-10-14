@@ -467,6 +467,7 @@ func gateV2AdminRoutes() echo.MiddlewareFunc {
 func registerAPIRoutesV2(e *echo.Echo, a *echo.Group, noAuthRateLimit, refreshRateLimit echo.MiddlewareFunc) {
 	a.Use(noStoreCacheControl())
 	a.Use(SetupTokenMiddleware())
+	a.Use(idempotencyMiddleware())
 	a.Use(pathScoped(v2SessionRenewalPaths.has, refreshRateLimit))
 	a.Use(pathScoped(v2CredentialPaths.has, noAuthRateLimit))
 	// Match the authenticated v1 group: rate limiting and route metrics
@@ -570,6 +571,7 @@ func registerAPIRoutes(a *echo.Group, noAuthRateLimit, refreshRateLimit echo.Mid
 
 	// ===== Routes with Authentication =====
 	a.Use(SetupTokenMiddleware())
+	a.Use(idempotencyMiddleware())
 
 	// Rate limit
 	setupRateLimit(a, config.RateLimitKind.GetString())

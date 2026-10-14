@@ -2284,6 +2284,10 @@ func hardDeleteTask(s *xorm.Session, t *Task) (err error) {
 		return
 	}
 
+	if err = detachFocusSessionsFromTask(s, t.ID); err != nil {
+		return err
+	}
+
 	_, err = s.ID(t.ID).Unscoped().Delete(&Task{})
 	return
 }
