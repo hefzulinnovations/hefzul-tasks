@@ -23,7 +23,6 @@ import (
 	"code.vikunja.io/api/pkg/db"
 	"code.vikunja.io/api/pkg/log"
 
-	"xorm.io/builder"
 	"xorm.io/xorm"
 )
 
@@ -51,8 +50,9 @@ func (*IdempotencyKey) TableName() string {
 
 // GetIdempotencyKey returns the stored result for the user's key, or nil.
 func GetIdempotencyKey(s *xorm.Session, userID int64, key string) (*IdempotencyKey, error) {
-	stored := &IdempotencyKey{}
-	exists, err := s.Where(builder.Eq{"user_id": userID, "key": key}).Get(stored)
+	// A struct condition lets xorm quote the column: key is reserved in MySQL.
+	stored := &IdempotencyKey{UserID: userID, Key: key}
+	exists, err := s.Get(stored)
 	if err != nil || !exists {
 		return nil, err
 	}
