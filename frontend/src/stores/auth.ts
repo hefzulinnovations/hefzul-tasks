@@ -1,5 +1,8 @@
 import {CancelledError, useQuery} from '@tanstack/vue-query'
-import {currentUserQuery, normalizeUserSettings, refreshCurrentUser} from '@/client/queries/account'
+import {accountKeys, currentUserQuery, normalizeUserSettings, refreshCurrentUser} from '@/client/queries/account'
+import {clearQueryCache} from '@/client/offline/persist'
+import {clearOutbox} from '@/client/offline/outbox'
+import {isNetworkError} from '@/client/offline/network'
 import {computed, readonly, ref, watch} from 'vue'
 import {acceptHMRUpdate, defineStore} from 'pinia'
 
@@ -110,6 +113,14 @@ function redirectToSpecifiedProvider() {
 
 // pkg/models ErrCodeNoRefreshToken
 const ERROR_CODE_NO_REFRESH_TOKEN = 16005
+
+function cachedAccount(id: number, type: number) {
+	return queryClient.getQueryData<Awaited<ReturnType<typeof refreshCurrentUser>>>(accountKeys.user(id, type as AuthType))
+}
+
+function hasCachedAccount(id: number | undefined, type: number | undefined) {
+	return id !== undefined && cachedAccount(id, type ?? AUTH_TYPES.USER) !== undefined
+}
 
 function refreshFailure(e: unknown) {
 	return e instanceof RefreshTokenError ? e.failure : undefined
@@ -475,6 +486,12 @@ export const useAuthStore = defineStore('auth', () => {
 						if (rejected401 && localStorage.getItem('token') === jwt) {
 							removeToken()
 						}
+						// Offline with a known account: keep working from the cache; the
+						// outbox waits, and the session refreshes once the server answers.
+						if (failure?.kind === 'network' && hasCachedAccount(payload.id, payload.type)) {
+							isAuthenticated = true
+							setSession(payload)
+						}
 					}
 				}
 			} catch (_) {
@@ -517,6 +534,9 @@ export const useAuthStore = defineStore('auth', () => {
 			return newUser
 		} catch (e) {
 			if (e instanceof CancelledError) return
+			// Offline: the cached account is good enough until the server is back.
+			const cached = cachedAccount(session.value?.id ?? 0, session.value?.type ?? AUTH_TYPES.USER)
+			if (cached && isNetworkError(e)) return cached
 
 			const problem = e as VikunjaErrorModel
 			if (
@@ -606,6 +626,8 @@ export const useAuthStore = defineStore('auth', () => {
 		setAuthenticated(false)
 		setSession(null)
 		window.localStorage.clear() // Clear all settings and history we might have saved in local storage.
+		// Another person signing in on this device must not see or replay these.
+		await Promise.all([clearQueryCache(), clearOutbox()]).catch(() => undefined)
 
 		sessionStorage.setItem(JUST_LOGGED_OUT_KEY, 'true')
 

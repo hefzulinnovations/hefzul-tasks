@@ -136,11 +136,23 @@ describe('config store', () => {
 		})
 
 		it('passes an Error rejection through unwrapped', async () => {
+			localStorage.removeItem('hefzul.offlineConfig')
 			const failure = new TypeError('Failed to fetch')
 			sdk.info.mockRejectedValue(failure)
 			const store = useConfigStore()
 
 			await expect(store.update()).rejects.toBe(failure)
+		})
+
+		it('starts from the last config of this server when offline', async () => {
+			sdk.info.mockResolvedValue({data: {version: 'v1.2.3', frontend_url: 'https://tasks.example.com/'}})
+			const store = useConfigStore()
+			await expect(store.update()).resolves.toBe(true)
+
+			sdk.info.mockRejectedValue(new TypeError('Failed to fetch'))
+			const offline = useConfigStore()
+			await expect(offline.update()).resolves.toBe(true)
+			expect(offline.version).toBe('v1.2.3')
 		})
 
 		it('blanks legal and provider urls that are not http', async () => {

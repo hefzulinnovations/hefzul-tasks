@@ -21,6 +21,9 @@ import type {
 	FocusStats,
 } from '@/client/generated'
 import {contextMutationOptions} from './contextMutation'
+import {offlineFirst} from '@/client/offline/offlineFirst'
+import {enqueue} from '@/client/offline/outbox'
+import {queryClient} from '@/client/queryClient'
 
 export type FocusKind = 'focus' | 'short_break' | 'long_break'
 export type FocusStatus = 'running' | 'paused' | 'completed' | 'abandoned'
@@ -158,8 +161,19 @@ export type FinishFocusInput = {id: number, status: 'completed' | 'abandoned'}
 
 export function finishFocusSessionMutationOptions() {
 	return contextMutationOptions({
-		mutationFn: async ({id, status}: FinishFocusInput) =>
-			normalizeFocusSession((await focusSessionsFinish({path: {id}, body: {status}})).data),
+		mutationFn: async ({id, status}: FinishFocusInput) => offlineFirst(
+			async headers => normalizeFocusSession((await focusSessionsFinish({path: {id}, body: {status}, ...headers})).data),
+			async key => {
+				await enqueue({kind: 'focus.finish', key, createdAt: new Date().toISOString(), sessionId: id, status})
+				const current = queryClient.getQueryData<FocusSessionResponse | null>(focusKeys.current)
+				return {
+					...(current ?? normalizeFocusSession({id})),
+					id,
+					status,
+					ended_at: new Date().toISOString(),
+				}
+			},
+		),
 		onSuccess: (session, _input, client) => patchCurrentFocusSession(client, session),
 		onSettled: (_input, client) => settle(client),
 	})

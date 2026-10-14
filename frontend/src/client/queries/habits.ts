@@ -11,6 +11,11 @@ import {
 import type {Habit, HabitStats, HabitWritable} from '@/client/generated'
 import {contextMutationOptions} from './contextMutation'
 import {fetchAllPages} from './fetchAllPages'
+import {offlineFirst} from '@/client/offline/offlineFirst'
+import {enqueue} from '@/client/offline/outbox'
+import {online} from '@/client/offline/network'
+import {todayIn} from '@/helpers/todayIn'
+import {useAuthStore} from '@/stores/auth'
 
 export type HabitScheduleKind = 'daily' | 'weekdays' | 'times_per_week'
 
@@ -142,12 +147,22 @@ function bumpToday(client: import('@tanstack/vue-query').QueryClient, id: number
 
 export function useCheckinHabitMutation() {
 	return useMutation(contextMutationOptions({
-		mutationFn: async ({id, date}: CheckinInput) => (await habitsCheckin({path: {id}, body: date ? {date} : {}})).data,
+		// The day is fixed when the user taps, so a check-in synced tomorrow still counts for today.
+		mutationFn: async ({id, date}: CheckinInput) => {
+			const day = date ?? todayIn(useAuthStore().settings.timezone)
+			return offlineFirst(
+				async headers => (await habitsCheckin({path: {id}, body: {date: day}, ...headers})).data,
+				async key => {
+					await enqueue({kind: 'habit.checkin', key, createdAt: new Date().toISOString(), habitId: id, date: day})
+					return {habit_id: id, date: day}
+				},
+			)
+		},
 		optimistic: {
 			queryKeys: () => [habitKeys.lists],
-			update: ({id, date}, client) => { if (!date) bumpToday(client, id, 1) },
+			update: ({id, date}, client) => { if (!date || date === todayIn(useAuthStore().settings.timezone)) bumpToday(client, id, 1) },
 		},
-		onSettled: (_input, client) => invalidateHabits(client),
+		onSettled: (_input, client) => online.value ? invalidateHabits(client) : Promise.resolve(),
 	}))
 }
 

@@ -1861,6 +1861,35 @@
       "creatorDeleted": "Deleted user"
     }
   },
+  "offlineSync": {
+    "offline": "You are offline. Changes are saved on this device.",
+    "pending": "{count} change waiting to sync | {count} changes waiting to sync",
+    "syncing": "Syncing {count} change… | Syncing {count} changes…",
+    "syncNow": "Sync now",
+    "signInAgain": "Your sign-in expired. Sign in again to send {count} saved change. | Your sign-in expired. Sign in again to send {count} saved changes.",
+    "signIn": "Sign in",
+    "deleteSkipped": "\"{title}\" was changed by someone else, so your offline delete was not applied.",
+    "rejected": "The server did not accept {title}; it was not saved.",
+    "aChange": "a change",
+    "conflictTitle": "\"{title}\" changed while you were offline",
+    "conflictIntro": "Someone else changed these fields too. Choose which version to keep for each.",
+    "field": "Field",
+    "yours": "Your version",
+    "theirs": "Server version",
+    "keepSelected": "Keep selected",
+    "yes": "Yes",
+    "no": "No",
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "done": "Done",
+      "dueDate": "Due date",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "priority": "Priority",
+      "percentDone": "Progress"
+    }
+  },
   "calendar": {
     "title": "Calendar",
     "today": "Today",

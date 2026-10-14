@@ -41,6 +41,8 @@
 
 				<QuickActions />
 
+				<OfflineStatus />
+
 				<RouterView
 					v-slot="{ Component }"
 					:route="routeWithModal"
@@ -93,6 +95,9 @@ import {useSidebarResize} from '@/composables/useSidebarResize'
 import {useWebSocket} from '@/composables/useWebSocket'
 import {useServerCacheEvents} from '@/composables/useServerCacheEvents'
 import {useFocusTimer} from '@/composables/useFocusTimer'
+import {startOutbox} from '@/client/offline/outbox'
+import {queryClient} from '@/client/queryClient'
+import OfflineStatus from '@/components/offline/OfflineStatus.vue'
 import {useAuthStore} from '@/stores/auth'
 
 const authStore = useAuthStore()
@@ -144,6 +149,7 @@ useRenewTokenOnFocus()
 
 useServerCacheEvents()
 useFocusTimer()
+startOutbox(queryClient, () => authStore.authenticated && !authStore.isLinkShareAuth)
 const {connect} = useWebSocket()
 connect()
 

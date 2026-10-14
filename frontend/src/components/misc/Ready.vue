@@ -4,8 +4,9 @@
 		class="offline"
 		style="height: 0;width: 0;"
 	/>
+	<!-- Once loaded (also from the offline cache), the app keeps running without a network. -->
 	<div
-		v-if="!online"
+		v-if="!online && !baseStore.ready"
 		class="app offline"
 	>
 		<div class="offline-message">
