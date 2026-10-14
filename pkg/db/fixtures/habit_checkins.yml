@@ -1,12 +1,12 @@
 - id: 1
   habit_id: 1
-  date: '2026-10-01'
+  date: "RAW='2026-10-01'"
   count: 1
   created: 2026-10-01 20:00:00
   updated: 2026-10-01 20:00:00
 - id: 2
   habit_id: 5
-  date: '2026-10-01'
+  date: "RAW='2026-10-01'"
   count: 1
   created: 2026-10-01 08:00:00
   updated: 2026-10-01 08:00:00

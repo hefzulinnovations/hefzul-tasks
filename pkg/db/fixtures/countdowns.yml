@@ -1,7 +1,7 @@
 - id: 1
   user_id: 1
   title: Birthday
-  target_date: '1990-03-15'
+  target_date: "RAW='1990-03-15'"
   repeat_yearly: true
   pinned: false
   created: 2026-01-01 00:00:00
@@ -9,7 +9,7 @@
 - id: 2
   user_id: 1
   title: Exam
-  target_date: '2099-01-01'
+  target_date: "RAW='2099-01-01'"
   repeat_yearly: false
   pinned: true
   created: 2026-01-01 00:00:00
@@ -17,7 +17,7 @@
 - id: 3
   user_id: 1
   title: Old deadline
-  target_date: '2020-01-01'
+  target_date: "RAW='2020-01-01'"
   repeat_yearly: false
   pinned: false
   created: 2026-01-01 00:00:00
@@ -25,7 +25,7 @@
 - id: 4
   user_id: 2
   title: Anniversary
-  target_date: '2015-06-01'
+  target_date: "RAW='2015-06-01'"
   repeat_yearly: true
   pinned: false
   created: 2026-01-01 00:00:00
