@@ -12,5 +12,18 @@
 		-Server
 	}
 
+	# The Android APK and latest.json, which the app reads to offer updates
+	# (see android/README.md). The app runs on https://localhost, so the
+	# release file allows any origin; it holds nothing private.
+	handle_path /downloads/* {
+		@release path /android/latest.json
+		header @release Access-Control-Allow-Origin "*"
+		header @release Cache-Control "no-cache"
+		@apk path *.apk
+		header @apk Content-Type "application/vnd.android.package-archive"
+		root * /srv/downloads
+		file_server
+	}
+
 	reverse_proxy app:3456
 }

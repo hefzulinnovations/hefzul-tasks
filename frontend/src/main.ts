@@ -1,3 +1,5 @@
+// Must stay first, see the module.
+import './native/install'
 import './client/inviteLink'
 import {createApp} from 'vue'
 import {VueQueryPlugin} from '@tanstack/vue-query'

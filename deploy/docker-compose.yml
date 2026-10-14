@@ -22,6 +22,9 @@ services:
       VIKUNJA_SERVICE_TIMEZONE: ${HEFZUL_TIMEZONE:-Asia/Dhaka}
       VIKUNJA_SERVICE_ENABLEREGISTRATION: "false"
       VIKUNJA_SERVICE_ENABLETOTP: "true"
+      # The Android app runs on https://localhost and calls the API cross-origin.
+      VIKUNJA_CORS_ENABLE: "true"
+      VIKUNJA_CORS_ORIGINS: ${HEFZUL_CORS_ORIGINS:-https://localhost}
       VIKUNJA_DATABASE_TYPE: postgres
       VIKUNJA_DATABASE_HOST: db
       VIKUNJA_DATABASE_DATABASE: hefzul
@@ -72,6 +75,7 @@ services:
       HEFZUL_ACME_EMAIL: ${HEFZUL_ACME_EMAIL:-}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./downloads:/srv/downloads:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on:

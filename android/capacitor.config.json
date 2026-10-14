@@ -1,0 +1,17 @@
+{
+  "appId": "com.hefzul.tasks",
+  "appName": "Hefzul Tasks",
+  "webDir": "../frontend/dist",
+  "android": {
+    "path": "native"
+  },
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_hefzul",
+      "iconColor": "#1973ff"
+    }
+  }
+}

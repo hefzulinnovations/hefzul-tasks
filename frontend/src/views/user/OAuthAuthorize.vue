@@ -8,6 +8,14 @@
 		</Message>
 		<Message v-if="redirectedToApp">
 			{{ $t('user.auth.oauthRedirectedToApp') }}
+			<!-- Mobile browsers may block opening an app without a tap. -->
+			<a
+				v-if="appUrl"
+				:href="appUrl"
+				class="is-block mbs-2"
+			>
+				{{ $t('user.auth.oauthOpenApp') }}
+			</a>
 		</Message>
 		<Message v-else-if="loading">
 			{{ $t('user.auth.authenticating') }}
@@ -32,6 +40,7 @@ const route = useRoute()
 const loading = ref(true)
 const errorMessage = ref('')
 const redirectedToApp = ref(false)
+const appUrl = ref('')
 
 const requiredParams = [
 	'response_type',
@@ -72,6 +81,7 @@ async function authorize() {
 		}
 
 		redirectedToApp.value = true
+		appUrl.value = redirectUrl.toString()
 		loading.value = false
 
 		window.location.href = redirectUrl.toString()

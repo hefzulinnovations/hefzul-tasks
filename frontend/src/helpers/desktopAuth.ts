@@ -4,6 +4,10 @@ export function isDesktopApp(): boolean {
 	return !!window.vikunjaDesktop?.isDesktop
 }
 
+export function isAndroidApp(): boolean {
+	return window.vikunjaDesktop?.platform === 'android'
+}
+
 export function startDesktopOAuthLogin(apiUrl: string): Promise<void> {
 	return window.vikunjaDesktop!.startOAuthLogin(apiUrl)
 }

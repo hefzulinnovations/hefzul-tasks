@@ -95,6 +95,8 @@ import {useSidebarResize} from '@/composables/useSidebarResize'
 import {useWebSocket} from '@/composables/useWebSocket'
 import {useServerCacheEvents} from '@/composables/useServerCacheEvents'
 import {useFocusTimer} from '@/composables/useFocusTimer'
+import {isAndroidApp} from '@/helpers/desktopAuth'
+import {useNativeApp} from '@/native/useNativeApp'
 import {startOutbox} from '@/client/offline/outbox'
 import {queryClient} from '@/client/queryClient'
 import OfflineStatus from '@/components/offline/OfflineStatus.vue'
@@ -149,6 +151,9 @@ useRenewTokenOnFocus()
 
 useServerCacheEvents()
 useFocusTimer()
+if (isAndroidApp()) {
+	useNativeApp()
+}
 startOutbox(queryClient, () => authStore.authenticated && !authStore.isLinkShareAuth)
 const {connect} = useWebSocket()
 connect()

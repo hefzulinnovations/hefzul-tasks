@@ -26,6 +26,7 @@ import BaseButton from '@/components/base/BaseButton.vue'
 import {useLocalStorage} from '@vueuse/core'
 import {computed} from 'vue'
 import {useBaseStore} from '@/stores/base'
+import {isDesktopApp} from '@/helpers/desktopAuth'
 
 const baseStore = useBaseStore()
 
@@ -33,7 +34,8 @@ const hideMessage = useLocalStorage('hideAddToHomeScreenMessage', false)
 const hasUpdateAvailable = computed(() => baseStore.updateAvailable)
 
 const shouldShowMessage = computed(() => {
-	if (hideMessage.value) {
+	// The desktop and Android apps are installed already.
+	if (hideMessage.value || isDesktopApp()) {
 		return false
 	}
 

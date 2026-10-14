@@ -100,6 +100,25 @@ docker compose up -d app
 Database migrations run on start; downtime is usually under a minute. A backup runs every night, but take one by hand before a large upgrade.
 To roll back, pin the previous image in `.env` (`HEFZUL_IMAGE=ghcr.io/hefzulinnovations/hefzul-tasks:sha-<short sha>`) and restore the backup taken before the upgrade.
 
+## 8. Android app
+
+The Android app is an APK served from your own server; see [android/README.md](../android/README.md) for how it is built and signed.
+
+1. Download `hefzul-tasks.apk` and `latest.json` from the latest `hefzul-android` workflow run (or the `hefzul-v*` GitHub release).
+2. Put both into `deploy/downloads/android/` on the server:
+
+   ```sh
+   mkdir -p downloads/android
+   cp hefzul-tasks.apk latest.json downloads/android/
+   ```
+
+   Caddy serves them at `https://<your domain>/downloads/android/`. No restart needed.
+3. On the phone, open `https://<your domain>/downloads/android/hefzul-tasks.apk`, allow the browser to install apps, and install it.
+4. Open the app, enter `https://<your domain>` and sign in in the browser window it opens.
+
+The app checks `latest.json` on every start and offers a newer APK when you copy one in.
+It calls the API from `https://localhost`, which `.env` allows through `HEFZUL_CORS_ORIGINS` (default `https://localhost`).
+
 ## Licence
 
 Hefzul Tasks is a fork of Vikunja and is licensed under the AGPL-3.0. Anyone who uses your server may ask for its source code, so keep the code you run published in a public repository linked from the app.
