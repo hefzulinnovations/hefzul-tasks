@@ -44,13 +44,15 @@ jobs:
       - name: Git describe
         id: ghd
         uses: proudust/gh-describe@80412be8ce0e77d8afba6b340e34790bc772aa45 # v2.2.0
+        # A fork without tags has nothing to describe; the commit is used instead.
+        continue-on-error: true
       - name: Set up Go
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: stable
       - name: Build
         env:
-          RELEASE_VERSION: ${{ steps.ghd.outputs.describe }}
+          RELEASE_VERSION: ${{ steps.ghd.outputs.describe || github.sha }}
         run: |
           mkdir -p frontend/dist
           touch frontend/dist/index.html
@@ -427,10 +429,12 @@ jobs:
       - name: Git describe
         id: ghd
         uses: proudust/gh-describe@80412be8ce0e77d8afba6b340e34790bc772aa45 # v2.2.0
+        # A fork without tags has nothing to describe; the commit is used instead.
+        continue-on-error: true
       - name: Inject frontend version
         working-directory: frontend
         run: |
-          echo "{\"VERSION\": \"${{ steps.ghd.outputs.describe }}\"}" > src/version.json
+          echo "{\"VERSION\": \"${{ steps.ghd.outputs.describe || github.sha }}\"}" > src/version.json
       - name: Build frontend
         working-directory: frontend
         run: pnpm build
