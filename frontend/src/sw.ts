@@ -58,16 +58,55 @@ self.addEventListener('message', (e) => {
 	}
 })
 
+// Web Push from the Hefzul Tasks server. Without the content opt-in the
+// payload carries only a generic text and the URL to open.
+interface PushPayload {
+	title?: string
+	body?: string
+	url?: string
+	tag?: string
+	kind?: string
+}
+
+self.addEventListener('push', (event) => {
+	let payload: PushPayload
+	try {
+		payload = event.data?.json() ?? {}
+	} catch {
+		payload = {body: event.data?.text()}
+	}
+	event.waitUntil(self.registration.showNotification(payload.title || 'Hefzul Tasks', {
+		body: payload.body || '',
+		tag: payload.tag,
+		icon: `${fullBaseUrl}images/icons/android-chrome-192x192.png`,
+		badge: `${fullBaseUrl}images/icons/badge-monochrome.png`,
+		data: {url: payload.url || '/'},
+	}))
+})
+
 // Notification action
 self.addEventListener('notificationclick', function (event) {
-	const taskId = event.notification.data.taskId
+	const data = event.notification.data ?? {}
 	event.notification.close()
 
-	switch (event.action) {
-		case 'show-task':
-			self.clients.openWindow(`${fullBaseUrl}tasks/${taskId}`)
-			break
+	if (event.action === 'show-task' && data.taskId) {
+		event.waitUntil(self.clients.openWindow(`${fullBaseUrl}tasks/${data.taskId}`))
+		return
 	}
+	if (!data.url) return
+
+	// Focus an open window and navigate it, or open a new one.
+	const target = new URL(String(data.url).replace(/^\//, ''), fullBaseUrl).href
+	event.waitUntil((async () => {
+		const windows = await self.clients.matchAll({type: 'window', includeUncontrolled: true})
+		const existing = windows.find(client => client.url.startsWith(fullBaseUrl))
+		if (existing) {
+			await existing.focus()
+			await existing.navigate(target).catch(() => undefined)
+			return
+		}
+		await self.clients.openWindow(target)
+	})())
 })
 
 workbox.core.clientsClaim()

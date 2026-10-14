@@ -241,6 +241,26 @@
         "usernameIs": "Your username for CalDAV is: {0}",
         "apiTokenHint": "You can also use an API token with CalDAV permission. Create one in {link}."
       },
+      "push": {
+        "title": "Push notifications",
+        "intro": "Get reminders, mentions, habit reminders and the end of a focus session as notifications on this device, even when Hefzul Tasks is closed.",
+        "unsupported": "This browser does not support push notifications. On iPhone and iPad, add Hefzul Tasks to the home screen first.",
+        "thisDevice": "This device",
+        "on": "notifications on",
+        "off": "notifications off",
+        "includeContent": "Show task and habit titles in notifications",
+        "includeContentHint": "Off: notifications only say what happened, such as \"You have a task reminder\", and your titles never pass through the push service.",
+        "enable": "Turn on for this device",
+        "update": "Save for this device",
+        "disable": "Turn off for this device",
+        "test": "Send a test notification",
+        "enabled": "Push notifications are on for this device.",
+        "testSent": "Sent to {count} device. | Sent to {count} devices.",
+        "devices": "Devices",
+        "unknownDevice": "Unknown device",
+        "withTitles": "with titles",
+        "private": "titles hidden"
+      },
       "feeds": {
         "title": "Atom Feed",
         "howTo": "You can subscribe to your Hefzul Tasks notifications from any Atom-compatible feed reader. Use the following URL:",

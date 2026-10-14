@@ -2465,6 +2465,89 @@ export type PublicInviteLink = {
     teams?: Array<InviteLinkTeam> | null;
 };
 
+export type PushSubscriptionsDeleteRequest = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * The endpoint of the subscription to remove.
+     */
+    endpoint?: string;
+};
+
+export type PushPublicKeyBodyBody = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * The server's VAPID public key, base64url; pass it as applicationServerKey to PushManager.subscribe().
+     */
+    public_key?: string;
+};
+
+export type PushSubscription = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * The auth secret from PushSubscription.getKey('auth'), base64url.
+     */
+    auth?: string;
+    /**
+     * When this device subscribed.
+     */
+    readonly created?: string;
+    /**
+     * Free-form device name, such as Firefox on Linux.
+     */
+    device?: string;
+    /**
+     * The push service URL from PushSubscription.endpoint.
+     */
+    endpoint?: string;
+    /**
+     * The subscription's id.
+     */
+    readonly id?: number;
+    /**
+     * Show task and habit titles in notifications. Off by default: payloads then carry only ids and a generic text, so the push service never sees your content.
+     */
+    include_content?: boolean;
+    /**
+     * When a push was last delivered to it.
+     */
+    readonly last_used?: string;
+    /**
+     * The p256dh key from PushSubscription.getKey('p256dh'), base64url.
+     */
+    p256dh?: string;
+};
+
+export type PushSubscriptionListBodyBody = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * Your subscribed devices.
+     */
+    items?: Array<PushSubscription> | null;
+};
+
+export type PushTestBodyBody = {
+    /**
+     * A URL to the JSON Schema for this object.
+     */
+    readonly $schema?: string;
+    /**
+     * Devices the push service accepted the test notification for.
+     */
+    delivered?: number;
+};
+
 export type Reaction = {
     /**
      * A URL to the JSON Schema for this object.
@@ -5309,6 +5392,57 @@ export type PublicInviteLinkWritable = {
      * Teams the new account will join.
      */
     teams?: Array<InviteLinkTeam> | null;
+};
+
+export type PushSubscriptionsDeleteRequestWritable = {
+    /**
+     * The endpoint of the subscription to remove.
+     */
+    endpoint?: string;
+};
+
+export type PushPublicKeyBodyBodyWritable = {
+    /**
+     * The server's VAPID public key, base64url; pass it as applicationServerKey to PushManager.subscribe().
+     */
+    public_key?: string;
+};
+
+export type PushSubscriptionWritable = {
+    /**
+     * The auth secret from PushSubscription.getKey('auth'), base64url.
+     */
+    auth?: string;
+    /**
+     * Free-form device name, such as Firefox on Linux.
+     */
+    device?: string;
+    /**
+     * The push service URL from PushSubscription.endpoint.
+     */
+    endpoint?: string;
+    /**
+     * Show task and habit titles in notifications. Off by default: payloads then carry only ids and a generic text, so the push service never sees your content.
+     */
+    include_content?: boolean;
+    /**
+     * The p256dh key from PushSubscription.getKey('p256dh'), base64url.
+     */
+    p256dh?: string;
+};
+
+export type PushSubscriptionListBodyBodyWritable = {
+    /**
+     * Your subscribed devices.
+     */
+    items?: Array<PushSubscriptionWritable> | null;
+};
+
+export type PushTestBodyBodyWritable = {
+    /**
+     * Devices the push service accepted the test notification for.
+     */
+    delivered?: number;
 };
 
 export type ReactionWritable = {
@@ -10303,6 +10437,131 @@ export type WebhooksUpdateResponses = {
 };
 
 export type WebhooksUpdateResponse = WebhooksUpdateResponses[keyof WebhooksUpdateResponses];
+
+export type PushPublicKeyData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/push/public-key';
+};
+
+export type PushPublicKeyErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PushPublicKeyError = PushPublicKeyErrors[keyof PushPublicKeyErrors];
+
+export type PushPublicKeyResponses = {
+    /**
+     * OK
+     */
+    200: PushPublicKeyBodyBody;
+};
+
+export type PushPublicKeyResponse = PushPublicKeyResponses[keyof PushPublicKeyResponses];
+
+export type PushSubscriptionsListData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/push/subscriptions';
+};
+
+export type PushSubscriptionsListErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PushSubscriptionsListError = PushSubscriptionsListErrors[keyof PushSubscriptionsListErrors];
+
+export type PushSubscriptionsListResponses = {
+    /**
+     * OK
+     */
+    200: PushSubscriptionListBodyBody;
+};
+
+export type PushSubscriptionsListResponse = PushSubscriptionsListResponses[keyof PushSubscriptionsListResponses];
+
+export type PushSubscriptionsCreateData = {
+    body: PushSubscriptionWritable;
+    path?: never;
+    query?: never;
+    url: '/push/subscriptions';
+};
+
+export type PushSubscriptionsCreateErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PushSubscriptionsCreateError = PushSubscriptionsCreateErrors[keyof PushSubscriptionsCreateErrors];
+
+export type PushSubscriptionsCreateResponses = {
+    /**
+     * Created
+     */
+    201: PushSubscription;
+};
+
+export type PushSubscriptionsCreateResponse = PushSubscriptionsCreateResponses[keyof PushSubscriptionsCreateResponses];
+
+export type PushSubscriptionsDeleteData = {
+    body: PushSubscriptionsDeleteRequestWritable;
+    path?: never;
+    query?: never;
+    url: '/push/subscriptions/unsubscribe';
+};
+
+export type PushSubscriptionsDeleteErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PushSubscriptionsDeleteError = PushSubscriptionsDeleteErrors[keyof PushSubscriptionsDeleteErrors];
+
+export type PushSubscriptionsDeleteResponses = {
+    /**
+     * No Content
+     */
+    204: void;
+};
+
+export type PushSubscriptionsDeleteResponse = PushSubscriptionsDeleteResponses[keyof PushSubscriptionsDeleteResponses];
+
+export type PushTestData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/push/test';
+};
+
+export type PushTestErrors = {
+    /**
+     * Error
+     */
+    default: VikunjaErrorModel;
+};
+
+export type PushTestError = PushTestErrors[keyof PushTestErrors];
+
+export type PushTestResponses = {
+    /**
+     * OK
+     */
+    200: PushTestBodyBody;
+};
+
+export type PushTestResponse = PushTestResponses[keyof PushTestResponses];
 
 export type AuthRegisterData = {
     body: RegisterUserRequestWritable;

@@ -80,6 +80,9 @@ func GetTables() []interface{} {
 		&Habit{},
 		&HabitCheckin{},
 		&Countdown{},
+		&PushSubscription{},
+		&WebPushKeys{},
+		&IdempotencyKey{},
 		&UserInviteLink{},
 		&UserInviteLinkTeam{},
 	}

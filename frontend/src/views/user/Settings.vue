@@ -68,6 +68,10 @@ const navigationItems = computed(() => {
 			routeName: 'user.settings.mcp',
 		},
 		{
+			title: t('user.settings.push.title'),
+			routeName: 'user.settings.push',
+		},
+		{
 			title: t('user.settings.feeds.title'),
 			routeName: 'user.settings.feeds',
 		},

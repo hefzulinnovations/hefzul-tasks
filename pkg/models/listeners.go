@@ -60,6 +60,7 @@ func RegisterListeners() {
 	events.RegisterListener((&TaskUpdatedEvent{}).Name(), &UpdateTaskInSavedFilterViews{})
 	events.RegisterListener((&TaskCommentCreatedEvent{}).Name(), &MarkTaskUnreadOnComment{})
 	events.RegisterListener((&user.AccountLockedEvent{}).Name(), &RevokeSessionsOnAccountLock{})
+	events.RegisterListener((&notifications.NotificationCreatedEvent{}).Name(), &PushNotificationListener{})
 	if config.WebhooksEnabled.GetBool() {
 		RegisterEventForWebhook(&TaskCreatedEvent{})
 		RegisterEventForWebhook(&TaskUpdatedEvent{})

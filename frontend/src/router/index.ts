@@ -127,6 +127,11 @@ const router = createRouter({
 					component: () => import('@/views/user/settings/DataExport.vue'),
 				},
 				{
+					path: '/user/settings/push',
+					name: 'user.settings.push',
+					component: () => import('@/views/user/settings/PushNotifications.vue'),
+				},
+				{
 					path: '/user/settings/feeds',
 					name: 'user.settings.feeds',
 					component: () => import('@/views/user/settings/AtomFeed.vue'),

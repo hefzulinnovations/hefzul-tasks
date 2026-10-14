@@ -190,6 +190,9 @@ func DeleteUser(s *xorm.Session, u *user.User) (err error) {
 	if err = deleteHabitDataForUser(s, u.ID); err != nil {
 		return err
 	}
+	if err = deletePushSubscriptionsForUser(s, u.ID); err != nil {
+		return err
+	}
 
 	err = DeleteAllUserSessions(s, u.ID)
 	if err != nil {
