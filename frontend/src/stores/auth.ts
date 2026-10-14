@@ -1,6 +1,6 @@
 import {CancelledError, useQuery} from '@tanstack/vue-query'
 import {accountKeys, currentUserQuery, normalizeUserSettings, refreshCurrentUser} from '@/client/queries/account'
-import {clearQueryCache} from '@/client/offline/persist'
+import {clearQueryCache, restoreQueryCache} from '@/client/offline/persist'
 import {clearOutbox} from '@/client/offline/outbox'
 import {isNetworkError} from '@/client/offline/network'
 import {computed, readonly, ref, watch} from 'vue'
@@ -118,6 +118,13 @@ function cachedAccount(id: number, type: number) {
 	return queryClient.getQueryData<Awaited<ReturnType<typeof refreshCurrentUser>>>(accountKeys.user(id, type as AuthType))
 }
 
+function cachedAccountsOnlyFor(id: number, type: number) {
+	const keys = queryClient.getQueriesData({queryKey: accountKeys.current}).map(([key]) => key)
+	// Id 0 is the placeholder query from before sign-in.
+	const accounts = keys.filter(key => key.length >= 4 && key[2] !== 0)
+	return accounts.length > 0 && accounts.every(key => key[2] === id && key[3] === type)
+}
+
 function hasCachedAccount(id: number | undefined, type: number | undefined) {
 	return id !== undefined && cachedAccount(id, type ?? AUTH_TYPES.USER) !== undefined
 }
@@ -200,7 +207,11 @@ export const useAuthStore = defineStore('auth', () => {
 
 	function setSession(claims: JwtClaims | null) {
 		const identityChanged = session.value?.id !== claims?.id || session.value?.type !== claims?.type
-		if (identityChanged) queryClient.clear()
+		// On page load the session starts empty; the cache restored from disk is
+		// kept when it belongs to this same account (it is how the app works offline).
+		const restoredForSameAccount = session.value === null && claims !== null
+			&& cachedAccountsOnlyFor(claims.id, claims.type)
+		if (identityChanged && !restoredForSameAccount) queryClient.clear()
 		const usernameChanged = session.value?.username !== claims?.username
 		session.value = claims
 		if (identityChanged) useWebSocket().closeStaleConnection()
@@ -488,7 +499,7 @@ export const useAuthStore = defineStore('auth', () => {
 						}
 						// Offline with a known account: keep working from the cache; the
 						// outbox waits, and the session refreshes once the server answers.
-						if (failure?.kind === 'network' && hasCachedAccount(payload.id, payload.type)) {
+						if (failure?.kind === 'network' && await restoreQueryCache(queryClient).then(() => hasCachedAccount(payload.id, payload.type))) {
 							isAuthenticated = true
 							setSession(payload)
 						}
@@ -535,6 +546,7 @@ export const useAuthStore = defineStore('auth', () => {
 		} catch (e) {
 			if (e instanceof CancelledError) return
 			// Offline: the cached account is good enough until the server is back.
+			if (isNetworkError(e)) await restoreQueryCache(queryClient)
 			const cached = cachedAccount(session.value?.id ?? 0, session.value?.type ?? AUTH_TYPES.USER)
 			if (cached && isNetworkError(e)) return cached
 

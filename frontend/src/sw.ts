@@ -20,6 +20,30 @@ workbox.setConfig({
 	modulePathPrefix: `${fullBaseUrl}workbox-${workboxVersion}`,
 })
 
+// Page loads go to the network first; the server's own index page (with the
+// API URL it injects) is kept, so the app also opens offline on any route.
+const PAGE_CACHE = 'hefzul-pages'
+const pageKey = fullBaseUrl
+workbox.routing.registerRoute(
+	new workbox.routing.NavigationRoute(async ({request}) => {
+		try {
+			const response = await fetch(request)
+			if (response.ok && response.headers.get('Content-Type')?.includes('text/html')) {
+				const cache = await caches.open(PAGE_CACHE)
+				await cache.put(pageKey, response.clone())
+			}
+			return response
+		} catch {
+			const cache = await caches.open(PAGE_CACHE)
+			return (await cache.match(pageKey))
+				?? (await workbox.precaching.matchPrecache(`${fullBaseUrl}index.html`))
+				?? Response.error()
+		}
+	}, {
+		denylist: [/\/api\//, /\/dav\//, /\/feeds\//, /\/\.well-known\//],
+	}),
+)
+
 import { precacheAndRoute } from 'workbox-precaching'
 precacheAndRoute(self.__WB_MANIFEST)
 

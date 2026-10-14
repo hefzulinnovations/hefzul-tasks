@@ -17,14 +17,25 @@ interface StoredCache {
 	state: ReturnType<typeof dehydrate>
 }
 
-export async function restoreQueryCache(client: QueryClient): Promise<void> {
-	try {
-		const stored = await kvGet<StoredCache>(STORAGE_KEY)
-		if (!stored || stored.version !== CACHE_VERSION || Date.now() - stored.savedAt > MAX_AGE_MS) return
-		hydrate(client, stored.state)
-	} catch {
-		// A broken cache only costs a refetch.
+let restoring: Promise<void> | null = null
+
+/**
+ * Puts the cache from disk into the query client, once. Every caller gets the
+ * same promise, so whoever needs the cached data first starts the restore.
+ */
+export function restoreQueryCache(client: QueryClient): Promise<void> {
+	if (!restoring) {
+		restoring = (async () => {
+			try {
+				const stored = await kvGet<StoredCache>(STORAGE_KEY)
+				if (!stored || stored.version !== CACHE_VERSION || Date.now() - stored.savedAt > MAX_AGE_MS) return
+				hydrate(client, stored.state)
+			} catch {
+				// A broken cache only costs a refetch.
+			}
+		})()
 	}
+	return restoring
 }
 
 export function persistQueryCache(client: QueryClient): () => void {
@@ -32,10 +43,18 @@ export function persistQueryCache(client: QueryClient): () => void {
 	const save = () => {
 		timer = null
 		const state = dehydrate(client, {
-			shouldDehydrateQuery: query => query.state.status === 'success'
+			// A query that failed offline still holds its last good data; keep that.
+			shouldDehydrateQuery: query => query.state.data !== undefined
 				&& PERSISTED_ROOTS.has(String(query.queryKey[0])),
 		})
-		kvSet(STORAGE_KEY, JSON.parse(JSON.stringify({version: CACHE_VERSION, savedAt: Date.now(), state}))).catch(() => undefined)
+		const clean = {
+			...state,
+			queries: state.queries.map(query => ({
+				...query,
+				state: {...query.state, status: 'success' as const, error: null, fetchStatus: 'idle' as const},
+			})),
+		}
+		kvSet(STORAGE_KEY, JSON.parse(JSON.stringify({version: CACHE_VERSION, savedAt: Date.now(), state: clean}))).catch(() => undefined)
 	}
 	const unsubscribe = client.getQueryCache().subscribe(event => {
 		if (event.type !== 'updated' && event.type !== 'removed') return
